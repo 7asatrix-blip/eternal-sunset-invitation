@@ -65,7 +65,7 @@ document.getElementById("loginBtn").onclick=async()=>{
   if(!password){loginMsg.textContent="اكتب كلمة المرور.";return;}
   loginMsg.textContent="جاري تسجيل الدخول...";
   const {error}=await client.auth.signInWithPassword({email:ADMIN_EMAIL,password});
-  loginMsg.textContent=error ? "بيانات الدخول غير صحيحة أو الحساب غير مؤكد." : "";
+  loginMsg.textContent=error ? ("خطأ: "+error.message) : "تم الدخول...";
 };
 document.getElementById("password").addEventListener("keydown",e=>{
   if(e.key==="Enter") document.getElementById("loginBtn").click();
