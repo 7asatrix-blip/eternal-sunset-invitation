@@ -1477,6 +1477,97 @@ footer small{
 }
 
 /* =========================
+   WARM BROWN + GOLD — ALL INVITATION TEXT
+========================= */
+
+.page{
+  --invite-brown:#563522;
+  --invite-brown-soft:#76533a;
+  --invite-gold:#b88a46;
+  --invite-gold-light:#d0a968;
+  --invite-shadow:rgba(255,238,207,.55);
+}
+
+.page .content{
+  color:var(--invite-brown);
+  text-shadow:0 1px 7px var(--invite-shadow);
+}
+
+.page .micro,
+.page .bismillah,
+.page .hero-quote,
+.page .invitation-title,
+.page .invitation-copy,
+.page .name-role,
+.page .name,
+.page .name-amp,
+.page .evening-date,
+.page .evening-place,
+.page .evening-place strong,
+.page .rsvp-title,
+.page .guest-label,
+.page #guestName,
+.page .child-note,
+.page .choice,
+.page .location-title,
+.page .location-copy{
+  color:var(--invite-brown);
+  text-shadow:0 1px 7px var(--invite-shadow);
+}
+
+.page .micro,
+.page .name-role,
+.page .name-amp{
+  color:var(--invite-gold);
+}
+
+.page .hero-rule,
+.page .gold-line{
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--invite-gold),
+    transparent
+  );
+}
+
+.page .ornament{
+  color:var(--invite-gold);
+}
+
+.page .ornament:before,
+.page .ornament:after{
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--invite-gold)
+  );
+}
+
+.page .ornament:after{
+  background:linear-gradient(
+    90deg,
+    var(--invite-gold),
+    transparent
+  );
+}
+
+.page .choice.active{
+  color:#432818;
+}
+
+.page .confirm,
+.page .map-button{
+  color:#563522;
+  border-color:rgba(184,138,70,.72);
+}
+
+.page .msg{
+  color:#8a6536;
+}
+
+
+/* =========================
    ACCESSIBILITY
 ========================= */
 
