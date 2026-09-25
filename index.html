@@ -97,6 +97,39 @@ async function load(){
   loading.textContent="";
 }
 submit.onclick=async()=>{
+  if(!status){
+    msg.textContent="اختر إجابتك أولاً.";
+    return;
+  }
+
+  submit.disabled=true;
+  msg.textContent="جاري تسجيل إجابتك...";
+
+  try{
+    const r=await client.rpc("submit_rsvp",{
+      p_invite_code:code,
+      p_status:status,
+      p_attendees:1
+    });
+
+    if(r.error){
+      msg.textContent="خطأ: "+r.error.message;
+      submit.disabled=false;
+      return;
+    }
+
+    if(r.data===true){
+      msg.textContent="تم تسجيل إجابتك بنجاح 🤍";
+    }else{
+      msg.textContent="تعذر تسجيل الإجابة.";
+      submit.disabled=false;
+    }
+
+  }catch(e){
+    msg.textContent="خطأ: "+e.message;
+    submit.disabled=false;
+  }
+};
  if(!status){msg.textContent="اختَر إجابتك أولًا.";return}
  const r=await client.rpc("submit_rsvp",{p_invite_code:code,p_status:status,p_attendees:1});
  msg.textContent=(!r.error&&r.data===true)?"تم تسجيل إجابتك بنجاح 🤍":"تعذر حفظ الإجابة، حاول مرة أخرى.";
