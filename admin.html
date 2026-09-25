@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>لوحة الحضور — الحسن & حنين</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--paper:#f5efe4;--paper2:#fffaf2;--brown:#563522;--soft:#76533a;--gold:#b88a46;--line:rgba(86,53,34,.14)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#fffaf2 0,#f5efe4 55%,#eadcc7 100%);color:var(--brown);font-family:Arial,"Noto Naskh Arabic",sans-serif}
+.wrap{width:min(1100px,94%);margin:auto;padding:34px 0 60px}.brand{text-align:center;margin-bottom:25px}.brand small{letter-spacing:.18em;color:var(--gold)}h1{font-size:32px;margin:8px 0}.card{background:rgba(255,250,242,.9);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 12px 40px rgba(86,53,34,.08)}
+#login{max-width:460px;margin:80px auto;text-align:center}.email{width:100%;padding:14px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:16px;direction:ltr;text-align:left;margin:12px 0}.btn{border:1px solid rgba(184,138,70,.7);background:#fffaf2;color:var(--brown);padding:12px 18px;border-radius:10px;cursor:pointer;font-size:15px}.btn.primary{background:var(--brown);color:#fff}.msg{min-height:24px;margin-top:12px;color:var(--soft)}.hidden{display:none!important}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:18px}.stat{padding:18px;border:1px solid var(--line);border-radius:14px;background:#fffaf2}.stat b{display:block;font-size:28px;margin-top:5px}.stat span{color:var(--soft);font-size:13px}.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}.search{flex:1;min-width:220px;padding:12px;border:1px solid var(--line);border-radius:10px;background:white;font-size:15px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:12px;border-bottom:1px solid var(--line);text-align:right}th{color:var(--soft);font-size:13px}td{font-size:14px}.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#eee5d8}.att{background:#e8f1e8}.no{background:#f4e3df}.pending{background:#eee9df}@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.stat:last-child{grid-column:1/-1}.wrap{padding-top:20px}h1{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="login" class="card">
+    <div class="brand"><small>ETERNAL SUNSET</small><h1>لوحة إدارة الحضور</h1></div>
+    <p>الدخول مخصص لحساب المدير.</p>
+    <input id="email" class="email" type="email" value="7asatrix@gmail.com" readonly>
+    <button id="send" class="btn primary">إرسال رابط الدخول</button>
+    <div id="loginMsg" class="msg"></div>
+  </div>
+
+  <main id="dashboard" class="hidden">
+    <div class="topbar">
+      <div class="brand" style="margin:0;text-align:right"><small>ETERNAL SUNSET</small><h1>الحسن & حنين</h1></div>
+      <button id="logout" class="btn">تسجيل الخروج</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><span>إجمالي المدعوين</span><b id="total">0</b></div>
+      <div class="stat"><span>الحاضرين</span><b id="attending">0</b></div>
+      <div class="stat"><span>المعتذرين</span><b id="notAttending">0</b></div>
+      <div class="stat"><span>بدون إجابة</span><b id="pending">0</b></div>
+      <div class="stat"><span>إجمالي الحضور</span><b id="attendees">0</b></div>
+    </div>
+    <div class="card">
+      <div class="tools">
+        <input id="search" class="search" placeholder="ابحث باسم المدعو أو كود الدعوة">
+        <button id="refresh" class="btn">تحديث</button>
+        <button id="csv" class="btn">تصدير CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>الاسم</th><th>كود الدعوة</th><th>الحالة</th><th>عدد الحضور</th><th>وقت الرد</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+const SUPABASE_URL="https://riikgqzpijmfbeqzztvi.supabase.co";
+const SUPABASE_KEY="sb_publishable_sxZPK_L7D6pqUqM_cIRNEA_qZbvT4_q";
+const ADMIN_EMAIL="7asatrix@gmail.com";
+const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let data=[];
+
+const login=document.getElementById("login"), dashboard=document.getElementById("dashboard");
+const loginMsg=document.getElementById("loginMsg");
+
+document.getElementById("send").onclick=async()=>{
+  loginMsg.textContent="جاري إرسال رابط الدخول...";
+  const {error}=await client.auth.signInWithOtp({
+    email:ADMIN_EMAIL,
+    options:{emailRedirectTo:location.origin+location.pathname}
+  });
+  loginMsg.textContent=error ? "تعذر إرسال الرابط: "+error.message : "تم إرسال رابط الدخول إلى بريدك الإلكتروني. افتح الرابط للمتابعة.";
+};
+
+document.getElementById("logout").onclick=()=>client.auth.signOut();
+document.getElementById("refresh").onclick=load;
+document.getElementById("search").oninput=render;
+document.getElementById("csv").onclick=exportCSV;
+
+function statusLabel(s){return s==="attending"?"حاضر":s==="not_attending"?"معتذر":"لم يجب بعد"}
+function statusClass(s){return s==="attending"?"att":s==="not_attending"?"no":"pending"}
+
+async function load(){
+  const {data:guests,error:ge}=await client.from("guests").select("id,name,invite_code").order("id");
+  if(ge){alert("تعذر تحميل المدعوين: "+ge.message);return}
+  const {data:rsvps,error:re}=await client.from("rsvps").select("guest_id,status,attendees,responded_at");
+  if(re){alert("تعذر تحميل الردود: "+re.message);return}
+  const byGuest=new Map((rsvps||[]).map(r=>[r.guest_id,r]));
+  data=(guests||[]).map(g=>({...g,rsvp:byGuest.get(g.id)||null}));
+  render();
+}
+
+function render(){
+  const q=(document.getElementById("search").value||"").trim().toLowerCase();
+  const filtered=data.filter(x=>!q || String(x.name||"").toLowerCase().includes(q) || String(x.invite_code||"").toLowerCase().includes(q));
+  const attending=data.filter(x=>x.rsvp?.status==="attending").length;
+  const no=data.filter(x=>x.rsvp?.status==="not_attending").length;
+  const pending=data.length-attending-no;
+  const attendees=data.reduce((sum,x)=>sum+(x.rsvp?.status==="attending"?Number(x.rsvp.attendees||0):0),0);
+  document.getElementById("total").textContent=data.length;
+  document.getElementById("attending").textContent=attending;
+  document.getElementById("notAttending").textContent=no;
+  document.getElementById("pending").textContent=pending;
+  document.getElementById("attendees").textContent=attendees;
+  document.getElementById("rows").innerHTML=filtered.map(x=>{
+    const r=x.rsvp;
+    return "<tr><td>"+esc(x.name)+"</td><td dir='ltr'>"+esc(x.invite_code)+"</td><td><span class='pill "+statusClass(r?.status)+"'>"+statusLabel(r?.status)+"</span></td><td>"+(r?.status==="attending"?Number(r.attendees||0):0)+"</td><td>"+(r?.responded_at?new Date(r.responded_at).toLocaleString("ar-IQ"):"—")+"</td></tr>"
+  }).join("") || "<tr><td colspan='5'>لا توجد نتائج.</td></tr>";
+}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+function exportCSV(){
+  const header=["الاسم","كود الدعوة","الحالة","عدد الحضور","وقت الرد"];
+  const lines=data.map(x=>[x.name,x.invite_code,statusLabel(x.rsvp?.status),x.rsvp?.status==="attending"?Number(x.rsvp.attendees||0):0,x.rsvp?.responded_at||""]);
+  const csv="\ufeff"+[header,...lines].map(r=>r.map(v=>"""+String(v??"").replace(/"/g,'""')+""").join(",")).join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="rsvp-guests.csv";a.click();
+}
+async function init(){
+  const {data:{session}}=await client.auth.getSession();
+  if(session && session.user?.email?.toLowerCase()===ADMIN_EMAIL.toLowerCase()){
+    login.classList.add("hidden");dashboard.classList.remove("hidden");await load();
+  }else if(session){
+    await client.auth.signOut();loginMsg.textContent="هذا الحساب غير مصرح له بالدخول.";
+  }
+}
+client.auth.onAuthStateChange((_event,session)=>{
+  if(session?.user?.email?.toLowerCase()===ADMIN_EMAIL.toLowerCase()){login.classList.add("hidden");dashboard.classList.remove("hidden");load();}
+  else if(session){client.auth.signOut();}
+  else {login.classList.remove("hidden");dashboard.classList.add("hidden");}
+});
+init();
+</script>
+</body>
+</html>
