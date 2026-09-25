@@ -110,7 +110,7 @@ function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&l
 function exportCSV(){
   const header=["الاسم","كود الدعوة","الحالة","عدد الحضور","وقت الرد"];
   const lines=data.map(x=>[x.name,x.invite_code,statusLabel(x.rsvp?.status),x.rsvp?.status==="attending"?Number(x.rsvp.attendees||0):0,x.rsvp?.responded_at||""]);
-  const csv="\ufeff"+[header,...lines].map(r=>r.map(v=>"""+String(v??"").replace(/"/g,'""')+""").join(",")).join("\n");
+  const csv="\ufeff"+[header,...lines].map(r=>r.map(v=>"\""+String(v??"").replace(/\"/g,"\"\"")+"\"").join(",")).join("\n");
   const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="rsvp-guests.csv";a.click();
 }
 async function init(){
