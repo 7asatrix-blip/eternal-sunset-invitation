@@ -56,6 +56,86 @@ body{
 .page::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(255,248,235,.10),transparent 70%);}
 @media (min-width:700px){.page{width:min(100%,560px);margin:0 auto;}}
 /* =========================
+   RESTORED ORIGINAL BACKGROUNDS
+========================= */
+
+.legacy-page{
+  background:
+    linear-gradient(
+      rgba(247,242,233,.20),
+      rgba(247,242,233,.20)
+    ),
+    url("eternal-sunset-paper.jpg")
+    center center / cover no-repeat;
+}
+
+.legacy-page::after{
+  display:none;
+}
+
+.legacy-page .floral{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:38%;
+  pointer-events:none;
+  z-index:2;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  opacity:.95;
+}
+
+.legacy-page .floral-left{
+  left:0;
+  background-image:url("eternal-sunset-floral-left.png");
+  background-position:left center;
+  transform-origin:left center;
+  animation:flowerWindLeft 7s ease-in-out infinite;
+}
+
+.legacy-page .floral-right{
+  right:0;
+  background-image:url("eternal-sunset-floral-right.png");
+  background-position:right center;
+  transform-origin:right center;
+  animation:flowerWindRight 7.5s ease-in-out infinite;
+}
+
+.legacy-page .paper-center{
+  position:absolute;
+  z-index:3;
+  top:0;
+  bottom:0;
+  left:50%;
+  width:min(74%,760px);
+  transform:translateX(-50%);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,252,245,.70),
+      rgba(249,244,234,.76)
+    );
+  border-left:1px solid rgba(150,115,65,.18);
+  border-right:1px solid rgba(150,115,65,.18);
+  pointer-events:none;
+}
+
+@keyframes flowerWindLeft{
+  0%,100%{transform:translateX(0) rotate(0deg);}
+  50%{transform:translateX(5px) rotate(.35deg);}
+}
+
+@keyframes flowerWindRight{
+  0%,100%{transform:translateX(0) rotate(0deg);}
+  50%{transform:translateX(-5px) rotate(-.35deg);}
+}
+
+@media(max-width:600px){
+  .legacy-page .floral{width:38%;}
+  .legacy-page .paper-center{width:67%;}
+}
+
+/* =========================
    ORNAMENT
 ========================= */
 
@@ -1597,7 +1677,12 @@ footer small{
      HERO
 ========================= -->
 
-<section class="page hero sunset-1">
+<section class="page hero legacy-page">
+
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
+  <div class="paper-center"></div>
+
 
   
   
@@ -1653,7 +1738,12 @@ footer small{
      INVITATION
 ========================= -->
 
-<section class="page invitation sunset-2">
+<section class="page invitation legacy-page">
+
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
+  <div class="paper-center"></div>
+
 
   
   
@@ -1745,7 +1835,12 @@ footer small{
      EVENING
 ========================= -->
 
-<section class="page evening sunset-3">
+<section class="page evening legacy-page">
+
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
+  <div class="paper-center"></div>
+
 
   
   
