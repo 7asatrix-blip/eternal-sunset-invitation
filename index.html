@@ -69,10 +69,31 @@ function choose(s){
 yes.onclick=()=>choose("attending");
 no.onclick=()=>choose("not_attending");
 async function load(){
- if(!client||!code||code==="index.html"){loading.textContent="الواجهة جاهزة، وتحتاج ربط Supabase وكود الدعوة.";return}
- const r=await client.rpc("get_guest_by_code",{p_invite_code:code});
- if(r.error||!r.data?.length){loading.textContent="تعذر العثور على هذه الدعوة.";return}guestName.textContent=r.data[0].name;
-guestName.textContent=r.data[0].name;
+  if(!client){
+    loading.textContent="تعذر الاتصال بالخدمة";
+    return;
+  }
+
+  if(!code){
+    loading.textContent="رابط الدعوة غير صحيح";
+    return;
+  }
+
+  const r=await client.rpc("get_guest_by_code",{p_invite_code:code});
+
+  if(r.error){
+    loading.textContent="خطأ: "+r.error.message;
+    console.error(r.error);
+    return;
+  }
+
+  if(!r.data || !r.data.length){
+    loading.textContent="لم يتم العثور على هذه الدعوة";
+    return;
+  }
+
+  guestName.textContent=r.data[0].name;
+  loading.textContent="";
 }
 submit.onclick=async()=>{
  if(!status){msg.textContent="اختَر إجابتك أولًا.";return}
