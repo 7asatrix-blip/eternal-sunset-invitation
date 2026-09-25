@@ -1,14 +1,8 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
-
 <head>
-
 <meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover"
->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
 <title>الحسن & حنين</title>
 
@@ -16,527 +10,369 @@
 
 <style>
 
-/* =========================================================
-   FONTS
-========================================================= */
-
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500&display=swap');
 
 
-/* =========================================================
-   VARIABLES
-========================================================= */
-
 :root{
-
-  --ivory:#f5f0e7;
-  --paper:#eee5d6;
-
+  --paper:#f5efe4;
+  --paper-dark:#e8dcc8;
   --gold:#b99458;
-  --bronze:#87683d;
-
-  --ink:#2d2116;
-  --soft:#796b59;
-
+  --gold-light:#d9c08f;
+  --ink:#302419;
+  --muted:#776955;
 }
 
-
-/* =========================================================
-   RESET
-========================================================= */
 
 *{
   box-sizing:border-box;
 }
 
+
 html{
   scroll-behavior:smooth;
 }
 
-body{
 
+body{
   margin:0;
+  overflow-x:hidden;
+
+  background:var(--paper);
 
   color:var(--ink);
 
-  background:var(--ivory);
-
   font-family:"Noto Naskh Arabic",serif;
-
-  overflow-x:hidden;
-
 }
 
 
-/* =========================================================
+/* =========================
    PAPER BACKGROUND
-========================================================= */
+========================= */
 
-body:before{
-
-  content:"";
-
-  position:fixed;
-
-  inset:0;
-
-  pointer-events:none;
-
-  z-index:100;
-
-  opacity:.10;
-
-  background:
-    radial-gradient(
-      ellipse at 20% 20%,
-      rgba(255,255,255,.8),
-      transparent 35%
-    ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      rgba(100,70,40,.08),
-      transparent 40%
-    );
-
-}
-
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-section{
+.page{
+  position:relative;
 
   min-height:100svh;
 
-  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
   overflow:hidden;
 
+  background:
+    linear-gradient(
+      rgba(247,242,233,.20),
+      rgba(247,242,233,.20)
+    ),
+    url("eternal-sunset-paper.jpg")
+    center center / cover no-repeat;
 }
 
 
-/* =========================================================
-   UNIVERSAL FLORAL BACKGROUND
-========================================================= */
+/* =========================
+   FLOWERS
+========================= */
 
-.floral-page{
-
+.floral{
   position:absolute;
 
-  inset:0;
+  top:0;
+  bottom:0;
 
-  z-index:0;
-
-  overflow:hidden;
+  width:38%;
 
   pointer-events:none;
 
-}
-
-
-/* PAPER */
-
-.paper-bg{
-
-  position:absolute;
-
-  inset:0;
-
-  background-image:
-    url("eternal-sunset-paper.jpg");
-
-  background-size:cover;
-
-  background-position:center;
+  z-index:2;
 
   background-repeat:no-repeat;
+  background-size:100% 100%;
 
+  opacity:.95;
+
+  transition:transform 1s ease;
 }
 
 
-/* LEFT FLOWERS */
-
 .floral-left{
-
-  position:absolute;
-
-  left:-2px;
-
-  top:-2%;
-
-  width:35%;
-
-  height:104%;
+  left:0;
 
   background-image:
     url("eternal-sunset-floral-left.png");
 
-  background-repeat:no-repeat;
-
   background-position:left center;
-
-  background-size:100% 100%;
-
-  transform-origin:left center;
-
-  animation:
-    flowerBreezeLeft
-    7s
-    ease-in-out
-    infinite;
-
 }
 
 
-/* RIGHT FLOWERS */
-
 .floral-right{
-
-  position:absolute;
-
-  right:-2px;
-
-  top:-2%;
-
-  width:35%;
-
-  height:104%;
+  right:0;
 
   background-image:
     url("eternal-sunset-floral-right.png");
 
-  background-repeat:no-repeat;
-
   background-position:right center;
+}
 
-  background-size:100% 100%;
 
+/* =========================
+   WIND MOTION
+========================= */
+
+.floral-left{
+  transform-origin:left center;
+
+  animation:
+    flowerWindLeft
+    7s
+    ease-in-out
+    infinite;
+}
+
+
+.floral-right{
   transform-origin:right center;
 
   animation:
-    flowerBreezeRight
-    8s
+    flowerWindRight
+    7.5s
     ease-in-out
     infinite;
-
 }
 
 
-/* =========================================================
-   FLOWER MOTION
-========================================================= */
-
-@keyframes flowerBreezeLeft{
+@keyframes flowerWindLeft{
 
   0%,100%{
-
     transform:
-      rotate(0deg)
-      translateX(0);
-
-  }
-
-  25%{
-
-    transform:
-      rotate(.35deg)
-      translateX(2px);
-
+      translateX(0)
+      rotate(0deg);
   }
 
   50%{
-
     transform:
-      rotate(-.45deg)
-      translateX(-2px);
-
-  }
-
-  75%{
-
-    transform:
-      rotate(.25deg)
-      translateX(1px);
-
+      translateX(5px)
+      rotate(.35deg);
   }
 
 }
 
 
-@keyframes flowerBreezeRight{
+@keyframes flowerWindRight{
 
   0%,100%{
-
     transform:
-      rotate(0deg)
-      translateX(0);
-
-  }
-
-  25%{
-
-    transform:
-      rotate(-.3deg)
-      translateX(-2px);
-
+      translateX(0)
+      rotate(0deg);
   }
 
   50%{
-
     transform:
-      rotate(.45deg)
-      translateX(2px);
-
-  }
-
-  75%{
-
-    transform:
-      rotate(-.2deg)
-      translateX(-1px);
-
+      translateX(-5px)
+      rotate(-.35deg);
   }
 
 }
 
 
-/* =========================================================
-   CONTENT LAYER
-========================================================= */
+/* =========================
+   CENTER PAPER
+========================= */
 
-.page-content{
+.paper-center{
 
-  position:relative;
+  position:absolute;
 
-  z-index:5;
+  z-index:3;
 
-  min-height:100svh;
+  top:0;
+  bottom:0;
 
+  left:50%;
+
+  width:min(74%,760px);
+
+  transform:translateX(-50%);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,252,245,.70),
+      rgba(249,244,234,.76)
+    );
+
+  border-left:
+    1px solid rgba(150,115,65,.18);
+
+  border-right:
+    1px solid rgba(150,115,65,.18);
+
+  pointer-events:none;
 }
 
 
-/* =========================================================
-   REVEAL
-========================================================= */
+/* =========================
+   ORNAMENT
+========================= */
 
-.reveal{
+.ornament{
+  position:absolute;
 
-  opacity:0;
+  left:50%;
 
-  transform:translateY(35px);
+  width:190px;
+  height:28px;
 
-  transition:
+  transform:translateX(-50%);
 
-    opacity 1.2s cubic-bezier(.16,1,.3,1),
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    transform 1.2s cubic-bezier(.16,1,.3,1);
+  color:var(--gold);
 
-}
-
-.reveal.show{
-
-  opacity:1;
-
-  transform:none;
-
+  z-index:4;
 }
 
 
-/* =========================================================
-   MICRO TEXT
-========================================================= */
+.ornament:before,
+.ornament:after{
 
-.micro{
+  content:"";
 
-  color:var(--bronze);
-
-  font-family:"Cormorant Garamond",serif;
-
-  font-size:12px;
-
-  letter-spacing:.28em;
-
-  direction:ltr;
-
-}
-
-
-/* =========================================================
-   GOLD LINE
-========================================================= */
-
-.gold-line{
-
-  width:80px;
-
+  width:75px;
   height:1px;
-
-  margin:28px auto;
 
   background:
     linear-gradient(
       90deg,
       transparent,
+      var(--gold)
+    );
+}
+
+
+.ornament:after{
+
+  background:
+    linear-gradient(
+      90deg,
       var(--gold),
       transparent
     );
-
 }
 
 
-/* =========================================================
-   HERO
-========================================================= */
+.ornament span{
 
-.hero{
+  margin:0 12px;
 
-  display:flex;
+  font-family:"Cormorant Garamond",serif;
 
-  align-items:center;
+  font-size:25px;
 
-  justify-content:center;
+  transform:rotate(45deg);
 
-  text-align:center;
-
-  background:#eee5d6;
-
+  color:var(--gold);
 }
 
 
-/* soft sunset light */
-
-.hero:after{
-
-  content:"";
-
-  position:absolute;
-
-  left:50%;
-
-  bottom:8%;
-
-  width:90vw;
-
-  height:45vh;
-
-  transform:translateX(-50%);
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255,225,170,.65),
-      rgba(225,193,133,.2) 35%,
-      transparent 70%
-    );
-
-  filter:blur(20px);
-
-  z-index:1;
-
-  animation:sunBreath 9s ease-in-out infinite;
-
+.ornament.top{
+  top:30px;
 }
 
 
-@keyframes sunBreath{
-
-  0%,100%{
-
-    transform:
-      translateX(-50%)
-      scale(1);
-
-    opacity:.75;
-
-  }
-
-  50%{
-
-    transform:
-      translateX(-50%)
-      scale(1.07);
-
-    opacity:1;
-
-  }
-
+.ornament.bottom{
+  bottom:30px;
 }
 
 
-/* =========================================================
-   HERO CONTENT
-========================================================= */
+/* =========================
+   CONTENT
+========================= */
 
-.hero-content{
+.content{
 
   position:relative;
 
-  z-index:10;
+  z-index:5;
 
-  width:min(90%,760px);
+  width:min(76%,680px);
 
-  padding:30px 20px;
+  text-align:center;
 
-  margin-top:-4vh;
+  padding:
+    80px 15px;
 
 }
 
 
-/* BISMILLAH */
+/* =========================
+   MICRO
+========================= */
+
+.micro{
+
+  color:#8b704c;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:12px;
+
+  letter-spacing:.30em;
+
+  direction:ltr;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+  min-height:100svh;
+
+}
+
+
+.hero .content{
+
+  max-width:700px;
+
+}
+
 
 .bismillah{
 
-  color:var(--bronze);
+  margin-bottom:35px;
+
+  color:#80633d;
 
   font-family:"Amiri",serif;
 
-  font-size:18px;
-
-  letter-spacing:.05em;
-
-  opacity:0;
-
-  animation:
-    fadeIn
-    1.2s
-    .2s
-    forwards;
-
+  font-size:19px;
 }
 
-
-/* QUOTE */
 
 .hero-quote{
 
-  max-width:720px;
-
-  margin:38px auto 0;
-
   font-family:"Amiri",serif;
 
-  font-size:clamp(25px,6vw,42px);
-
-  font-weight:400;
+  font-size:
+    clamp(
+      26px,
+      6vw,
+      43px
+    );
 
   line-height:1.9;
 
-  color:#4b3823;
-
-  opacity:0;
-
-  animation:
-    titleIn
-    1.6s
-    .55s
-    cubic-bezier(.16,1,.3,1)
-    forwards;
-
+  color:#403022;
 }
 
-
-/* HERO RULE */
 
 .hero-rule{
 
@@ -544,7 +380,7 @@ section{
 
   height:1px;
 
-  margin:28px auto 0;
+  margin:35px auto;
 
   background:
     linear-gradient(
@@ -553,747 +389,36 @@ section{
       var(--gold),
       transparent
     );
-
-  opacity:0;
-
-  animation:
-    fadeIn
-    1.2s
-    1.2s
-    forwards;
-
 }
 
 
-/* SCROLL */
-
-.hero-scroll{
+.scroll-text{
 
   position:absolute;
 
-  z-index:10;
+  z-index:6;
 
-  bottom:25px;
+  bottom:48px;
 
   left:50%;
 
   transform:translateX(-50%);
 
-  color:#806a49;
+  color:#806b4e;
 
   font-family:"Amiri",serif;
 
   font-size:13px;
-
-  opacity:0;
-
-  animation:
-    fadeIn
-    1s
-    1.7s
-    forwards;
-
 }
 
-.hero-scroll span{
+
+.scroll-text span{
 
   display:block;
 
-  margin-top:8px;
+  margin-top:6px;
 
   animation:bounce 2s infinite;
-
-}
-
-
-/* =========================================================
-   INVITATION
-========================================================= */
-
-.invitation{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  text-align:center;
-
-  background:#eee5d6;
-
-}
-
-
-/* very soft central light */
-
-.invitation:after{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(255,255,255,.42),
-      transparent 60%
-    );
-
-  pointer-events:none;
-
-  z-index:1;
-
-}
-
-
-.invitation-inner{
-
-  position:relative;
-
-  z-index:10;
-
-  width:min(88%,720px);
-
-}
-
-
-/* =========================================================
-   INVITATION TEXT
-========================================================= */
-
-.invitation-title{
-
-  margin-top:30px;
-
-  font-family:"Amiri",serif;
-
-  font-size:clamp(30px,7.5vw,58px);
-
-  line-height:1.55;
-
-  font-weight:400;
-
-  color:#33271a;
-
-}
-
-
-.invitation-copy{
-
-  margin-top:30px;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  color:#796b59;
-
-  font-size:16px;
-
-  line-height:2.2;
-
-}
-
-
-/* =========================================================
-   NAMES
-========================================================= */
-
-.names{
-
-  margin-top:45px;
-
-}
-
-
-.name-block{
-
-  margin:25px 0;
-
-}
-
-
-.name-role{
-
-  color:var(--bronze);
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:13px;
-
-}
-
-
-.name{
-
-  margin-top:4px;
-
-  font-family:"Amiri",serif;
-
-  font-size:clamp(38px,8vw,58px);
-
-  line-height:1.15;
-
-  color:#33271a;
-
-}
-
-
-.name-amp{
-
-  color:var(--gold);
-
-  font:
-    400 42px
-    "Cormorant Garamond",serif;
-
-}
-
-
-/* =========================================================
-   EVENING
-========================================================= */
-
-.evening{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  text-align:center;
-
-  background:#d7c5aa;
-
-}
-
-
-/* evening overlay */
-
-.evening:after{
-
-  content:"";
-
-  position:absolute;
-
-  inset:0;
-
-  background:
-
-    linear-gradient(
-      180deg,
-      rgba(92,69,42,.05),
-      rgba(54,40,27,.25)
-    );
-
-  z-index:2;
-
-}
-
-
-.evening-inner{
-
-  position:relative;
-
-  z-index:10;
-
-  width:min(88%,720px);
-
-}
-
-
-/* evening text */
-
-.evening .micro{
-
-  color:#765b39;
-
-}
-
-
-.evening-date{
-
-  margin-top:25px;
-
-  font-family:"Amiri",serif;
-
-  font-size:clamp(30px,7vw,55px);
-
-  line-height:1.45;
-
-  font-weight:400;
-
-  color:#382a1b;
-
-}
-
-
-.evening-place{
-
-  margin-top:28px;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:17px;
-
-  line-height:2;
-
-  color:#68543a;
-
-}
-
-
-.evening-place strong{
-
-  color:#382a1b;
-
-  font-weight:500;
-
-}
-
-
-/* =========================================================
-   RSVP
-========================================================= */
-
-.rsvp{
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  text-align:center;
-
-  background:#eee5d6;
-
-}
-
-
-.rsvp-inner{
-
-  position:relative;
-
-  z-index:10;
-
-  width:min(90%,650px);
-
-}
-
-
-.rsvp .micro{
-
-  color:var(--bronze);
-
-}
-
-
-.rsvp h2{
-
-  margin:25px 0 35px;
-
-  font-family:"Amiri",serif;
-
-  font-size:clamp(34px,8vw,54px);
-
-  line-height:1.3;
-
-  font-weight:400;
-
-  color:#35291b;
-
-}
-
-
-#loading{
-
-  color:#82735f;
-
-}
-
-
-.guest-label{
-
-  color:#847560;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:16px;
-
-}
-
-
-#guestName{
-
-  margin-top:8px;
-
-  font-family:"Amiri",serif;
-
-  font-size:clamp(42px,9vw,64px);
-
-  line-height:1.2;
-
-  color:#342719;
-
-}
-
-
-.child-note{
-
-  max-width:580px;
-
-  margin:30px auto;
-
-  padding:18px 10px;
-
-  border-top:1px solid rgba(135,104,61,.2);
-
-  border-bottom:1px solid rgba(135,104,61,.2);
-
-  color:#806b4c;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:15px;
-
-  line-height:2;
-
-}
-
-
-.choices{
-
-  display:flex;
-
-  justify-content:center;
-
-  gap:45px;
-
-  margin-top:30px;
-
-}
-
-
-.choice{
-
-  position:relative;
-
-  padding:10px 0;
-
-  border:0;
-
-  background:none;
-
-  color:#6d604f;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:16px;
-
-}
-
-
-.choice:after{
-
-  content:"";
-
-  position:absolute;
-
-  bottom:2px;
-
-  left:50%;
-
-  width:0;
-
-  height:1px;
-
-  background:var(--gold);
-
-  transform:translateX(-50%);
-
-  transition:.4s;
-
-}
-
-
-.choice.active{
-
-  background:none;
-
-  color:#2f2418;
-
-}
-
-
-.choice.active:after{
-
-  width:100%;
-
-}
-
-
-.confirm{
-
-  display:block;
-
-  width:min(100%,300px);
-
-  margin:28px auto 0;
-
-  padding:14px 20px;
-
-  border:1px solid rgba(135,104,61,.55);
-
-  background:transparent;
-
-  color:#493923;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:16px;
-
-  transition:.4s;
-
-}
-
-
-.confirm:hover{
-
-  background:rgba(185,148,88,.1);
-
-}
-
-
-.confirm:disabled{
-
-  opacity:.35;
-
-}
-
-
-.msg{
-
-  min-height:28px;
-
-  margin-top:18px;
-
-  color:#8a6b3e;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:15px;
-
-}
-
-
-/* =========================================================
-   LOCATION
-========================================================= */
-
-.location-section{
-
-  min-height:85svh;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  text-align:center;
-
-  background:#eee5d6;
-
-}
-
-
-.location-inner{
-
-  position:relative;
-
-  z-index:10;
-
-  width:min(88%,700px);
-
-}
-
-
-.location-ornament{
-
-  width:170px;
-
-  height:105px;
-
-  margin:0 auto 30px;
-
-  border:1px solid rgba(135,104,61,.28);
-
-  border-radius:70% 30% 65% 35%;
-
-  transform:rotate(-8deg);
-
-}
-
-
-.location-ornament:before,
-.location-ornament:after{
-
-  content:"";
-
-  position:absolute;
-
-  inset:12px;
-
-  border:1px solid rgba(135,104,61,.18);
-
-  border-radius:inherit;
-
-}
-
-
-.location-ornament:after{
-
-  inset:25px;
-
-}
-
-
-.location-title{
-
-  font-family:"Amiri",serif;
-
-  font-size:clamp(40px,10vw,72px);
-
-  color:#382b1c;
-
-}
-
-
-.location-copy{
-
-  margin:20px 0 30px;
-
-  color:#766955;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:17px;
-
-  line-height:2;
-
-}
-
-
-/* MAP BUTTON */
-
-.map-button{
-
-  display:inline-block;
-
-  min-width:220px;
-
-  padding:14px 25px;
-
-  border:1px solid rgba(135,104,61,.5);
-
-  color:#4b3823;
-
-  text-decoration:none;
-
-  font-family:"Noto Naskh Arabic",serif;
-
-  font-size:15px;
-
-  transition:.4s;
-
-}
-
-
-.map-button:hover{
-
-  background:rgba(185,148,88,.1);
-
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-
-  position:relative;
-
-  padding:45px 20px 65px;
-
-  text-align:center;
-
-  background:#eee5d6;
-
-  color:#8a7b68;
-
-  font-family:"Cormorant Garamond",serif;
-
-  letter-spacing:.18em;
-
-}
-
-
-footer small{
-
-  display:block;
-
-  margin-top:8px;
-
-  font-size:11px;
-
-  letter-spacing:.25em;
-
-}
-
-
-/* =========================================================
-   ANIMATIONS
-========================================================= */
-
-@keyframes fadeIn{
-
-  from{
-    opacity:0;
-  }
-
-  to{
-    opacity:1;
-  }
-
-}
-
-
-@keyframes titleIn{
-
-  from{
-
-    opacity:0;
-
-    transform:translateY(45px);
-
-    filter:blur(8px);
-
-  }
-
-  to{
-
-    opacity:1;
-
-    transform:none;
-
-    filter:none;
-
-  }
-
 }
 
 
@@ -1310,154 +435,785 @@ footer small{
 }
 
 
-/* =========================================================
+/* =========================
+   INVITATION
+========================= */
+
+.invitation{
+
+  min-height:100svh;
+
+}
+
+
+.invitation .content{
+
+  padding-top:100px;
+  padding-bottom:100px;
+
+}
+
+
+.invitation-title{
+
+  margin-top:25px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      29px,
+      7vw,
+      48px
+    );
+
+  line-height:1.65;
+
+  color:#35291d;
+}
+
+
+.invitation-copy{
+
+  margin-top:25px;
+
+  color:#766956;
+
+  font-size:16px;
+
+  line-height:2.2;
+}
+
+
+.gold-line{
+
+  width:90px;
+
+  height:1px;
+
+  margin:30px auto;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold),
+      transparent
+    );
+}
+
+
+.names{
+
+  margin-top:25px;
+
+}
+
+
+.name-block{
+
+  margin:20px 0;
+
+}
+
+
+.name-role{
+
+  color:#876d48;
+
+  font-size:14px;
+
+}
+
+
+.name{
+
+  margin-top:4px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      40px,
+      9vw,
+      56px
+    );
+
+  line-height:1.25;
+
+  color:#302318;
+}
+
+
+.name-amp{
+
+  margin:5px 0;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:43px;
+
+  color:var(--gold);
+}
+
+
+/* =========================
+   EVENING
+========================= */
+
+.evening{
+
+  min-height:100svh;
+
+}
+
+
+.evening .content{
+
+  padding-top:100px;
+  padding-bottom:100px;
+
+}
+
+
+.evening-date{
+
+  margin-top:28px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      31px,
+      7vw,
+      50px
+    );
+
+  line-height:1.65;
+
+  color:#382b1d;
+}
+
+
+.evening-place{
+
+  margin-top:28px;
+
+  color:#756650;
+
+  font-size:17px;
+
+  line-height:2.2;
+}
+
+
+.evening-place strong{
+
+  color:#4c3a27;
+
+  font-weight:500;
+}
+
+
+/* =========================
+   RSVP
+========================= */
+
+.rsvp{
+
+  min-height:100svh;
+
+}
+
+
+.rsvp .content{
+
+  padding-top:90px;
+  padding-bottom:90px;
+
+}
+
+
+.rsvp-title{
+
+  margin-top:20px;
+  margin-bottom:30px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      36px,
+      8vw,
+      54px
+    );
+
+  line-height:1.4;
+
+  color:#302419;
+}
+
+
+.guest-label{
+
+  color:#82735f;
+
+  font-size:16px;
+}
+
+
+#guestName{
+
+  margin-top:8px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      48px,
+      11vw,
+      66px
+    );
+
+  line-height:1.2;
+
+  color:#302318;
+}
+
+
+.child-note{
+
+  width:min(100%,560px);
+
+  margin:30px auto;
+
+  padding:18px 12px;
+
+  border-top:
+    1px solid
+    rgba(135,104,61,.22);
+
+  border-bottom:
+    1px solid
+    rgba(135,104,61,.22);
+
+  color:#806c50;
+
+  font-size:15px;
+
+  line-height:2;
+}
+
+
+.choices{
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:50px;
+
+  margin-top:30px;
+}
+
+
+.choice{
+
+  position:relative;
+
+  padding:10px 0;
+
+  border:0;
+
+  background:none;
+
+  color:#6c604f;
+
+  font-family:"Noto Naskh Arabic",serif;
+
+  font-size:17px;
+
+  cursor:pointer;
+}
+
+
+.choice:after{
+
+  content:"";
+
+  position:absolute;
+
+  left:50%;
+  bottom:1px;
+
+  width:0;
+  height:1px;
+
+  transform:translateX(-50%);
+
+  background:var(--gold);
+
+  transition:.35s;
+}
+
+
+.choice.active{
+
+  color:#2e2318;
+}
+
+
+.choice.active:after{
+
+  width:100%;
+}
+
+
+.confirm{
+
+  display:block;
+
+  width:min(100%,300px);
+
+  margin:30px auto 0;
+
+  padding:14px 20px;
+
+  border:
+    1px solid
+    rgba(135,104,61,.55);
+
+  background:rgba(255,255,255,.12);
+
+  color:#493923;
+
+  font-family:"Noto Naskh Arabic",serif;
+
+  font-size:16px;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+
+.confirm:disabled{
+
+  opacity:.35;
+
+  cursor:default;
+}
+
+
+.msg{
+
+  min-height:28px;
+
+  margin-top:18px;
+
+  color:#8a6b3e;
+
+  font-size:15px;
+}
+
+
+/* =========================
+   LOCATION
+========================= */
+
+.location{
+
+  min-height:100svh;
+
+}
+
+
+.location .content{
+
+  padding-top:100px;
+  padding-bottom:100px;
+
+}
+
+
+.location-title{
+
+  margin-top:20px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      42px,
+      10vw,
+      70px
+    );
+
+  line-height:1.4;
+
+  color:#34281b;
+}
+
+
+.location-copy{
+
+  margin:20px 0 32px;
+
+  color:#756651;
+
+  font-size:17px;
+
+  line-height:2.2;
+}
+
+
+.map-button{
+
+  display:inline-block;
+
+  min-width:220px;
+
+  padding:14px 25px;
+
+  border:
+    1px solid
+    rgba(135,104,61,.55);
+
+  color:#493923;
+
+  text-decoration:none;
+
+  font-size:16px;
+
+  transition:.3s;
+}
+
+
+.map-button:hover{
+
+  background:
+    rgba(185,148,88,.1);
+}
+
+
+/* =========================
+   PETALS
+========================= */
+
+.petal{
+
+  position:absolute;
+
+  z-index:4;
+
+  width:7px;
+  height:11px;
+
+  border-radius:70% 30% 70% 30%;
+
+  background:
+    rgba(255,255,255,.85);
+
+  pointer-events:none;
+
+  animation:
+    petalFall
+    linear
+    infinite;
+}
+
+
+.p1{
+  left:25%;
+  top:-20px;
+  animation-duration:9s;
+  animation-delay:1s;
+}
+
+
+.p2{
+  left:68%;
+  top:-30px;
+  animation-duration:11s;
+  animation-delay:4s;
+}
+
+
+.p3{
+  left:52%;
+  top:-30px;
+  animation-duration:8s;
+  animation-delay:6s;
+}
+
+
+@keyframes petalFall{
+
+  0%{
+    transform:
+      translate3d(0,-20px,0)
+      rotate(0deg);
+
+    opacity:0;
+  }
+
+  10%{
+    opacity:.8;
+  }
+
+  50%{
+    transform:
+      translate3d(25px,50vh,0)
+      rotate(180deg);
+  }
+
+  100%{
+    transform:
+      translate3d(-20px,110vh,0)
+      rotate(360deg);
+
+    opacity:0;
+  }
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+  padding:45px 20px 60px;
+
+  text-align:center;
+
+  background:#f5efe4;
+
+  color:#897966;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  letter-spacing:.20em;
+}
+
+
+footer small{
+
+  display:block;
+
+  margin-top:8px;
+
+  font-size:11px;
+
+  letter-spacing:.25em;
+}
+
+
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:600px){
 
-  .floral-left,
-  .floral-right{
+  .floral{
 
-    width:34%;
+    width:42%;
 
+    opacity:.9;
   }
 
 
-  .hero-content{
+  .paper-center{
 
-    width:100%;
+    width:67%;
+  }
 
+
+  .content{
+
+    width:68%;
+
+    padding-left:5px;
+    padding-right:5px;
   }
 
 
   .hero-quote{
 
-    max-width:340px;
-
     font-size:25px;
 
     line-height:1.9;
-
-  }
-
-
-  .invitation-inner,
-  .evening-inner,
-  .location-inner{
-
-    width:82%;
-
   }
 
 
   .invitation-title{
 
-    font-size:clamp(30px,8vw,43px);
+    font-size:30px;
 
-    line-height:1.65;
+    line-height:1.7;
+  }
 
+
+  .invitation-copy{
+
+    font-size:14px;
+
+    line-height:2;
   }
 
 
   .name{
 
-    font-size:clamp(40px,10vw,54px);
+    font-size:43px;
+  }
 
+
+  .name-role{
+
+    font-size:13px;
   }
 
 
   .evening-date{
 
-    font-size:clamp(29px,7.5vw,42px);
+    font-size:31px;
 
+    line-height:1.7;
   }
 
 
-  .rsvp h2{
+  .evening-place{
+
+    font-size:15px;
+  }
+
+
+  .rsvp-title{
 
     font-size:40px;
-
   }
 
 
   #guestName{
 
-    font-size:52px;
+    font-size:53px;
+  }
 
+
+  .child-note{
+
+    font-size:13px;
+
+    line-height:2;
   }
 
 
   .choices{
 
     gap:30px;
-
   }
 
 
   .choice{
 
-    font-size:16px;
+    font-size:15px;
+  }
 
+
+  .location-title{
+
+    font-size:43px;
+  }
+
+
+  .location-copy{
+
+    font-size:15px;
+  }
+
+}
+
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *:before,
+  *:after{
+
+    animation-duration:.01ms !important;
+
+    animation-iteration-count:1 !important;
+
+    scroll-behavior:auto !important;
   }
 
 }
 
 </style>
-
 </head>
 
 
 <body>
 
 
-<!-- =========================================================
+<!-- =========================
      HERO
-========================================================= -->
+========================= -->
 
-<section class="hero">
+<section class="page hero">
 
-  <div class="floral-page">
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-    <div class="paper-bg"></div>
+  <div class="paper-center"></div>
 
-    <div class="floral-left"></div>
+  <div class="ornament top">
+    <span>◇</span>
+  </div>
 
-    <div class="floral-right"></div>
+  <div class="ornament bottom">
+    <span>◇</span>
+  </div>
+
+
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
+  <div class="petal p3"></div>
+
+
+  <div class="content">
+
+    <div class="bismillah">
+      بِسْمِ اللهِ نَبْدَأ
+    </div>
+
+    <div class="hero-quote">
+
+      ما الحُب إلا لمن أتوا البيوت من أبوابها،
+      <br>
+      فأعزَ مقامنا فأعززنا مقامهم بقبولٍ ولين
+
+    </div>
+
+    <div class="hero-rule"></div>
 
   </div>
 
 
-  <div class="page-content">
+  <div class="scroll-text">
 
-    <div class="hero-content">
+    اسحب للأعلى
 
-      <div class="bismillah">
-        بِسْمِ اللهِ نَبْدَأ
-      </div>
-
-
-      <div class="hero-quote">
-
-        ما الحُب إلا لمن أتوا البيوت من أبوابها،
-        <br>
-        فأعزَ مقامنا فأعززنا مقامهم بقبولٍ ولين
-
-      </div>
-
-
-      <div class="hero-rule"></div>
-
-    </div>
-
-
-    <div class="hero-scroll">
-
-      اسحب للأعلى
-
-      <span>↓</span>
-
-    </div>
+    <span>↓</span>
 
   </div>
 
@@ -1465,86 +1221,87 @@ footer small{
 
 
 
-<!-- =========================================================
+<!-- =========================
      INVITATION
-========================================================= -->
+========================= -->
 
-<section class="invitation">
+<section class="page invitation">
 
-  <div class="floral-page">
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-    <div class="paper-bg"></div>
+  <div class="paper-center"></div>
 
-    <div class="floral-left"></div>
+  <div class="ornament top">
+    <span>◇</span>
+  </div>
 
-    <div class="floral-right"></div>
-
+  <div class="ornament bottom">
+    <span>◇</span>
   </div>
 
 
-  <div class="page-content">
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
 
-    <div class="invitation-inner reveal">
 
-      <div class="micro">
-        ETERNAL SUNSET
+  <div class="content">
+
+    <div class="micro">
+      ETERNAL SUNSET
+    </div>
+
+
+    <div class="invitation-title">
+
+      بكل محبة،
+      <br>
+      ندعوكم لمشاركتنا فرحة خطوبتنا
+
+    </div>
+
+
+    <div class="invitation-copy">
+
+      في ليلة تجمعنا بمن نحب،
+      <br>
+      نحتفل ببداية فصل جديد من حكايتنا.
+
+    </div>
+
+
+    <div class="gold-line"></div>
+
+
+    <div class="names">
+
+      <div class="name-block">
+
+        <div class="name-role">
+          الدكتور
+        </div>
+
+        <div class="name">
+          الحسن علاء
+        </div>
+
       </div>
 
 
-      <div class="invitation-title">
-
-        بكل محبة،
-        <br>
-        ندعوكم لمشاركتنا فرحة خطوبتنا
-
+      <div class="name-amp">
+        &amp;
       </div>
 
 
-      <div class="invitation-copy">
+      <div class="name-block">
 
-        في ليلة تجمعنا بمن نحب،
-        <br>
-        نحتفل ببداية فصل جديد من حكايتنا.
-
-      </div>
-
-
-      <div class="gold-line"></div>
-
-
-      <div class="names">
-
-
-        <div class="name-block">
-
-          <div class="name-role">
-            الدكتور
-          </div>
-
-          <div class="name">
-            الحسن علاء
-          </div>
-
+        <div class="name-role">
+          الصيدلانية
         </div>
 
-
-        <div class="name-amp">
-          &amp;
+        <div class="name">
+          حنين بشير
         </div>
-
-
-        <div class="name-block">
-
-          <div class="name-role">
-            الصيدلانية
-          </div>
-
-          <div class="name">
-            حنين بشير
-          </div>
-
-        </div>
-
 
       </div>
 
@@ -1556,51 +1313,55 @@ footer small{
 
 
 
-<!-- =========================================================
+<!-- =========================
      EVENING
-========================================================= -->
+========================= -->
 
-<section class="evening">
+<section class="page evening">
 
-  <div class="floral-page">
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-    <div class="paper-bg"></div>
+  <div class="paper-center"></div>
 
-    <div class="floral-left"></div>
+  <div class="ornament top">
+    <span>◇</span>
+  </div>
 
-    <div class="floral-right"></div>
-
+  <div class="ornament bottom">
+    <span>◇</span>
   </div>
 
 
-  <div class="page-content">
-
-    <div class="evening-inner reveal">
-
-      <div class="micro">
-        ETERNAL SUNSET
-      </div>
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
+  <div class="petal p3"></div>
 
 
-      <div
-        class="evening-date"
-        id="date"
-      >
-        التاريخ والوقت يُحددان لاحقًا
-      </div>
+  <div class="content">
+
+    <div class="micro">
+      ETERNAL SUNSET
+    </div>
 
 
-      <div class="evening-place">
+    <div
+      class="evening-date"
+      id="date"
+    >
+      التاريخ والوقت يُحددان لاحقًا
+    </div>
 
-        في مزرعة ارض المرح
 
-        <br>
+    <div class="evening-place">
 
-        <strong>
-          على نهر دجلة
-        </strong>
+      في مزرعة ارض المرح
 
-      </div>
+      <br>
+
+      <strong>
+        على نهر دجلة
+      </strong>
 
     </div>
 
@@ -1610,176 +1371,98 @@ footer small{
 
 
 
-<!-- =========================================================
+<!-- =========================
      RSVP
-========================================================= -->
+========================= -->
 
-<section class="rsvp">
+<section class="page rsvp">
 
-  <div class="floral-page">
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-    <div class="paper-bg"></div>
+  <div class="paper-center"></div>
 
-    <div class="floral-left"></div>
+  <div class="ornament top">
+    <span>◇</span>
+  </div>
 
-    <div class="floral-right"></div>
-
+  <div class="ornament bottom">
+    <span>◇</span>
   </div>
 
 
-  <div class="page-content">
+  <div class="content">
 
-    <div class="rsvp-inner reveal">
+    <div class="micro">
+      RSVP
+    </div>
 
-      <div class="micro">
-        RSVP
+
+    <div class="rsvp-title">
+      تأكيد الحضور
+    </div>
+
+
+    <div id="loading">
+      جاري تجهيز دعوتكم...
+    </div>
+
+
+    <div id="guest" style="display:none;">
+
+      <div class="guest-label">
+        هذه الدعوة مخصصة إلى
       </div>
 
 
-      <h2>
-        تأكيد الحضور
-      </h2>
+      <div id="guestName"></div>
 
 
-      <div id="loading">
-        جاري تجهيز دعوتكم...
+      <div class="child-note">
+
+        نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
+        نعتذر عن استقبال الأطفال دون 15 عامًا،
+        حرصًا على سلامتهم 🤍
+
       </div>
 
 
-      <div
-        id="guest"
-        style="display:none;"
-      >
-
-
-        <div class="guest-label">
-
-          هذه الدعوة مخصصة إلى
-
-        </div>
-
-
-        <div id="guestName"></div>
-
-
-        <div class="child-note">
-
-          نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
-          نعتذر عن استقبال الأطفال دون 15 عامًا،
-          حرصًا على سلامتهم 🤍
-
-        </div>
-
-
-        <div class="choices">
-
-
-          <button
-            id="yes"
-            class="choice"
-          >
-
-            سأكون من الحاضرين
-
-          </button>
-
-
-          <button
-            id="no"
-            class="choice"
-          >
-
-            أعتذر عن الحضور
-
-          </button>
-
-
-        </div>
-
-
-        <div
-          id="msg"
-          class="msg"
-        ></div>
-
+      <div class="choices">
 
         <button
-          id="submit"
-          class="confirm"
-          disabled
+          id="yes"
+          class="choice"
+          type="button"
         >
-
-          تأكيد الإجابة
-
+          سأكون من الحاضرين
         </button>
 
 
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     LOCATION
-========================================================= -->
-
-<section class="location-section">
-
-  <div class="floral-page">
-
-    <div class="paper-bg"></div>
-
-    <div class="floral-left"></div>
-
-    <div class="floral-right"></div>
-
-  </div>
-
-
-  <div class="page-content">
-
-    <div class="location-inner reveal">
-
-
-      <div class="location-ornament"></div>
-
-
-      <div class="micro">
-        THE PLACE
-      </div>
-
-
-      <div class="location-title">
-
-        على ضفاف دجلة
+        <button
+          id="no"
+          class="choice"
+          type="button"
+        >
+          أعتذر عن الحضور
+        </button>
 
       </div>
 
 
-      <div class="location-copy">
+      <div
+        id="msg"
+        class="msg"
+      ></div>
 
-        حيث يبدأ المساء مع الغروب
 
-      </div>
-
-
-      <a
-        id="map"
-        class="map-button"
-        href="#"
-        target="_blank"
-        rel="noopener"
+      <button
+        id="submit"
+        class="confirm"
+        disabled
+        type="button"
       >
-
-        فتح الموقع ↗
-
-      </a>
-
+        تأكيد الإجابة
+      </button>
 
     </div>
 
@@ -1789,9 +1472,64 @@ footer small{
 
 
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
+<!-- =========================
+     LOCATION
+========================= -->
+
+<section class="page location">
+
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
+
+  <div class="paper-center"></div>
+
+  <div class="ornament top">
+    <span>◇</span>
+  </div>
+
+  <div class="ornament bottom">
+    <span>◇</span>
+  </div>
+
+
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
+
+
+  <div class="content">
+
+    <div class="micro">
+      THE PLACE
+    </div>
+
+
+    <div class="location-title">
+      على ضفاف دجلة
+    </div>
+
+
+    <div class="location-copy">
+
+      حيث يبدأ المساء مع الغروب
+
+    </div>
+
+
+    <a
+      id="map"
+      class="map-button"
+      href="#"
+      target="_blank"
+      rel="noopener"
+    >
+      فتح الموقع ↗
+    </a>
+
+  </div>
+
+</section>
+
+
 
 <footer>
 
@@ -1807,9 +1545,9 @@ footer small{
 
 <script>
 
-/* =========================================================
+/* =========================
    SUPABASE
-========================================================= */
+========================= */
 
 const SUPABASE_URL =
 "https://riikgqzpijmfbeqzztvi.supabase.co";
@@ -1823,16 +1561,13 @@ const EVENT_DATE_TEXT =
 "التاريخ والوقت يُحددان لاحقًا";
 
 
-/* ضع رابط Google Maps هنا لاحقًا */
-
 const MAP_URL =
 "#";
 
 
 const client =
 (
-  SUPABASE_URL.startsWith("http") &&
-  !SUPABASE_URL.includes("PASTE_")
+  SUPABASE_URL.startsWith("http")
 )
 ?
 supabase.createClient(
@@ -1843,9 +1578,9 @@ supabase.createClient(
 null;
 
 
-/* =========================================================
+/* =========================
    ELEMENTS
-========================================================= */
+========================= */
 
 const dateEl =
 document.getElementById("date");
@@ -1891,12 +1626,15 @@ mapEl.href =
 MAP_URL;
 
 
-/* =========================================================
+/* =========================
    INVITE CODE
-========================================================= */
+========================= */
 
 const code =
-new URLSearchParams(location.search).get("invite") ||
+new URLSearchParams(
+  location.search
+).get("invite")
+||
 location.pathname
 .split("/")
 .filter(Boolean)
@@ -1906,18 +1644,18 @@ location.pathname
 let status = null;
 
 
-/* =========================================================
-   RSVP CHOICE
-========================================================= */
+/* =========================
+   CHOICE
+========================= */
 
 function choose(selectedStatus){
 
   status =
-  selectedStatus;
+    selectedStatus;
 
 
   submitBtn.disabled =
-  false;
+    false;
 
 
   yesBtn.classList.toggle(
@@ -1933,29 +1671,29 @@ function choose(selectedStatus){
 
 
   msgEl.textContent =
-  "";
+    "";
 
 }
 
 
-yesBtn.onclick =
-() => choose("attending");
+yesBtn.onclick = () =>
+  choose("attending");
 
 
-noBtn.onclick =
-() => choose("not_attending");
+noBtn.onclick = () =>
+  choose("not_attending");
 
 
-/* =========================================================
+/* =========================
    LOAD GUEST
-========================================================= */
+========================= */
 
 async function load(){
 
   if(!client){
 
     loadingEl.textContent =
-    "تعذر الاتصال بالخدمة";
+      "تعذر الاتصال بالخدمة";
 
     return;
 
@@ -1965,7 +1703,7 @@ async function load(){
   if(!code){
 
     loadingEl.textContent =
-    "رابط الدعوة غير صحيح";
+      "رابط الدعوة غير صحيح";
 
     return;
 
@@ -1975,18 +1713,19 @@ async function load(){
   try{
 
     const result =
-    await client.rpc(
-      "get_guest_by_code",
-      {
-        p_invite_code:code
-      }
-    );
+      await client.rpc(
+        "get_guest_by_code",
+        {
+          p_invite_code:code
+        }
+      );
 
 
     if(result.error){
 
       loadingEl.textContent =
-      "تعذر تجهيز الدعوة";
+        "خطأ: " +
+        result.error.message;
 
       console.error(
         result.error
@@ -2003,7 +1742,7 @@ async function load(){
     ){
 
       loadingEl.textContent =
-      "لم يتم العثور على هذه الدعوة";
+        "لم يتم العثور على هذه الدعوة";
 
       return;
 
@@ -2011,27 +1750,28 @@ async function load(){
 
 
     /*
-      مهم:
-      هذا هو اسم المدعو من Supabase
-      وليس اسم العريس.
+      هذا هو اسم المدعو
+      وليس اسم العريس
     */
 
     guestNameEl.textContent =
-    result.data[0].name;
+      result.data[0].name;
 
 
     guestEl.style.display =
-    "block";
+      "block";
 
 
     loadingEl.textContent =
-    "";
+      "";
+
+  }
 
 
-  }catch(error){
+  catch(error){
 
     loadingEl.textContent =
-    "حدث خطأ أثناء تجهيز الدعوة";
+      "حدث خطأ أثناء تجهيز الدعوة";
 
     console.error(error);
 
@@ -2040,9 +1780,9 @@ async function load(){
 }
 
 
-/* =========================================================
-   RSVP SUBMIT
-========================================================= */
+/* =========================
+   SUBMIT RSVP
+========================= */
 
 submitBtn.onclick =
 async()=>{
@@ -2050,7 +1790,7 @@ async()=>{
   if(!status){
 
     msgEl.textContent =
-    "اختر إجابتك أولاً.";
+      "اختر إجابتك أولاً.";
 
     return;
 
@@ -2058,37 +1798,34 @@ async()=>{
 
 
   submitBtn.disabled =
-  true;
+    true;
 
 
   msgEl.textContent =
-  "جاري تسجيل إجابتك...";
+    "جاري تسجيل إجابتك...";
 
 
   try{
 
     const result =
-    await client.rpc(
-      "submit_rsvp",
-      {
-        p_invite_code:code,
-        p_status:status,
-        p_attendees:1
-      }
-    );
+      await client.rpc(
+        "submit_rsvp",
+        {
+          p_invite_code:code,
+          p_status:status,
+          p_attendees:1
+        }
+      );
 
 
     if(result.error){
 
       msgEl.textContent =
-      "تعذر تسجيل الإجابة.";
-
-      console.error(
-        result.error
-      );
+        "خطأ: " +
+        result.error.message;
 
       submitBtn.disabled =
-      false;
+        false;
 
       return;
 
@@ -2098,74 +1835,40 @@ async()=>{
     if(result.data === true){
 
       msgEl.textContent =
-      "تم تسجيل إجابتك بنجاح 🤍";
-
-    }else{
-
-      msgEl.textContent =
-      "تعذر تسجيل الإجابة.";
-
-      submitBtn.disabled =
-      false;
+        "تم تسجيل إجابتك بنجاح 🤍";
 
     }
 
+    else{
 
-  }catch(error){
+      msgEl.textContent =
+        "تعذر تسجيل الإجابة.";
+
+      submitBtn.disabled =
+        false;
+
+    }
+
+  }
+
+
+  catch(error){
 
     msgEl.textContent =
-    "حدث خطأ أثناء التسجيل.";
-
-    console.error(error);
+      "خطأ: " +
+      error.message;
 
     submitBtn.disabled =
-    false;
+      false;
 
   }
 
 };
 
 
-/* =========================================================
-   SCROLL REVEAL
-========================================================= */
-
-const observer =
-new IntersectionObserver(
-(entries)=>{
-
-  entries.forEach(
-    entry=>{
-
-      if(entry.isIntersecting){
-
-        entry.target.classList.add(
-          "show"
-        );
-
-      }
-
-    }
-  );
-
-},
-{
-  threshold:.15
-});
-
-
-document
-.querySelectorAll(".reveal")
-.forEach(
-  el=>{
-    observer.observe(el);
-  }
-);
-
-
-/* =========================================================
+/* =========================
    START
-========================================================= */
+========================= */
 
 load();
 
@@ -2173,5 +1876,4 @@ load();
 
 
 </body>
-
 </html>
