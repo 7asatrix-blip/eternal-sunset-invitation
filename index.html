@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>الحسن & حنين</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -11,225 +11,551 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
 
 :root{
-  --bg:#0f0e0c;
-  --fg:#f7f1e7;
+  --ivory:#f4eee3;
+  --soft:#d9cdbb;
   --gold:#c9a66b;
-  --muted:#c8bda9
+  --gold2:#e1c48b;
+  --bronze:#8d6635;
+  --dark:#0b0907;
+  --dark2:#15110d;
 }
 
 *{
-  box-sizing:border-box
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
   margin:0;
   background:
-    radial-gradient(circle at 50% 20%,#2a2117 0,#0f0e0c 45%,#090908 100%);
-  color:var(--fg);
-  font-family:"Noto Naskh Arabic",serif
+    radial-gradient(
+      circle at 50% 15%,
+      #302417 0%,
+      #15110d 28%,
+      #090806 70%,
+      #050403 100%
+    );
+  color:var(--ivory);
+  font-family:"Noto Naskh Arabic",serif;
+  overflow-x:hidden;
+}
+
+/* cinematic grain */
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:100;
+  opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+/* golden light */
+
+.light{
+  position:fixed;
+  width:55vw;
+  height:55vw;
+  max-width:650px;
+  max-height:650px;
+  border-radius:50%;
+  background:radial-gradient(
+    circle,
+    rgba(225,196,139,.22),
+    rgba(201,166,107,.08) 35%,
+    transparent 70%
+  );
+  left:50%;
+  top:8%;
+  transform:translateX(-50%);
+  pointer-events:none;
+  z-index:0;
+  animation:pulse 7s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.65;transform:translateX(-50%) scale(1)}
+  50%{opacity:1;transform:translateX(-50%) scale(1.08)}
+}
+
+/* particles */
+
+.particle{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:#e3c98f;
+  border-radius:50%;
+  opacity:.45;
+  pointer-events:none;
+  animation:float 10s linear infinite;
+}
+
+.p1{left:14%;top:75%;animation-delay:-2s}
+.p2{left:28%;top:35%;animation-delay:-5s}
+.p3{left:70%;top:65%;animation-delay:-1s}
+.p4{left:82%;top:25%;animation-delay:-7s}
+.p5{left:55%;top:82%;animation-delay:-4s}
+
+@keyframes float{
+  0%{transform:translateY(20px);opacity:0}
+  20%{opacity:.5}
+  80%{opacity:.3}
+  100%{transform:translateY(-100px);opacity:0}
 }
 
 section{
   min-height:100svh;
-  padding:32px 22px;
+  padding:70px 22px;
   display:grid;
   place-items:center;
+  position:relative;
   text-align:center;
-  position:relative
-}
-
-.hero:after{
-  content:"";
-  position:absolute;
-  width:70vw;
-  height:70vw;
-  max-width:600px;
-  max-height:600px;
-  border-radius:50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(201,166,107,.35),
-      transparent 65%
-    );
-  bottom:8%;
-  z-index:0
+  z-index:1;
 }
 
 .content{
+  width:min(100%,850px);
   position:relative;
-  z-index:1;
-  max-width:850px
+  z-index:2;
+}
+
+/* HERO */
+
+.hero{
+  overflow:hidden;
+}
+
+.hero .content{
+  transform:translateY(0);
 }
 
 .eyebrow{
-  color:var(--gold);
-  letter-spacing:.12em
+  color:var(--gold2);
+  font-size:13px;
+  letter-spacing:.28em;
+  opacity:0;
+  animation:fadeUp 1.2s .3s forwards;
 }
 
 .hero h1{
-  font-size:clamp(52px,14vw,110px);
+  margin:28px 0 15px;
+  font-size:clamp(60px,17vw,125px);
   font-weight:500;
-  margin:24px 0 8px
+  line-height:.95;
+  letter-spacing:-.03em;
+  opacity:0;
+  animation:titleIn 1.5s .6s cubic-bezier(.2,.8,.2,1) forwards;
 }
 
 .names{
+  direction:ltr;
   font:
-    500 clamp(30px,8vw,58px)
+    500 clamp(30px,8vw,62px)
     "Cormorant Garamond",serif;
-  direction:ltr
+  letter-spacing:.08em;
+  color:#eee4d5;
+  opacity:0;
+  animation:fadeUp 1.4s 1s forwards;
 }
 
-.line{
-  width:80px;
+.hero-line{
+  width:0;
   height:1px;
-  background:var(--gold);
-  margin:28px auto
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+  margin:35px auto;
+  animation:lineIn 1.4s 1.25s forwards;
 }
+
+.scroll{
+  margin-top:70px;
+  color:#a99b87;
+  font-size:14px;
+  opacity:0;
+  animation:fadeUp 1.2s 1.5s forwards;
+}
+
+.scroll span{
+  display:block;
+  margin-top:12px;
+  color:var(--gold);
+  animation:bounce 2s infinite;
+}
+
+@keyframes titleIn{
+  from{
+    opacity:0;
+    transform:translateY(35px);
+    filter:blur(8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+@keyframes lineIn{
+  from{width:0}
+  to{width:110px}
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(7px)}
+}
+
+/* ORNAMENT */
+
+.ornament{
+  color:var(--gold);
+  font-family:"Cormorant Garamond",serif;
+  font-size:30px;
+  margin:5px 0 25px;
+  opacity:.85;
+}
+
+/* CARDS */
 
 .card{
   width:min(100%,700px);
-  border:1px solid rgba(201,166,107,.35);
-  border-radius:24px;
-  padding:34px 22px;
-  background:rgba(255,255,255,.035);
-  backdrop-filter:blur(12px)
+  position:relative;
+  padding:48px 26px;
+  border:1px solid rgba(201,166,107,.28);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.045),
+      rgba(255,255,255,.015)
+    );
+  border-radius:3px;
+  backdrop-filter:blur(18px);
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.45),
+    inset 0 0 50px rgba(201,166,107,.025);
+  opacity:0;
+  transform:translateY(45px);
+  transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.card.visible{
+  opacity:1;
+  transform:none;
+}
+
+.card:before,
+.card:after{
+  content:"";
+  position:absolute;
+  width:25px;
+  height:25px;
+  border-color:rgba(201,166,107,.65);
+}
+
+.card:before{
+  top:-1px;
+  right:-1px;
+  border-top:1px solid;
+  border-right:1px solid;
+}
+
+.card:after{
+  bottom:-1px;
+  left:-1px;
+  border-bottom:1px solid;
+  border-left:1px solid;
 }
 
 h2{
-  font-weight:500
+  margin:0 0 30px;
+  font-size:28px;
+  font-weight:500;
+  color:#eee6da;
 }
 
 .role{
   color:var(--gold);
-  font-size:15px
+  font-size:15px;
+  letter-spacing:.08em;
 }
 
 .person{
-  font-size:30px;
-  margin:8px 0
+  font-size:34px;
+  margin:5px 0 12px;
+  color:#f6efe5;
+}
+
+.divider{
+  width:70px;
+  height:1px;
+  margin:25px auto;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
 }
 
 .details{
-  color:var(--muted);
+  color:var(--soft);
   font-size:18px;
-  line-height:2.1
+  line-height:2.15;
+}
+
+/* RSVP */
+
+#guestName{
+  font-size:38px;
+  color:#f8f0e4;
+  text-shadow:0 0 30px rgba(201,166,107,.15);
+}
+
+.child-note{
+  margin:28px 0;
+  padding:16px 8px;
+  color:var(--gold2);
+  font-size:16px;
+  line-height:2;
+  border-top:1px solid rgba(201,166,107,.12);
+  border-bottom:1px solid rgba(201,166,107,.12);
 }
 
 .choices{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:22px
+  gap:12px;
+  margin-top:25px;
 }
 
 button,
 a{
   font:inherit;
-  border:1px solid rgba(201,166,107,.45);
-  border-radius:14px;
-  padding:13px;
-  color:var(--fg);
-  background:rgba(255,255,255,.03);
+  border-radius:2px;
+  padding:15px;
+  color:var(--ivory);
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(201,166,107,.35);
   text-decoration:none;
-  cursor:pointer
+  cursor:pointer;
+  transition:
+    .35s ease;
 }
 
-button:disabled{
-  opacity:.65;
-  cursor:default
+button:hover,
+a:hover{
+  border-color:var(--gold);
+  transform:translateY(-2px);
 }
 
-.active,
+button.active,
 .primary{
   background:
-    linear-gradient(135deg,#d5b57b,#9c7139);
-  color:#15110b;
-  border:0
+    linear-gradient(
+      135deg,
+      #dfc083,
+      #a8783d
+    );
+  color:#171008;
+  border-color:transparent;
+  box-shadow:
+    0 10px 35px rgba(201,166,107,.15);
 }
 
 .full{
   width:100%;
-  margin-top:10px
+  margin-top:13px;
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:default;
+  transform:none;
 }
 
 .msg{
-  min-height:28px;
-  color:var(--muted);
-  margin-top:12px;
-  font-size:16px
+  min-height:30px;
+  margin-top:18px;
+  color:var(--gold2);
+  font-size:16px;
 }
 
 .hidden{
-  display:none
+  display:none;
 }
 
+/* LOCATION */
+
+.location-icon{
+  font-size:28px;
+  color:var(--gold);
+  margin-bottom:10px;
+}
+
+/* FOOTER */
+
 footer{
+  position:relative;
+  z-index:2;
   text-align:center;
-  padding:20px 20px 70px;
-  color:var(--muted)
+  padding:25px 20px 70px;
+  color:#827766;
+  font:
+    400 18px
+    "Cormorant Garamond",serif;
+  letter-spacing:.08em;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  section{
+    padding:55px 18px;
+  }
+
+  .card{
+    padding:40px 20px;
+  }
+
+  h2{
+    font-size:25px;
+  }
+
+  .choices{
+    gap:9px;
+  }
+
+  button{
+    font-size:16px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<div class="light"></div>
+
+<div class="particle p1"></div>
+<div class="particle p2"></div>
+<div class="particle p3"></div>
+<div class="particle p4"></div>
+<div class="particle p5"></div>
+
+
 <!-- HERO -->
 <section class="hero">
+
   <div class="content">
-    <div class="eyebrow">بِسْمِ اللهِ نَبْدَأ</div>
 
-    <h1>دعوة خاصة</h1>
+    <div class="eyebrow">
+      بِسْمِ اللهِ نَبْدَأ
+    </div>
 
-    <div class="line"></div>
+    <h1>
+      دعوة خاصة
+    </h1>
+
+    <div class="hero-line"></div>
 
     <div class="names">
       AL HASSAN &amp; HANEEN
     </div>
 
-    <p style="color:#c8bda9;margin-top:50px">
+    <div class="scroll">
       مرّر إلى الأسفل
-    </p>
+      <span>↓</span>
+    </div>
+
   </div>
+
 </section>
 
 
-<!-- NAMES / EVENT -->
+<!-- NAMES -->
 <section>
-  <div class="card">
+
+  <div class="card reveal">
+
+    <div class="ornament">✦</div>
 
     <h2>
       بكل محبة، ندعوكم لمشاركتنا فرحتنا
     </h2>
 
-    <div class="role">الدكتور</div>
-    <div class="person">الحسن</div>
+    <div class="role">
+      الدكتور
+    </div>
 
-    <div style="color:#c9a66b;font:32px 'Cormorant Garamond'">
+    <div class="person">
+      الحسن
+    </div>
+
+    <div style="
+      color:#c9a66b;
+      font:34px 'Cormorant Garamond';
+    ">
       &amp;
     </div>
 
-    <div class="role">الصيدلانية</div>
-    <div class="person">حنين</div>
+    <div class="role">
+      الصيدلانية
+    </div>
 
-    <div class="line"></div>
+    <div class="person">
+      حنين
+    </div>
+
+    <div class="divider"></div>
 
     <div class="details">
       الخطوبة ·<br>
-      <span id="date">التاريخ والوقت يُحددان لاحقًا</span>
+      <span id="date">
+        التاريخ والوقت يُحددان لاحقًا
+      </span>
       <br>
       في منزلنا على نهر دجلة
     </div>
 
   </div>
+
 </section>
 
 
 <!-- RSVP -->
 <section>
-  <div class="card">
 
-    <h2>تأكيد الحضور</h2>
+  <div class="card reveal">
+
+    <div class="ornament">RSVP</div>
+
+    <h2>
+      تأكيد الحضور
+    </h2>
 
     <div id="loading">
       جاري تجهيز دعوتكم...
@@ -237,16 +563,16 @@ footer{
 
     <div id="guest" class="hidden">
 
-      <div>
+      <div style="color:#b8aa97">
         هذه الدعوة مخصصة إلى
       </div>
 
       <div id="guestName" class="person"></div>
 
-      <div style="margin:18px 0;color:#c9a66b">
+      <div class="child-note">
         نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
         نعتذر عن استقبال الأطفال دون 15 عامًا،
-        حرصًا على سلامتهم 🤍.
+        حرصًا على سلامتهم 🤍
       </div>
 
       <div class="choices">
@@ -261,24 +587,35 @@ footer{
 
       </div>
 
-      <!-- رسالة الحالة -->
       <div id="msg" class="msg"></div>
 
-      <button id="submit" class="primary full" disabled>
+      <button
+        id="submit"
+        class="primary full"
+        disabled
+      >
         تأكيد الإجابة
       </button>
 
     </div>
 
   </div>
+
 </section>
 
 
 <!-- LOCATION -->
 <section>
-  <div class="card">
 
-    <h2>الموقع</h2>
+  <div class="card reveal">
+
+    <div class="location-icon">
+      ◇
+    </div>
+
+    <h2>
+      الموقع
+    </h2>
 
     <div class="details">
       في مزرعة أرض المرح على نهر دجلة
@@ -294,94 +631,99 @@ footer{
     </a>
 
   </div>
+
 </section>
 
 
 <footer>
-  الحسن &amp; حنين · Eternal Sunset
+  AL HASSAN &amp; HANEEN
+  <br>
+  <small>Eternal Sunset</small>
 </footer>
 
 
 <script>
 
 const SUPABASE_URL =
-  "https://riikgqzpijmfbeqzztvi.supabase.co";
+"https://riikgqzpijmfbeqzztvi.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-  "sb_publishable_sxZPK_L7D6pqUqM_cIRNEA_qZbvT4_q";
+"sb_publishable_sxZPK_L7D6pqUqM_cIRNEA_qZbvT4_q";
 
 const EVENT_DATE_TEXT =
-  "التاريخ والوقت يُحددان لاحقًا";
+"التاريخ والوقت يُحددان لاحقًا";
 
 const MAP_URL =
-  "#";
+"#";
 
 
 /* عناصر الصفحة */
+
 const dateEl =
-  document.getElementById("date");
+document.getElementById("date");
 
 const mapEl =
-  document.getElementById("map");
+document.getElementById("map");
 
 const loadingEl =
-  document.getElementById("loading");
+document.getElementById("loading");
 
 const guestEl =
-  document.getElementById("guest");
+document.getElementById("guest");
 
 const guestNameEl =
-  document.getElementById("guestName");
+document.getElementById("guestName");
 
 const yesBtn =
-  document.getElementById("yes");
+document.getElementById("yes");
 
 const noBtn =
-  document.getElementById("no");
+document.getElementById("no");
 
 const submitBtn =
-  document.getElementById("submit");
+document.getElementById("submit");
 
 const msgEl =
-  document.getElementById("msg");
+document.getElementById("msg");
 
 
 /* Supabase */
+
 const client =
-  (
-    SUPABASE_URL.startsWith("http") &&
-    !SUPABASE_URL.includes("PASTE_")
-  )
-  ?
-  supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  )
-  :
-  null;
+(
+SUPABASE_URL.startsWith("http") &&
+!SUPABASE_URL.includes("PASTE_")
+)
+?
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_PUBLISHABLE_KEY
+)
+:
+null;
 
 
-/* Invite code */
+/* رابط الدعوة */
+
 const code =
-  new URLSearchParams(location.search).get("invite") ||
-  location.pathname
-    .split("/")
-    .filter(Boolean)
-    .pop();
+new URLSearchParams(location.search).get("invite") ||
+location.pathname
+.split("/")
+.filter(Boolean)
+.pop();
 
 
 let status = null;
 
-
-/* البيانات */
 dateEl.textContent =
-  EVENT_DATE_TEXT;
+EVENT_DATE_TEXT;
 
 mapEl.href =
-  MAP_URL;
+MAP_URL;
 
 
 /* اختيار الإجابة */
+
 function choose(selectedStatus){
 
   status = selectedStatus;
@@ -402,57 +744,53 @@ function choose(selectedStatus){
 }
 
 
-/* أزرار الاختيار */
 yesBtn.onclick = () =>
-  choose("attending");
+choose("attending");
 
 noBtn.onclick = () =>
-  choose("not_attending");
+choose("not_attending");
 
 
-/* جلب اسم المدعو */
+/* جلب اسم الضيف */
+
 async function load(){
 
   if(!client){
 
     loadingEl.textContent =
-      "تعذر الاتصال بالخدمة";
+    "تعذر الاتصال بالخدمة";
 
     return;
   }
-
 
   if(!code){
 
     loadingEl.textContent =
-      "رابط الدعوة غير صحيح";
+    "رابط الدعوة غير صحيح";
 
     return;
   }
 
-
   try{
 
     const result =
-      await client.rpc(
-        "get_guest_by_code",
-        {
-          p_invite_code: code
-        }
-      );
-
+    await client.rpc(
+      "get_guest_by_code",
+      {
+        p_invite_code: code
+      }
+    );
 
     if(result.error){
 
       loadingEl.textContent =
-        "خطأ: " +
-        result.error.message;
+      "خطأ: " +
+      result.error.message;
 
       console.error(result.error);
 
       return;
     }
-
 
     if(
       !result.data ||
@@ -460,14 +798,13 @@ async function load(){
     ){
 
       loadingEl.textContent =
-        "لم يتم العثور على هذه الدعوة";
+      "لم يتم العثور على هذه الدعوة";
 
       return;
     }
 
-
     guestNameEl.textContent =
-      result.data[0].name;
+    result.data[0].name;
 
     guestEl.classList.remove("hidden");
 
@@ -476,67 +813,63 @@ async function load(){
   }catch(error){
 
     loadingEl.textContent =
-      "حدث خطأ أثناء تجهيز الدعوة";
+    "حدث خطأ أثناء تجهيز الدعوة";
 
     console.error(error);
 
   }
-
 }
 
 
-/* تسجيل RSVP */
+/* RSVP */
+
 submitBtn.onclick = async()=>{
 
   if(!status){
 
     msgEl.textContent =
-      "اختر إجابتك أولاً.";
+    "اختر إجابتك أولاً.";
 
     return;
   }
 
-
   submitBtn.disabled = true;
 
   msgEl.textContent =
-    "جاري تسجيل إجابتك...";
-
+  "جاري تسجيل إجابتك...";
 
   try{
 
     const result =
-      await client.rpc(
-        "submit_rsvp",
-        {
-          p_invite_code: code,
-          p_status: status,
-          p_attendees: 1
-        }
-      );
-
+    await client.rpc(
+      "submit_rsvp",
+      {
+        p_invite_code: code,
+        p_status: status,
+        p_attendees: 1
+      }
+    );
 
     if(result.error){
 
       msgEl.textContent =
-        "خطأ: " +
-        result.error.message;
+      "خطأ: " +
+      result.error.message;
 
       submitBtn.disabled = false;
 
       return;
     }
 
-
     if(result.data === true){
 
       msgEl.textContent =
-        "تم تسجيل إجابتك بنجاح 🤍";
+      "تم تسجيل إجابتك بنجاح 🤍";
 
     }else{
 
       msgEl.textContent =
-        "تعذر تسجيل الإجابة.";
+      "تعذر تسجيل الإجابة.";
 
       submitBtn.disabled = false;
 
@@ -545,8 +878,8 @@ submitBtn.onclick = async()=>{
   }catch(error){
 
     msgEl.textContent =
-      "خطأ: " +
-      error.message;
+    "خطأ: " +
+    error.message;
 
     submitBtn.disabled = false;
 
@@ -555,7 +888,30 @@ submitBtn.onclick = async()=>{
 };
 
 
+/* ظهور الكروت أثناء النزول */
+
+const observer =
+new IntersectionObserver(
+(entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+    }
+  });
+},
+{
+  threshold:.18
+});
+
+document
+.querySelectorAll(".reveal")
+.forEach(el=>{
+  observer.observe(el);
+});
+
+
 /* تشغيل الدعوة */
+
 load();
 
 </script>
