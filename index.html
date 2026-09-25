@@ -130,11 +130,6 @@ submit.onclick=async()=>{
     submit.disabled=false;
   }
 };
- if(!status){msg.textContent="اختَر إجابتك أولًا.";return}
- const r=await client.rpc("submit_rsvp",{p_invite_code:code,p_status:status,p_attendees:1});
- msg.textContent=(!r.error&&r.data===true)?"تم تسجيل إجابتك بنجاح 🤍":"تعذر حفظ الإجابة، حاول مرة أخرى.";
- if(!r.error&&r.data===true)submit.disabled=true;
-};
-load();
+
 </script>
 </body></html>
