@@ -1,48 +1,91 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,viewport-fit=cover"
+>
 
 <title>الحسن & حنين</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* =========================================================
+   FONTS
+========================================================= */
+
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500&display=swap');
 
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
 :root{
+
   --ivory:#f5f0e7;
+  --paper:#eee5d6;
+
   --gold:#b99458;
   --bronze:#87683d;
-  --ink:#211b15;
+
+  --ink:#2d2116;
+  --soft:#796b59;
+
 }
 
-*{box-sizing:border-box}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
 
 html{
   scroll-behavior:smooth;
 }
 
 body{
+
   margin:0;
+
   color:var(--ink);
+
   background:var(--ivory);
+
   font-family:"Noto Naskh Arabic",serif;
+
   overflow-x:hidden;
+
 }
 
-.hidden{
-  display:none !important;
-}
+
+/* =========================================================
+   PAPER BACKGROUND
+========================================================= */
 
 body:before{
+
   content:"";
+
   position:fixed;
+
   inset:0;
+
   pointer-events:none;
-  z-index:50;
-  opacity:.08;
+
+  z-index:100;
+
+  opacity:.10;
+
   background:
     radial-gradient(
       ellipse at 20% 20%,
@@ -51,47 +94,286 @@ body:before{
     ),
     radial-gradient(
       ellipse at 80% 80%,
-      rgba(112,83,48,.08),
+      rgba(100,70,40,.08),
       transparent 40%
     );
+
 }
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
 
 section{
+
   min-height:100svh;
+
   position:relative;
+
   overflow:hidden;
+
 }
 
-.inner{
-  width:min(88%,900px);
-  margin:auto;
+
+/* =========================================================
+   UNIVERSAL FLORAL BACKGROUND
+========================================================= */
+
+.floral-page{
+
+  position:absolute;
+
+  inset:0;
+
+  z-index:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
 }
+
+
+/* PAPER */
+
+.paper-bg{
+
+  position:absolute;
+
+  inset:0;
+
+  background-image:
+    url("eternal-sunset-paper.jpg");
+
+  background-size:cover;
+
+  background-position:center;
+
+  background-repeat:no-repeat;
+
+}
+
+
+/* LEFT FLOWERS */
+
+.floral-left{
+
+  position:absolute;
+
+  left:-2px;
+
+  top:-2%;
+
+  width:35%;
+
+  height:104%;
+
+  background-image:
+    url("eternal-sunset-floral-left.png");
+
+  background-repeat:no-repeat;
+
+  background-position:left center;
+
+  background-size:100% 100%;
+
+  transform-origin:left center;
+
+  animation:
+    flowerBreezeLeft
+    7s
+    ease-in-out
+    infinite;
+
+}
+
+
+/* RIGHT FLOWERS */
+
+.floral-right{
+
+  position:absolute;
+
+  right:-2px;
+
+  top:-2%;
+
+  width:35%;
+
+  height:104%;
+
+  background-image:
+    url("eternal-sunset-floral-right.png");
+
+  background-repeat:no-repeat;
+
+  background-position:right center;
+
+  background-size:100% 100%;
+
+  transform-origin:right center;
+
+  animation:
+    flowerBreezeRight
+    8s
+    ease-in-out
+    infinite;
+
+}
+
+
+/* =========================================================
+   FLOWER MOTION
+========================================================= */
+
+@keyframes flowerBreezeLeft{
+
+  0%,100%{
+
+    transform:
+      rotate(0deg)
+      translateX(0);
+
+  }
+
+  25%{
+
+    transform:
+      rotate(.35deg)
+      translateX(2px);
+
+  }
+
+  50%{
+
+    transform:
+      rotate(-.45deg)
+      translateX(-2px);
+
+  }
+
+  75%{
+
+    transform:
+      rotate(.25deg)
+      translateX(1px);
+
+  }
+
+}
+
+
+@keyframes flowerBreezeRight{
+
+  0%,100%{
+
+    transform:
+      rotate(0deg)
+      translateX(0);
+
+  }
+
+  25%{
+
+    transform:
+      rotate(-.3deg)
+      translateX(-2px);
+
+  }
+
+  50%{
+
+    transform:
+      rotate(.45deg)
+      translateX(2px);
+
+  }
+
+  75%{
+
+    transform:
+      rotate(-.2deg)
+      translateX(-1px);
+
+  }
+
+}
+
+
+/* =========================================================
+   CONTENT LAYER
+========================================================= */
+
+.page-content{
+
+  position:relative;
+
+  z-index:5;
+
+  min-height:100svh;
+
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
 
 .reveal{
+
   opacity:0;
-  transform:translateY(45px);
+
+  transform:translateY(35px);
+
   transition:
+
     opacity 1.2s cubic-bezier(.16,1,.3,1),
+
     transform 1.2s cubic-bezier(.16,1,.3,1);
+
 }
 
 .reveal.show{
+
   opacity:1;
+
   transform:none;
+
 }
+
+
+/* =========================================================
+   MICRO TEXT
+========================================================= */
 
 .micro{
+
   color:var(--bronze);
+
   font-family:"Cormorant Garamond",serif;
+
   font-size:12px;
+
   letter-spacing:.28em;
+
   direction:ltr;
+
 }
 
+
+/* =========================================================
+   GOLD LINE
+========================================================= */
+
 .gold-line{
+
   width:80px;
+
   height:1px;
+
   margin:28px auto;
+
   background:
     linear-gradient(
       90deg,
@@ -99,303 +381,119 @@ section{
       var(--gold),
       transparent
     );
-}
-
-
-/* =========================
-   FLOWERS
-========================= */
-
-.floral{
-  position:absolute;
-  z-index:1;
-  pointer-events:none;
-
-  width:300px;
-  height:100%;
-
-  background-repeat:no-repeat;
-  background-size:100% auto;
-  background-position:left center;
-
-  opacity:.82;
-
-  transform-origin:30% 70%;
-
-  animation:
-    floralBreeze
-    7s
-    ease-in-out
-    infinite;
-}
-
-.floral.left{
-  left:-25px;
-  top:0;
-
-  background-image:
-    url("eternal-sunset-floral-left.png");
-}
-
-.floral.right{
-  right:-25px;
-  top:0;
-
-  transform-origin:70% 70%;
-
-  background-image:
-    url("eternal-sunset-floral-right.png");
-
-  animation-delay:-2.5s;
-}
-
-@keyframes floralBreeze{
-
-  0%,100%{
-    transform:
-      rotate(0deg)
-      translate3d(0,0,0);
-  }
-
-  25%{
-    transform:
-      rotate(.7deg)
-      translate3d(3px,-2px,0);
-  }
-
-  50%{
-    transform:
-      rotate(-.45deg)
-      translate3d(-2px,2px,0);
-  }
-
-  75%{
-    transform:
-      rotate(.35deg)
-      translate3d(2px,1px,0);
-  }
 
 }
 
 
-/* =========================
-   PETALS
-========================= */
-
-.petals{
-  position:absolute;
-  inset:0;
-
-  z-index:2;
-
-  pointer-events:none;
-
-  overflow:hidden;
-}
-
-.petals span{
-  position:absolute;
-
-  width:10px;
-  height:7px;
-
-  border-radius:
-    70% 30% 70% 30%;
-
-  background:
-    rgba(255,249,235,.9);
-
-  box-shadow:
-    0 2px 5px
-    rgba(100,70,35,.08);
-
-  animation:
-    petalFloat
-    linear
-    infinite;
-}
-
-.petals span:nth-child(1){
-  left:14%;
-  top:-5%;
-  animation-duration:11s;
-  animation-delay:-2s;
-  transform:rotate(20deg);
-}
-
-.petals span:nth-child(2){
-  left:31%;
-  top:-8%;
-  animation-duration:14s;
-  animation-delay:-7s;
-}
-
-.petals span:nth-child(3){
-  left:52%;
-  top:-4%;
-  animation-duration:12s;
-  animation-delay:-4s;
-}
-
-.petals span:nth-child(4){
-  left:69%;
-  top:-10%;
-  animation-duration:15s;
-  animation-delay:-10s;
-}
-
-.petals span:nth-child(5){
-  left:83%;
-  top:-6%;
-  animation-duration:13s;
-  animation-delay:-5s;
-}
-
-.petals span:nth-child(6){
-  left:43%;
-  top:-12%;
-  animation-duration:17s;
-  animation-delay:-12s;
-}
-
-@keyframes petalFloat{
-
-  0%{
-    transform:
-      translate3d(0,-20px,0)
-      rotate(0deg);
-    opacity:0;
-  }
-
-  10%{
-    opacity:.85;
-  }
-
-  50%{
-    transform:
-      translate3d(35px,50vh,0)
-      rotate(170deg);
-  }
-
-  90%{
-    opacity:.7;
-  }
-
-  100%{
-    transform:
-      translate3d(-25px,110vh,0)
-      rotate(330deg);
-    opacity:0;
-  }
-
-}
-
-
-/* =========================
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero{
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   text-align:center;
 
-  background:
-    linear-gradient(
-      180deg,
-      rgba(250,247,240,.58),
-      rgba(235,215,181,.48)
-    ),
-    url("eternal-sunset-paper.jpg")
-    center/cover;
+  background:#eee5d6;
+
 }
 
+
+/* soft sunset light */
+
 .hero:after{
+
   content:"";
 
   position:absolute;
-  inset:0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,248,233,.12),
-      rgba(183,150,100,.18)
-    );
-
-  z-index:0;
-}
-
-.hero-sun{
-  position:absolute;
-
-  width:120vw;
-  height:45vh;
 
   left:50%;
-  bottom:7%;
+
+  bottom:8%;
+
+  width:90vw;
+
+  height:45vh;
 
   transform:translateX(-50%);
 
   background:
     radial-gradient(
       ellipse at center,
-      rgba(255,236,190,.9),
-      rgba(225,193,133,.35) 30%,
-      transparent 72%
+      rgba(255,225,170,.65),
+      rgba(225,193,133,.2) 35%,
+      transparent 70%
     );
 
-  filter:blur(18px);
-
-  animation:
-    sunBreath
-    9s
-    ease-in-out
-    infinite;
+  filter:blur(20px);
 
   z-index:1;
+
+  animation:sunBreath 9s ease-in-out infinite;
+
 }
+
 
 @keyframes sunBreath{
 
   0%,100%{
+
     transform:
       translateX(-50%)
       scale(1);
 
-    opacity:.8;
+    opacity:.75;
+
   }
 
   50%{
+
     transform:
       translateX(-50%)
-      scale(1.06);
+      scale(1.07);
 
     opacity:1;
+
   }
 
 }
 
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
 .hero-content{
+
   position:relative;
 
-  z-index:4;
+  z-index:10;
 
   width:min(90%,760px);
 
   padding:30px 20px;
 
-  margin-top:-5vh;
+  margin-top:-4vh;
+
 }
 
+
+/* BISMILLAH */
+
 .bismillah{
+
   color:var(--bronze);
 
   font-family:"Amiri",serif;
 
-  font-size:17px;
+  font-size:18px;
+
+  letter-spacing:.05em;
 
   opacity:0;
 
@@ -404,21 +502,23 @@ section{
     1.2s
     .2s
     forwards;
+
 }
 
+
+/* QUOTE */
+
 .hero-quote{
+
   max-width:720px;
 
   margin:38px auto 0;
 
   font-family:"Amiri",serif;
 
-  font-size:
-    clamp(
-      25px,
-      6vw,
-      42px
-    );
+  font-size:clamp(25px,6vw,42px);
+
+  font-weight:400;
 
   line-height:1.9;
 
@@ -432,10 +532,15 @@ section{
     .55s
     cubic-bezier(.16,1,.3,1)
     forwards;
+
 }
 
+
+/* HERO RULE */
+
 .hero-rule{
-  width:0;
+
+  width:100px;
 
   height:1px;
 
@@ -449,24 +554,30 @@ section{
       transparent
     );
 
+  opacity:0;
+
   animation:
-    lineIn
+    fadeIn
     1.2s
-    1.25s
+    1.2s
     forwards;
+
 }
 
+
+/* SCROLL */
+
 .hero-scroll{
+
   position:absolute;
 
-  z-index:5;
+  z-index:10;
 
   bottom:25px;
 
   left:50%;
 
-  transform:
-    translateX(-50%);
+  transform:translateX(-50%);
 
   color:#806a49;
 
@@ -481,194 +592,43 @@ section{
     1s
     1.7s
     forwards;
+
 }
 
 .hero-scroll span{
+
   display:block;
 
   margin-top:8px;
 
-  animation:
-    bounce
-    2s
-    infinite;
-}
-
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-
-@keyframes titleIn{
-
-  from{
-    opacity:0;
-    transform:translateY(45px);
-    filter:blur(8px);
-  }
-
-  to{
-    opacity:1;
-    transform:none;
-    filter:none;
-  }
-
-}
-
-@keyframes lineIn{
-  to{
-    width:100px;
-  }
-}
-
-@keyframes bounce{
-
-  0%,100%{
-    transform:translateY(0);
-  }
-
-  50%{
-    transform:translateY(7px);
-  }
+  animation:bounce 2s infinite;
 
 }
 
 
-/* =========================
+/* =========================================================
    INVITATION
-========================= */
+========================================================= */
 
 .invitation{
+
   display:flex;
 
   align-items:center;
+
   justify-content:center;
 
   text-align:center;
 
-  background:
-    linear-gradient(
-      rgba(247,241,230,.88),
-      rgba(247,241,230,.9)
-    ),
-    url("eternal-sunset-paper.jpg")
-    center/cover;
-}
+  background:#eee5d6;
 
-.invitation:before{
-  content:"";
-
-  position:absolute;
-
-  inset:5% 6%;
-
-  border:
-    1px solid
-    rgba(135,104,61,.18);
-
-  z-index:0;
-}
-
-.invitation-inner{
-  max-width:720px;
-
-  position:relative;
-
-  z-index:4;
-}
-
-.invitation-title{
-  margin-top:30px;
-
-  font-family:"Amiri",serif;
-
-  font-size:
-    clamp(
-      30px,
-      7.5vw,
-      58px
-    );
-
-  line-height:1.55;
-
-  color:#33271a;
-}
-
-.invitation-copy{
-  margin-top:30px;
-
-  color:#796b59;
-
-  font-size:16px;
-
-  line-height:2.2;
-}
-
-.names{
-  margin-top:55px;
-}
-
-.name-block{
-  margin:25px 0;
-}
-
-.name-role{
-  color:var(--bronze);
-
-  font-size:13px;
-}
-
-.name{
-  margin-top:3px;
-
-  font-family:"Amiri",serif;
-
-  font-size:
-    clamp(
-      38px,
-      8vw,
-      58px
-    );
-
-  line-height:1.15;
-
-  color:#33271a;
-}
-
-.name-amp{
-  color:var(--gold);
-
-  font:
-    400 42px
-    "Cormorant Garamond",
-    serif;
 }
 
 
-/* =========================
-   EVENING
-========================= */
+/* very soft central light */
 
-.evening{
-  display:flex;
+.invitation:after{
 
-  align-items:center;
-  justify-content:center;
-
-  text-align:center;
-
-  color:var(--ivory);
-
-  background:
-    linear-gradient(
-      rgba(91,62,35,.35),
-      rgba(49,37,25,.5)
-    ),
-    url("eternal-sunset-paper.jpg")
-    center/cover;
-}
-
-.evening:before{
   content:"";
 
   position:absolute;
@@ -677,161 +637,335 @@ section{
 
   background:
     radial-gradient(
-      ellipse at 50% 30%,
-      rgba(255,225,170,.55),
-      transparent 35%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(190,151,95,.38),
-      rgba(50,38,27,.7)
+      ellipse at center,
+      rgba(255,255,255,.42),
+      transparent 60%
     );
+
+  pointer-events:none;
+
+  z-index:1;
+
 }
 
-.evening-inner{
+
+.invitation-inner{
+
   position:relative;
 
-  z-index:4;
+  z-index:10;
+
+  width:min(88%,720px);
+
+}
+
+
+/* =========================================================
+   INVITATION TEXT
+========================================================= */
+
+.invitation-title{
+
+  margin-top:30px;
+
+  font-family:"Amiri",serif;
+
+  font-size:clamp(30px,7.5vw,58px);
+
+  line-height:1.55;
+
+  font-weight:400;
+
+  color:#33271a;
+
+}
+
+
+.invitation-copy{
+
+  margin-top:30px;
+
+  font-family:"Noto Naskh Arabic",serif;
+
+  color:#796b59;
+
+  font-size:16px;
+
+  line-height:2.2;
+
+}
+
+
+/* =========================================================
+   NAMES
+========================================================= */
+
+.names{
+
+  margin-top:45px;
+
+}
+
+
+.name-block{
+
+  margin:25px 0;
+
+}
+
+
+.name-role{
+
+  color:var(--bronze);
+
+  font-family:"Noto Naskh Arabic",serif;
+
+  font-size:13px;
+
+}
+
+
+.name{
+
+  margin-top:4px;
+
+  font-family:"Amiri",serif;
+
+  font-size:clamp(38px,8vw,58px);
+
+  line-height:1.15;
+
+  color:#33271a;
+
+}
+
+
+.name-amp{
+
+  color:var(--gold);
+
+  font:
+    400 42px
+    "Cormorant Garamond",serif;
+
+}
+
+
+/* =========================================================
+   EVENING
+========================================================= */
+
+.evening{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
 
   text-align:center;
+
+  background:#d7c5aa;
+
 }
+
+
+/* evening overlay */
+
+.evening:after{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+
+    linear-gradient(
+      180deg,
+      rgba(92,69,42,.05),
+      rgba(54,40,27,.25)
+    );
+
+  z-index:2;
+
+}
+
+
+.evening-inner{
+
+  position:relative;
+
+  z-index:10;
+
+  width:min(88%,720px);
+
+}
+
+
+/* evening text */
 
 .evening .micro{
-  color:#ead4aa;
+
+  color:#765b39;
+
 }
 
+
 .evening-date{
+
   margin-top:25px;
 
   font-family:"Amiri",serif;
 
-  font-size:
-    clamp(
-      30px,
-      7vw,
-      55px
-    );
+  font-size:clamp(30px,7vw,55px);
 
   line-height:1.45;
+
+  font-weight:400;
+
+  color:#382a1b;
+
 }
 
+
 .evening-place{
+
   margin-top:28px;
+
+  font-family:"Noto Naskh Arabic",serif;
 
   font-size:17px;
 
   line-height:2;
 
-  color:#e8dcc9;
+  color:#68543a;
+
 }
+
 
 .evening-place strong{
-  color:#fff8eb;
+
+  color:#382a1b;
 
   font-weight:500;
+
 }
 
 
-/* =========================
+/* =========================================================
    RSVP
-========================= */
+========================================================= */
 
 .rsvp{
+
   display:flex;
 
   align-items:center;
+
   justify-content:center;
 
   text-align:center;
 
-  background:
-    linear-gradient(
-      rgba(247,241,230,.9),
-      rgba(247,241,230,.92)
-    ),
-    url("eternal-sunset-paper.jpg")
-    center/cover;
+  background:#eee5d6;
+
 }
+
 
 .rsvp-inner{
+
   position:relative;
 
-  z-index:4;
+  z-index:10;
 
   width:min(90%,650px);
+
 }
+
 
 .rsvp .micro{
+
   color:var(--bronze);
+
 }
 
+
 .rsvp h2{
+
   margin:25px 0 35px;
 
   font-family:"Amiri",serif;
 
-  font-size:
-    clamp(
-      34px,
-      8vw,
-      54px
-    );
+  font-size:clamp(34px,8vw,54px);
+
+  line-height:1.3;
 
   font-weight:400;
 
   color:#35291b;
+
 }
+
 
 #loading{
+
   color:#82735f;
+
 }
+
 
 .guest-label{
+
   color:#847560;
 
+  font-family:"Noto Naskh Arabic",serif;
+
   font-size:16px;
+
 }
 
+
 #guestName{
+
   margin-top:8px;
 
   font-family:"Amiri",serif;
 
-  font-size:
-    clamp(
-      42px,
-      9vw,
-      64px
-    );
+  font-size:clamp(42px,9vw,64px);
 
   line-height:1.2;
 
   color:#342719;
+
 }
 
+
 .child-note{
+
   max-width:580px;
 
   margin:30px auto;
 
   padding:18px 10px;
 
-  border-top:
-    1px solid
-    rgba(135,104,61,.2);
+  border-top:1px solid rgba(135,104,61,.2);
 
-  border-bottom:
-    1px solid
-    rgba(135,104,61,.2);
+  border-bottom:1px solid rgba(135,104,61,.2);
 
   color:#806b4c;
+
+  font-family:"Noto Naskh Arabic",serif;
 
   font-size:15px;
 
   line-height:2;
+
 }
 
+
 .choices{
+
   display:flex;
 
   justify-content:center;
@@ -839,9 +973,12 @@ section{
   gap:45px;
 
   margin-top:30px;
+
 }
 
+
 .choice{
+
   position:relative;
 
   padding:10px 0;
@@ -852,14 +989,15 @@ section{
 
   color:#6d604f;
 
-  font-family:
-    "Noto Naskh Arabic",
-    serif;
+  font-family:"Noto Naskh Arabic",serif;
 
   font-size:16px;
+
 }
 
+
 .choice:after{
+
   content:"";
 
   position:absolute;
@@ -874,21 +1012,31 @@ section{
 
   background:var(--gold);
 
-  transform:
-    translateX(-50%);
+  transform:translateX(-50%);
 
   transition:.4s;
+
 }
+
 
 .choice.active{
+
+  background:none;
+
   color:#2f2418;
+
 }
+
 
 .choice.active:after{
+
   width:100%;
+
 }
 
+
 .confirm{
+
   display:block;
 
   width:min(100%,300px);
@@ -897,187 +1045,205 @@ section{
 
   padding:14px 20px;
 
-  border:
-    1px solid
-    rgba(135,104,61,.55);
+  border:1px solid rgba(135,104,61,.55);
 
   background:transparent;
 
   color:#493923;
 
-  font-family:
-    "Noto Naskh Arabic",
-    serif;
+  font-family:"Noto Naskh Arabic",serif;
 
   font-size:16px;
 
   transition:.4s;
+
 }
+
 
 .confirm:hover{
-  background:
-    rgba(185,148,88,.1);
+
+  background:rgba(185,148,88,.1);
+
 }
+
 
 .confirm:disabled{
+
   opacity:.35;
+
 }
 
+
 .msg{
+
   min-height:28px;
 
   margin-top:18px;
 
   color:#8a6b3e;
 
+  font-family:"Noto Naskh Arabic",serif;
+
   font-size:15px;
+
 }
 
 
-/* =========================
+/* =========================================================
    LOCATION
-========================= */
+========================================================= */
 
 .location-section{
+
   min-height:85svh;
 
   display:flex;
 
   align-items:center;
+
   justify-content:center;
 
   text-align:center;
 
-  background:
-    linear-gradient(
-      rgba(247,241,230,.82),
-      rgba(247,241,230,.86)
-    ),
-    url("eternal-sunset-paper.jpg")
-    center/cover;
+  background:#eee5d6;
+
 }
+
 
 .location-inner{
+
   position:relative;
 
-  z-index:4;
+  z-index:10;
 
-  width:min(90%,700px);
+  width:min(88%,700px);
+
 }
+
 
 .location-ornament{
+
   width:170px;
+
   height:105px;
 
-  margin:
-    0 auto 30px;
+  margin:0 auto 30px;
 
-  border:
-    1px solid
-    rgba(135,104,61,.28);
+  border:1px solid rgba(135,104,61,.28);
 
-  border-radius:
-    70% 30% 65% 35%;
+  border-radius:70% 30% 65% 35%;
 
   transform:rotate(-8deg);
+
 }
+
 
 .location-ornament:before,
 .location-ornament:after{
+
   content:"";
 
   position:absolute;
 
   inset:12px;
 
-  border:
-    1px solid
-    rgba(135,104,61,.18);
+  border:1px solid rgba(135,104,61,.18);
 
   border-radius:inherit;
+
 }
+
 
 .location-ornament:after{
+
   inset:25px;
+
 }
+
 
 .location-title{
+
   font-family:"Amiri",serif;
 
-  font-size:
-    clamp(
-      40px,
-      10vw,
-      72px
-    );
+  font-size:clamp(40px,10vw,72px);
 
   color:#382b1c;
+
 }
 
+
 .location-copy{
-  margin:
-    20px 0 28px;
+
+  margin:20px 0 30px;
 
   color:#766955;
+
+  font-family:"Noto Naskh Arabic",serif;
 
   font-size:17px;
 
   line-height:2;
+
 }
 
+
+/* MAP BUTTON */
+
 .map-button{
+
   display:inline-block;
 
   min-width:220px;
 
   padding:14px 25px;
 
-  border:
-    1px solid
-    rgba(135,104,61,.5);
+  border:1px solid rgba(135,104,61,.5);
 
   color:#4b3823;
 
   text-decoration:none;
 
+  font-family:"Noto Naskh Arabic",serif;
+
   font-size:15px;
 
   transition:.4s;
+
 }
+
 
 .map-button:hover{
-  background:
-    rgba(185,148,88,.1);
+
+  background:rgba(185,148,88,.1);
+
 }
 
 
-/* =========================
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer{
+
+  position:relative;
+
   padding:45px 20px 65px;
 
   text-align:center;
 
-  background:
-    linear-gradient(
-      rgba(247,241,230,.9),
-      rgba(247,241,230,.92)
-    ),
-    url("eternal-sunset-paper.jpg")
-    center/cover;
+  background:#eee5d6;
 
   color:#8a7b68;
 
-  font-family:
-    "Cormorant Garamond",
-    serif;
+  font-family:"Cormorant Garamond",serif;
 
   letter-spacing:.18em;
+
 }
 
+
 footer small{
+
   display:block;
 
   margin-top:8px;
@@ -1085,218 +1251,300 @@ footer small{
   font-size:11px;
 
   letter-spacing:.25em;
+
 }
 
 
-/* =========================
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes fadeIn{
+
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
+
+@keyframes titleIn{
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(45px);
+
+    filter:blur(8px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:none;
+
+    filter:none;
+
+  }
+
+}
+
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(7px);
+  }
+
+}
+
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
 @media(max-width:600px){
 
-  .floral{
-    width:220px;
-    opacity:.68;
+  .floral-left,
+  .floral-right{
+
+    width:34%;
+
   }
 
-  .floral.left{
-    left:-75px;
-  }
-
-  .floral.right{
-    right:-75px;
-  }
 
   .hero-content{
+
     width:100%;
+
   }
 
+
   .hero-quote{
+
     max-width:340px;
 
     font-size:25px;
 
     line-height:1.9;
+
   }
 
-  .invitation:before{
-    inset:6% 8%;
+
+  .invitation-inner,
+  .evening-inner,
+  .location-inner{
+
+    width:82%;
+
   }
+
 
   .invitation-title{
-    font-size:
-      clamp(
-        30px,
-        8vw,
-        43px
-      );
+
+    font-size:clamp(30px,8vw,43px);
 
     line-height:1.65;
+
   }
+
 
   .name{
-    font-size:
-      clamp(
-        40px,
-        10vw,
-        54px
-      );
+
+    font-size:clamp(40px,10vw,54px);
+
   }
+
 
   .evening-date{
-    font-size:
-      clamp(
-        29px,
-        7.5vw,
-        42px
-      );
+
+    font-size:clamp(29px,7.5vw,42px);
+
   }
+
 
   .rsvp h2{
+
     font-size:40px;
+
   }
+
 
   #guestName{
+
     font-size:52px;
+
   }
 
+
   .choices{
+
     gap:30px;
+
+  }
+
+
+  .choice{
+
+    font-size:16px;
+
   }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================
+<!-- =========================================================
      HERO
-========================= -->
+========================================================= -->
 
 <section class="hero">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral-page">
 
-  <div class="petals">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+    <div class="paper-bg"></div>
 
-  <div class="hero-sun"></div>
+    <div class="floral-left"></div>
 
-  <div class="hero-content">
-
-    <div class="bismillah">
-      بِسْمِ اللهِ نَبْدَأ
-    </div>
-
-    <div class="hero-quote">
-
-      ما الحُب إلا لمن أتوا البيوت من أبوابها،
-      <br>
-      فأعزَ مقامنا فأعززنا مقامهم بقبولٍ ولين
-
-    </div>
-
-    <div class="hero-rule"></div>
+    <div class="floral-right"></div>
 
   </div>
 
-  <div class="hero-scroll">
 
-    اسحب للأعلى
+  <div class="page-content">
 
-    <span>↓</span>
+    <div class="hero-content">
+
+      <div class="bismillah">
+        بِسْمِ اللهِ نَبْدَأ
+      </div>
+
+
+      <div class="hero-quote">
+
+        ما الحُب إلا لمن أتوا البيوت من أبوابها،
+        <br>
+        فأعزَ مقامنا فأعززنا مقامهم بقبولٍ ولين
+
+      </div>
+
+
+      <div class="hero-rule"></div>
+
+    </div>
+
+
+    <div class="hero-scroll">
+
+      اسحب للأعلى
+
+      <span>↓</span>
+
+    </div>
 
   </div>
 
 </section>
 
 
-<!-- =========================
+
+<!-- =========================================================
      INVITATION
-========================= -->
+========================================================= -->
 
 <section class="invitation">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral-page">
 
-  <div class="petals">
+    <div class="paper-bg"></div>
 
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <div class="floral-left"></div>
+
+    <div class="floral-right"></div>
 
   </div>
 
 
-  <div class="inner invitation-inner reveal">
+  <div class="page-content">
 
-    <div class="micro">
-      ETERNAL SUNSET
-    </div>
+    <div class="invitation-inner reveal">
 
-    <div class="invitation-title">
-
-      بكل محبة،
-      <br>
-      ندعوكم لمشاركتنا فرحة خطوبتنا
-
-    </div>
-
-    <div class="invitation-copy">
-
-      في ليلة تجمعنا بمن نحب،
-      <br>
-      نحتفل ببداية فصل جديد من حكايتنا.
-
-    </div>
-
-    <div class="gold-line"></div>
+      <div class="micro">
+        ETERNAL SUNSET
+      </div>
 
 
-    <div class="names">
+      <div class="invitation-title">
 
-      <div class="name-block">
-
-        <div class="name-role">
-          الدكتور
-        </div>
-
-        <div class="name">
-          الحسن علاء
-        </div>
+        بكل محبة،
+        <br>
+        ندعوكم لمشاركتنا فرحة خطوبتنا
 
       </div>
 
 
-      <div class="name-amp">
-        &amp;
+      <div class="invitation-copy">
+
+        في ليلة تجمعنا بمن نحب،
+        <br>
+        نحتفل ببداية فصل جديد من حكايتنا.
+
       </div>
 
 
-      <div class="name-block">
+      <div class="gold-line"></div>
 
-        <div class="name-role">
-          الصيدلانية
+
+      <div class="names">
+
+
+        <div class="name-block">
+
+          <div class="name-role">
+            الدكتور
+          </div>
+
+          <div class="name">
+            الحسن علاء
+          </div>
+
         </div>
 
-        <div class="name">
-          حنين بشير
+
+        <div class="name-amp">
+          &amp;
         </div>
+
+
+        <div class="name-block">
+
+          <div class="name-role">
+            الصيدلانية
+          </div>
+
+          <div class="name">
+            حنين بشير
+          </div>
+
+        </div>
+
 
       </div>
 
@@ -1307,140 +1555,52 @@ footer small{
 </section>
 
 
-<!-- =========================
+
+<!-- =========================================================
      EVENING
-========================= -->
+========================================================= -->
 
 <section class="evening">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral-page">
 
-  <div class="petals">
+    <div class="paper-bg"></div>
 
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <div class="floral-left"></div>
+
+    <div class="floral-right"></div>
 
   </div>
 
 
-  <div class="evening-inner reveal">
+  <div class="page-content">
 
-    <div class="micro">
-      ETERNAL SUNSET
-    </div>
+    <div class="evening-inner reveal">
 
-    <div class="evening-date" id="date">
-      التاريخ والوقت يُحددان لاحقًا
-    </div>
-
-    <div class="evening-place">
-
-      في مزرعة ارض المرح
-      <br>
-
-      <strong>
-        على نهر دجلة
-      </strong>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =========================
-     RSVP
-========================= -->
-
-<section class="rsvp">
-
-  <div class="floral left"></div>
-  <div class="floral right"></div>
-
-  <div class="petals">
-
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-
-  </div>
-
-
-  <div class="rsvp-inner reveal">
-
-    <div class="micro">
-      RSVP
-    </div>
-
-    <h2>
-      تأكيد الحضور
-    </h2>
-
-    <div id="loading">
-      جاري تجهيز دعوتكم...
-    </div>
-
-
-    <div id="guest" class="hidden">
-
-      <div class="guest-label">
-        هذه الدعوة مخصصة إلى
-      </div>
-
-      <div id="guestName"></div>
-
-
-      <div class="child-note">
-
-        نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
-        نعتذر عن استقبال الأطفال دون 15 عامًا،
-        حرصًا على سلامتهم 🤍
-
-      </div>
-
-
-      <div class="choices">
-
-        <button
-          id="yes"
-          class="choice"
-        >
-          سأكون من الحاضرين
-        </button>
-
-
-        <button
-          id="no"
-          class="choice"
-        >
-          أعتذر عن الحضور
-        </button>
-
+      <div class="micro">
+        ETERNAL SUNSET
       </div>
 
 
       <div
-        id="msg"
-        class="msg"
-      ></div>
-
-
-      <button
-        id="submit"
-        class="confirm"
-        disabled
+        class="evening-date"
+        id="date"
       >
-        تأكيد الإجابة
-      </button>
+        التاريخ والوقت يُحددان لاحقًا
+      </div>
+
+
+      <div class="evening-place">
+
+        في مزرعة ارض المرح
+
+        <br>
+
+        <strong>
+          على نهر دجلة
+        </strong>
+
+      </div>
 
     </div>
 
@@ -1449,65 +1609,189 @@ footer small{
 </section>
 
 
-<!-- =========================
+
+<!-- =========================================================
+     RSVP
+========================================================= -->
+
+<section class="rsvp">
+
+  <div class="floral-page">
+
+    <div class="paper-bg"></div>
+
+    <div class="floral-left"></div>
+
+    <div class="floral-right"></div>
+
+  </div>
+
+
+  <div class="page-content">
+
+    <div class="rsvp-inner reveal">
+
+      <div class="micro">
+        RSVP
+      </div>
+
+
+      <h2>
+        تأكيد الحضور
+      </h2>
+
+
+      <div id="loading">
+        جاري تجهيز دعوتكم...
+      </div>
+
+
+      <div
+        id="guest"
+        style="display:none;"
+      >
+
+
+        <div class="guest-label">
+
+          هذه الدعوة مخصصة إلى
+
+        </div>
+
+
+        <div id="guestName"></div>
+
+
+        <div class="child-note">
+
+          نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
+          نعتذر عن استقبال الأطفال دون 15 عامًا،
+          حرصًا على سلامتهم 🤍
+
+        </div>
+
+
+        <div class="choices">
+
+
+          <button
+            id="yes"
+            class="choice"
+          >
+
+            سأكون من الحاضرين
+
+          </button>
+
+
+          <button
+            id="no"
+            class="choice"
+          >
+
+            أعتذر عن الحضور
+
+          </button>
+
+
+        </div>
+
+
+        <div
+          id="msg"
+          class="msg"
+        ></div>
+
+
+        <button
+          id="submit"
+          class="confirm"
+          disabled
+        >
+
+          تأكيد الإجابة
+
+        </button>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
      LOCATION
-========================= -->
+========================================================= -->
 
 <section class="location-section">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral-page">
 
-  <div class="petals">
+    <div class="paper-bg"></div>
 
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <div class="floral-left"></div>
+
+    <div class="floral-right"></div>
 
   </div>
 
 
-  <div class="location-inner reveal">
+  <div class="page-content">
 
-    <div class="location-ornament"></div>
+    <div class="location-inner reveal">
 
 
-    <div class="micro">
-      THE PLACE
+      <div class="location-ornament"></div>
+
+
+      <div class="micro">
+        THE PLACE
+      </div>
+
+
+      <div class="location-title">
+
+        على ضفاف دجلة
+
+      </div>
+
+
+      <div class="location-copy">
+
+        حيث يبدأ المساء مع الغروب
+
+      </div>
+
+
+      <a
+        id="map"
+        class="map-button"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
+
+        فتح الموقع ↗
+
+      </a>
+
+
     </div>
-
-
-    <div class="location-title">
-      على ضفاف دجلة
-    </div>
-
-
-    <div class="location-copy">
-      حيث يبدأ المساء مع الغروب
-    </div>
-
-
-    <a
-      id="map"
-      class="map-button"
-      href="#"
-      target="_blank"
-      rel="noopener"
-    >
-      فتح الموقع ↗
-    </a>
 
   </div>
 
 </section>
 
 
-<!-- =========================
+
+<!-- =========================================================
      FOOTER
-========================= -->
+========================================================= -->
 
 <footer>
 
@@ -1520,20 +1804,26 @@ footer small{
 </footer>
 
 
+
 <script>
 
-/* =========================
+/* =========================================================
    SUPABASE
-========================= */
+========================================================= */
 
 const SUPABASE_URL =
 "https://riikgqzpijmfbeqzztvi.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_sxZPK_L7D6pqUqM_cIRNEA_qZbvT4_q";
 
+
 const EVENT_DATE_TEXT =
 "التاريخ والوقت يُحددان لاحقًا";
+
+
+/* ضع رابط Google Maps هنا لاحقًا */
 
 const MAP_URL =
 "#";
@@ -1553,33 +1843,41 @@ supabase.createClient(
 null;
 
 
-/* =========================
+/* =========================================================
    ELEMENTS
-========================= */
+========================================================= */
 
 const dateEl =
 document.getElementById("date");
 
+
 const mapEl =
 document.getElementById("map");
+
 
 const loadingEl =
 document.getElementById("loading");
 
+
 const guestEl =
 document.getElementById("guest");
+
 
 const guestNameEl =
 document.getElementById("guestName");
 
+
 const yesBtn =
 document.getElementById("yes");
+
 
 const noBtn =
 document.getElementById("no");
 
+
 const submitBtn =
 document.getElementById("submit");
+
 
 const msgEl =
 document.getElementById("msg");
@@ -1588,13 +1886,14 @@ document.getElementById("msg");
 dateEl.textContent =
 EVENT_DATE_TEXT;
 
+
 mapEl.href =
 MAP_URL;
 
 
-/* =========================
+/* =========================================================
    INVITE CODE
-========================= */
+========================================================= */
 
 const code =
 new URLSearchParams(location.search).get("invite") ||
@@ -1607,46 +1906,49 @@ location.pathname
 let status = null;
 
 
-/* =========================
+/* =========================================================
    RSVP CHOICE
-========================= */
+========================================================= */
 
 function choose(selectedStatus){
 
   status =
   selectedStatus;
 
+
   submitBtn.disabled =
   false;
+
 
   yesBtn.classList.toggle(
     "active",
     selectedStatus === "attending"
   );
 
+
   noBtn.classList.toggle(
     "active",
     selectedStatus === "not_attending"
   );
 
-  msgEl.textContent = "";
+
+  msgEl.textContent =
+  "";
 
 }
 
 
 yesBtn.onclick =
-() =>
-choose("attending");
+() => choose("attending");
 
 
 noBtn.onclick =
-() =>
-choose("not_attending");
+() => choose("not_attending");
 
 
-/* =========================
+/* =========================================================
    LOAD GUEST
-========================= */
+========================================================= */
 
 async function load(){
 
@@ -1684,8 +1986,7 @@ async function load(){
     if(result.error){
 
       loadingEl.textContent =
-      "خطأ: " +
-      result.error.message;
+      "تعذر تجهيز الدعوة";
 
       console.error(
         result.error
@@ -1709,16 +2010,22 @@ async function load(){
     }
 
 
+    /*
+      مهم:
+      هذا هو اسم المدعو من Supabase
+      وليس اسم العريس.
+    */
+
     guestNameEl.textContent =
     result.data[0].name;
 
 
-    guestEl.classList.remove(
-      "hidden"
-    );
+    guestEl.style.display =
+    "block";
 
 
-    loadingEl.textContent = "";
+    loadingEl.textContent =
+    "";
 
 
   }catch(error){
@@ -1733,9 +2040,9 @@ async function load(){
 }
 
 
-/* =========================
-   RSVP
-========================= */
+/* =========================================================
+   RSVP SUBMIT
+========================================================= */
 
 submitBtn.onclick =
 async()=>{
@@ -1774,8 +2081,11 @@ async()=>{
     if(result.error){
 
       msgEl.textContent =
-      "خطأ: " +
-      result.error.message;
+      "تعذر تسجيل الإجابة.";
+
+      console.error(
+        result.error
+      );
 
       submitBtn.disabled =
       false;
@@ -1804,8 +2114,9 @@ async()=>{
   }catch(error){
 
     msgEl.textContent =
-    "خطأ: " +
-    error.message;
+    "حدث خطأ أثناء التسجيل.";
+
+    console.error(error);
 
     submitBtn.disabled =
     false;
@@ -1815,48 +2126,52 @@ async()=>{
 };
 
 
-/* =========================
-   SCROLL ANIMATION
-========================= */
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
 
 const observer =
 new IntersectionObserver(
 (entries)=>{
 
-  entries.forEach(entry=>{
+  entries.forEach(
+    entry=>{
 
-    if(entry.isIntersecting){
+      if(entry.isIntersecting){
 
-      entry.target.classList.add(
-        "show"
-      );
+        entry.target.classList.add(
+          "show"
+        );
+
+      }
 
     }
-
-  });
+  );
 
 },
 {
-  threshold:.18
+  threshold:.15
 });
 
 
 document
 .querySelectorAll(".reveal")
-.forEach(el=>{
+.forEach(
+  el=>{
+    observer.observe(el);
+  }
+);
 
-  observer.observe(el);
 
-});
-
-
-/* =========================
+/* =========================================================
    START
-========================= */
+========================================================= */
 
 load();
 
 </script>
 
+
 </body>
+
 </html>
