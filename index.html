@@ -4,216 +4,226 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 
-<title>الحسن & حنين — Eternal Sunset</title>
+<title>الحسن & حنين</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500&display=swap');
 
+
 :root{
-  --ink:#302318;
-  --soft:#705b40;
-  --gold:#b58b4c;
-  --cream:#f5eee3;
+  --paper:#f5efe4;
+  --paper-dark:#e8dcc8;
+  --gold:#b99458;
+  --gold-light:#d9c08f;
+  --ink:#302419;
+  --muted:#776955;
 }
+
 
 *{
   box-sizing:border-box;
 }
 
+
 html{
   scroll-behavior:smooth;
 }
 
+
 body{
   margin:0;
-  background:#eee4d5;
-  color:var(--ink);
   overflow-x:hidden;
+
+  background:var(--paper);
+
+  color:var(--ink);
+
   font-family:"Noto Naskh Arabic",serif;
 }
 
-section{
+
+/* =========================
+   PAPER BACKGROUND
+========================= */
+
+.page{
   position:relative;
+
   min-height:100svh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
   overflow:hidden;
-}
 
-
-/* ==================================================
-   SHARED PAPER BACKGROUND
-================================================== */
-
-.paper-page{
   background:
     linear-gradient(
-      90deg,
-      rgba(255,250,241,.10),
-      rgba(255,250,241,.72) 50%,
-      rgba(255,250,241,.10)
+      rgba(247,242,233,.20),
+      rgba(247,242,233,.20)
     ),
     url("eternal-sunset-paper.jpg")
-    center/cover no-repeat;
+    center center / cover no-repeat;
 }
 
 
-/* ==================================================
-   SUNSET BACKGROUND
-================================================== */
-
-.sunset-page{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(86,57,35,.08),
-      rgba(220,163,91,.18) 42%,
-      rgba(53,38,28,.35) 100%
-    ),
-    radial-gradient(
-      circle at 72% 48%,
-      rgba(255,223,157,.95) 0%,
-      rgba(244,181,92,.60) 10%,
-      rgba(195,124,59,.25) 27%,
-      transparent 48%
-    ),
-    linear-gradient(
-      180deg,
-      #d7b27e 0%,
-      #e8b976 30%,
-      #b77b50 62%,
-      #604b3b 100%
-    );
-}
-
-
-/* water illusion */
-
-.sunset-page:after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:42%;
-
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(255,232,187,.15) 0px,
-      rgba(255,232,187,.15) 1px,
-      transparent 1px,
-      transparent 11px
-    );
-
-  opacity:.55;
-  pointer-events:none;
-}
-
-
-/* ==================================================
-   FLORAL SIDES
-================================================== */
+/* =========================
+   FLOWERS
+========================= */
 
 .floral{
   position:absolute;
-  top:-2%;
-  bottom:-2%;
 
-  width:34%;
+  top:0;
+  bottom:0;
+
+  width:38%;
+
+  pointer-events:none;
 
   z-index:2;
-  pointer-events:none;
 
   background-repeat:no-repeat;
   background-size:100% 100%;
+
+  opacity:.95;
+
+  transition:transform 1s ease;
 }
 
-.floral.left{
+
+.floral-left{
   left:0;
-  background-image:url("eternal-sunset-floral-left.png");
+
+  background-image:
+    url("eternal-sunset-floral-left.png");
+
   background-position:left center;
 }
 
-.floral.right{
+
+.floral-right{
   right:0;
-  background-image:url("eternal-sunset-floral-right.png");
+
+  background-image:
+    url("eternal-sunset-floral-right.png");
+
   background-position:right center;
 }
 
 
-/* ==================================================
-   FLOWER MOTION
-================================================== */
+/* =========================
+   WIND MOTION
+========================= */
 
-.floral.left{
+.floral-left{
   transform-origin:left center;
-  animation:windLeft 8s ease-in-out infinite;
+
+  animation:
+    flowerWindLeft
+    7s
+    ease-in-out
+    infinite;
 }
 
-.floral.right{
+
+.floral-right{
   transform-origin:right center;
-  animation:windRight 8.5s ease-in-out infinite;
+
+  animation:
+    flowerWindRight
+    7.5s
+    ease-in-out
+    infinite;
 }
 
-@keyframes windLeft{
+
+@keyframes flowerWindLeft{
+
   0%,100%{
-    transform:translateX(0) rotate(0deg);
+    transform:
+      translateX(0)
+      rotate(0deg);
   }
 
   50%{
-    transform:translateX(4px) rotate(.35deg);
+    transform:
+      translateX(5px)
+      rotate(.35deg);
   }
+
 }
 
-@keyframes windRight{
+
+@keyframes flowerWindRight{
+
   0%,100%{
-    transform:translateX(0) rotate(0deg);
+    transform:
+      translateX(0)
+      rotate(0deg);
   }
 
   50%{
-    transform:translateX(-4px) rotate(-.35deg);
+    transform:
+      translateX(-5px)
+      rotate(-.35deg);
   }
+
 }
 
 
-/* ==================================================
-   CONTENT LAYER
-================================================== */
+/* =========================
+   CENTER PAPER
+========================= */
 
-.content{
-  position:relative;
-  z-index:5;
+.paper-center{
 
-  width:min(82%,720px);
+  position:absolute;
 
-  min-height:100svh;
+  z-index:3;
 
-  margin:auto;
+  top:0;
+  bottom:0;
 
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  left:50%;
 
-  text-align:center;
+  width:min(74%,760px);
 
-  padding:70px 10px;
+  transform:translateX(-50%);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,252,245,.70),
+      rgba(249,244,234,.76)
+    );
+
+  border-left:
+    1px solid rgba(150,115,65,.18);
+
+  border-right:
+    1px solid rgba(150,115,65,.18);
+
+  pointer-events:none;
 }
 
 
-/* ==================================================
-   DECORATIVE TOP/BOTTOM LINES
-================================================== */
+/* =========================
+   ORNAMENT
+========================= */
 
-.decor{
+.ornament{
   position:absolute;
 
   left:50%;
-  transform:translateX(-50%);
 
-  width:180px;
-  height:20px;
+  width:190px;
+  height:28px;
+
+  transform:translateX(-50%);
 
   display:flex;
   align-items:center;
@@ -221,91 +231,156 @@ section{
 
   color:var(--gold);
 
-  z-index:6;
+  z-index:4;
 }
 
-.decor.top{
-  top:28px;
-}
 
-.decor.bottom{
-  bottom:28px;
-}
+.ornament:before,
+.ornament:after{
 
-.decor:before,
-.decor:after{
   content:"";
 
-  width:62px;
+  width:75px;
   height:1px;
 
-  background:var(--gold);
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--gold)
+    );
 }
 
-.decor span{
+
+.ornament:after{
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold),
+      transparent
+    );
+}
+
+
+.ornament span{
+
   margin:0 12px;
 
   font-family:"Cormorant Garamond",serif;
-  font-size:22px;
+
+  font-size:25px;
 
   transform:rotate(45deg);
+
+  color:var(--gold);
 }
 
 
-/* ==================================================
+.ornament.top{
+  top:30px;
+}
+
+
+.ornament.bottom{
+  bottom:30px;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+
+  position:relative;
+
+  z-index:5;
+
+  width:min(76%,680px);
+
+  text-align:center;
+
+  padding:
+    80px 15px;
+
+}
+
+
+/* =========================
    MICRO
-================================================== */
+========================= */
 
 .micro{
-  font-family:"Cormorant Garamond",serif;
+
+  color:#8b704c;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
   font-size:12px;
-  letter-spacing:.30em;
 
-  color:#876d48;
+  letter-spacing:.30em;
 
   direction:ltr;
 }
 
 
-/* ==================================================
+/* =========================
    HERO
-================================================== */
+========================= */
 
-.hero .content{
-  justify-content:center;
+.hero{
+
+  min-height:100svh;
+
 }
 
+
+.hero .content{
+
+  max-width:700px;
+
+}
+
+
 .bismillah{
-  margin-bottom:30px;
+
+  margin-bottom:35px;
+
+  color:#80633d;
 
   font-family:"Amiri",serif;
 
   font-size:19px;
-
-  color:#634a2e;
 }
 
+
 .hero-quote{
-  max-width:650px;
 
   font-family:"Amiri",serif;
 
-  font-size:clamp(25px,5.8vw,43px);
+  font-size:
+    clamp(
+      26px,
+      6vw,
+      43px
+    );
 
   line-height:1.9;
 
-  color:#302116;
-
-  text-shadow:
-    0 1px 10px rgba(255,245,220,.35);
+  color:#403022;
 }
 
+
 .hero-rule{
+
   width:100px;
+
   height:1px;
 
-  margin-top:30px;
+  margin:35px auto;
 
   background:
     linear-gradient(
@@ -316,81 +391,107 @@ section{
     );
 }
 
-.scroll{
+
+.scroll-text{
+
   position:absolute;
 
-  bottom:42px;
+  z-index:6;
+
+  bottom:48px;
+
   left:50%;
 
   transform:translateX(-50%);
 
-  z-index:8;
-
-  width:36px;
-  height:36px;
-
-  border:1px solid rgba(255,255,255,.8);
-
-  border-radius:50%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  color:white;
-
-  font-size:20px;
-
-  animation:scrollBounce 2s ease-in-out infinite;
-}
-
-@keyframes scrollBounce{
-  0%,100%{
-    transform:translate(-50%,0);
-  }
-
-  50%{
-    transform:translate(-50%,7px);
-  }
-}
-
-
-/* ==================================================
-   INVITATION
-================================================== */
-
-.invitation .content{
-  padding-top:85px;
-  padding-bottom:85px;
-}
-
-.invitation-title{
-  margin-top:18px;
+  color:#806b4e;
 
   font-family:"Amiri",serif;
 
-  font-size:clamp(29px,6.5vw,46px);
-
-  line-height:1.55;
-
-  color:#33261a;
+  font-size:13px;
 }
 
+
+.scroll-text span{
+
+  display:block;
+
+  margin-top:6px;
+
+  animation:bounce 2s infinite;
+}
+
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(7px);
+  }
+
+}
+
+
+/* =========================
+   INVITATION
+========================= */
+
+.invitation{
+
+  min-height:100svh;
+
+}
+
+
+.invitation .content{
+
+  padding-top:100px;
+  padding-bottom:100px;
+
+}
+
+
+.invitation-title{
+
+  margin-top:25px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      29px,
+      7vw,
+      48px
+    );
+
+  line-height:1.65;
+
+  color:#35291d;
+}
+
+
 .invitation-copy{
-  margin-top:22px;
+
+  margin-top:25px;
+
+  color:#766956;
 
   font-size:16px;
 
-  line-height:2;
-
-  color:#796955;
+  line-height:2.2;
 }
 
+
 .gold-line{
-  width:85px;
+
+  width:90px;
+
   height:1px;
 
-  margin:25px auto;
+  margin:30px auto;
 
   background:
     linear-gradient(
@@ -401,42 +502,56 @@ section{
     );
 }
 
+
 .names{
-  width:100%;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  margin-top:25px;
 
-  gap:28px;
-
-  margin-top:10px;
 }
+
 
 .name-block{
-  min-width:170px;
+
+  margin:20px 0;
+
 }
 
+
 .name-role{
-  margin-bottom:4px;
 
   color:#876d48;
 
-  font-size:13px;
+  font-size:14px;
+
 }
 
+
 .name{
+
+  margin-top:4px;
+
   font-family:"Amiri",serif;
 
-  font-size:clamp(36px,7vw,51px);
+  font-size:
+    clamp(
+      40px,
+      9vw,
+      56px
+    );
 
   line-height:1.25;
 
-  color:#2e2217;
+  color:#302318;
 }
 
+
 .name-amp{
-  font-family:"Cormorant Garamond",serif;
+
+  margin:5px 0;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
   font-size:43px;
 
@@ -444,141 +559,194 @@ section{
 }
 
 
-/* ==================================================
+/* =========================
    EVENING
-================================================== */
+========================= */
+
+.evening{
+
+  min-height:100svh;
+
+}
+
 
 .evening .content{
-  color:white;
+
+  padding-top:100px;
+  padding-bottom:100px;
+
 }
 
-.evening .micro{
-  color:#f0dfbd;
-}
 
 .evening-date{
-  margin-top:25px;
+
+  margin-top:28px;
 
   font-family:"Amiri",serif;
 
-  font-size:clamp(30px,7vw,49px);
+  font-size:
+    clamp(
+      31px,
+      7vw,
+      50px
+    );
 
-  line-height:1.55;
+  line-height:1.65;
 
-  color:#fff8e9;
-
-  text-shadow:
-    0 2px 15px rgba(45,25,10,.35);
+  color:#382b1d;
 }
 
+
 .evening-place{
-  margin-top:25px;
+
+  margin-top:28px;
+
+  color:#756650;
 
   font-size:17px;
 
   line-height:2.2;
-
-  color:#f7ead2;
-
-  text-shadow:
-    0 1px 8px rgba(30,20,10,.4);
 }
+
 
 .evening-place strong{
-  color:white;
+
+  color:#4c3a27;
+
+  font-weight:500;
 }
 
 
-/* ==================================================
+/* =========================
    RSVP
-================================================== */
+========================= */
+
+.rsvp{
+
+  min-height:100svh;
+
+}
+
 
 .rsvp .content{
-  padding-top:80px;
-  padding-bottom:80px;
+
+  padding-top:90px;
+  padding-bottom:90px;
+
 }
+
 
 .rsvp-title{
-  margin-top:18px;
+
+  margin-top:20px;
+  margin-bottom:30px;
 
   font-family:"Amiri",serif;
 
-  font-size:clamp(36px,8vw,53px);
+  font-size:
+    clamp(
+      36px,
+      8vw,
+      54px
+    );
 
-  line-height:1.35;
+  line-height:1.4;
 
-  color:#33261a;
+  color:#302419;
 }
+
 
 .guest-label{
-  margin-top:8px;
 
-  color:#806f5b;
-
-  font-size:15px;
-}
-
-#guestName{
-  margin-top:4px;
-
-  font-family:"Amiri",serif;
-
-  font-size:clamp(46px,10vw,63px);
-
-  line-height:1.2;
-
-  color:#2d2116;
-}
-
-.child-note{
-  max-width:560px;
-
-  margin:25px auto;
-
-  padding:15px 10px;
-
-  border-top:1px solid rgba(135,104,61,.28);
-  border-bottom:1px solid rgba(135,104,61,.28);
-
-  color:#796851;
-
-  font-size:14px;
-
-  line-height:2;
-}
-
-.choices{
-  display:flex;
-
-  justify-content:center;
-
-  gap:45px;
-
-  margin-top:25px;
-}
-
-.choice{
-  position:relative;
-
-  border:0;
-  background:none;
-
-  padding:8px 0;
-
-  color:#70604d;
-
-  font-family:"Noto Naskh Arabic",serif;
+  color:#82735f;
 
   font-size:16px;
 }
 
+
+#guestName{
+
+  margin-top:8px;
+
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      48px,
+      11vw,
+      66px
+    );
+
+  line-height:1.2;
+
+  color:#302318;
+}
+
+
+.child-note{
+
+  width:min(100%,560px);
+
+  margin:30px auto;
+
+  padding:18px 12px;
+
+  border-top:
+    1px solid
+    rgba(135,104,61,.22);
+
+  border-bottom:
+    1px solid
+    rgba(135,104,61,.22);
+
+  color:#806c50;
+
+  font-size:15px;
+
+  line-height:2;
+}
+
+
+.choices{
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:50px;
+
+  margin-top:30px;
+}
+
+
+.choice{
+
+  position:relative;
+
+  padding:10px 0;
+
+  border:0;
+
+  background:none;
+
+  color:#6c604f;
+
+  font-family:"Noto Naskh Arabic",serif;
+
+  font-size:17px;
+
+  cursor:pointer;
+}
+
+
 .choice:after{
+
   content:"";
 
   position:absolute;
 
   left:50%;
-  bottom:0;
+  bottom:1px;
 
   width:0;
   height:1px;
@@ -587,27 +755,35 @@ section{
 
   background:var(--gold);
 
-  transition:.3s;
+  transition:.35s;
 }
+
 
 .choice.active{
-  color:#2d2116;
+
+  color:#2e2318;
 }
 
+
 .choice.active:after{
+
   width:100%;
 }
 
+
 .confirm{
+
   display:block;
 
-  width:min(100%,280px);
+  width:min(100%,300px);
 
-  margin:25px auto 0;
+  margin:30px auto 0;
 
-  padding:13px 20px;
+  padding:14px 20px;
 
-  border:1px solid rgba(135,104,61,.55);
+  border:
+    1px solid
+    rgba(135,104,61,.55);
 
   background:rgba(255,255,255,.12);
 
@@ -615,118 +791,171 @@ section{
 
   font-family:"Noto Naskh Arabic",serif;
 
+  font-size:16px;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+
+.confirm:disabled{
+
+  opacity:.35;
+
+  cursor:default;
+}
+
+
+.msg{
+
+  min-height:28px;
+
+  margin-top:18px;
+
+  color:#8a6b3e;
+
   font-size:15px;
 }
 
-.confirm:disabled{
-  opacity:.35;
-}
 
-.msg{
-  min-height:25px;
-
-  margin-top:14px;
-
-  color:#88683d;
-
-  font-size:14px;
-}
-
-
-/* ==================================================
+/* =========================
    LOCATION
-================================================== */
+========================= */
+
+.location{
+
+  min-height:100svh;
+
+}
+
 
 .location .content{
-  padding-top:80px;
-  padding-bottom:80px;
+
+  padding-top:100px;
+  padding-bottom:100px;
+
 }
 
+
 .location-title{
-  margin-top:18px;
+
+  margin-top:20px;
 
   font-family:"Amiri",serif;
 
-  font-size:clamp(40px,9vw,66px);
+  font-size:
+    clamp(
+      42px,
+      10vw,
+      70px
+    );
 
-  line-height:1.35;
+  line-height:1.4;
 
-  color:#fff8e9;
-
-  text-shadow:
-    0 2px 15px rgba(35,20,10,.45);
+  color:#34281b;
 }
 
-.location-copy{
-  margin:8px 0 25px;
 
-  color:#fff0d6;
+.location-copy{
+
+  margin:20px 0 32px;
+
+  color:#756651;
 
   font-size:17px;
 
-  text-shadow:
-    0 1px 8px rgba(30,20,10,.4);
+  line-height:2.2;
 }
 
+
 .map-button{
+
   display:inline-block;
 
-  padding:12px 30px;
+  min-width:220px;
 
-  border:1px solid rgba(255,244,220,.75);
+  padding:14px 25px;
 
-  background:rgba(60,40,25,.12);
+  border:
+    1px solid
+    rgba(135,104,61,.55);
 
-  color:white;
+  color:#493923;
 
   text-decoration:none;
 
-  font-size:15px;
+  font-size:16px;
 
-  backdrop-filter:blur(2px);
+  transition:.3s;
 }
 
 
-/* ==================================================
+.map-button:hover{
+
+  background:
+    rgba(185,148,88,.1);
+}
+
+
+/* =========================
    PETALS
-================================================== */
+========================= */
 
 .petal{
+
   position:absolute;
 
   z-index:4;
 
-  width:8px;
-  height:12px;
+  width:7px;
+  height:11px;
 
   border-radius:70% 30% 70% 30%;
 
-  background:rgba(255,248,231,.85);
+  background:
+    rgba(255,255,255,.85);
 
   pointer-events:none;
+
+  animation:
+    petalFall
+    linear
+    infinite;
 }
 
-.petal:nth-of-type(1){
-  left:28%;
+
+.p1{
+  left:25%;
   top:-20px;
-  animation:fall 9s linear infinite;
+  animation-duration:9s;
+  animation-delay:1s;
 }
 
-.petal:nth-of-type(2){
-  left:65%;
+
+.p2{
+  left:68%;
   top:-30px;
-  animation:fall 11s 2s linear infinite;
+  animation-duration:11s;
+  animation-delay:4s;
 }
 
-.petal:nth-of-type(3){
-  left:47%;
-  top:-40px;
-  animation:fall 8s 4s linear infinite;
+
+.p3{
+  left:52%;
+  top:-30px;
+  animation-duration:8s;
+  animation-delay:6s;
 }
 
-@keyframes fall{
+
+@keyframes petalFall{
+
   0%{
-    transform:translate(0,-20px) rotate(0);
+    transform:
+      translate3d(0,-20px,0)
+      rotate(0deg);
+
     opacity:0;
   }
 
@@ -735,38 +964,49 @@ section{
   }
 
   50%{
-    transform:translate(25px,50vh) rotate(180deg);
+    transform:
+      translate3d(25px,50vh,0)
+      rotate(180deg);
   }
 
   100%{
-    transform:translate(-20px,110vh) rotate(360deg);
+    transform:
+      translate3d(-20px,110vh,0)
+      rotate(360deg);
+
     opacity:0;
   }
+
 }
 
 
-/* ==================================================
+/* =========================
    FOOTER
-================================================== */
+========================= */
 
 footer{
-  padding:35px 20px 50px;
+
+  padding:45px 20px 60px;
 
   text-align:center;
 
-  background:#f5eee3;
+  background:#f5efe4;
 
-  color:#897863;
+  color:#897966;
 
-  font-family:"Cormorant Garamond",serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
   letter-spacing:.20em;
 }
 
+
 footer small{
+
   display:block;
 
-  margin-top:7px;
+  margin-top:8px;
 
   font-size:11px;
 
@@ -774,95 +1014,146 @@ footer small{
 }
 
 
-/* ==================================================
+/* =========================
    MOBILE
-================================================== */
+========================= */
 
 @media(max-width:600px){
 
   .floral{
-    width:39%;
+
+    width:42%;
+
+    opacity:.9;
   }
+
+
+  .paper-center{
+
+    width:67%;
+  }
+
 
   .content{
-    width:78%;
+
+    width:68%;
+
+    padding-left:5px;
+    padding-right:5px;
   }
 
+
   .hero-quote{
+
     font-size:25px;
+
     line-height:1.9;
   }
 
+
   .invitation-title{
-    font-size:29px;
+
+    font-size:30px;
+
+    line-height:1.7;
   }
+
 
   .invitation-copy{
+
     font-size:14px;
+
+    line-height:2;
   }
 
-  .names{
-    gap:8px;
-  }
-
-  .name-block{
-    min-width:0;
-    flex:1;
-  }
 
   .name{
-    font-size:38px;
+
+    font-size:43px;
   }
 
-  .name-amp{
-    font-size:36px;
-  }
 
-  .evening-date{
-    font-size:31px;
-  }
+  .name-role{
 
-  .evening-place{
-    font-size:15px;
-  }
-
-  .rsvp-title{
-    font-size:39px;
-  }
-
-  #guestName{
-    font-size:52px;
-  }
-
-  .child-note{
     font-size:13px;
   }
 
-  .choices{
-    gap:30px;
+
+  .evening-date{
+
+    font-size:31px;
+
+    line-height:1.7;
   }
 
-  .choice{
+
+  .evening-place{
+
     font-size:15px;
   }
 
+
+  .rsvp-title{
+
+    font-size:40px;
+  }
+
+
+  #guestName{
+
+    font-size:53px;
+  }
+
+
+  .child-note{
+
+    font-size:13px;
+
+    line-height:2;
+  }
+
+
+  .choices{
+
+    gap:30px;
+  }
+
+
+  .choice{
+
+    font-size:15px;
+  }
+
+
   .location-title{
+
     font-size:43px;
+  }
+
+
+  .location-copy{
+
+    font-size:15px;
   }
 
 }
 
 
-/* ==================================================
-   REDUCED MOTION
-================================================== */
+/* =========================
+   ACCESSIBILITY
+========================= */
 
 @media(prefers-reduced-motion:reduce){
 
   *,
-  *::before,
-  *::after{
-    animation:none !important;
+  *:before,
+  *:after{
+
+    animation-duration:.01ms !important;
+
+    animation-iteration-count:1 !important;
+
+    scroll-behavior:auto !important;
   }
 
 }
@@ -874,74 +1165,84 @@ footer small{
 <body>
 
 
-<!-- ==================================================
+<!-- =========================
      HERO
-================================================== -->
+========================= -->
 
-<section class="sunset-page hero">
+<section class="page hero">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-  <div class="decor top">
+  <div class="paper-center"></div>
+
+  <div class="ornament top">
     <span>◇</span>
   </div>
 
-  <div class="decor bottom">
+  <div class="ornament bottom">
     <span>◇</span>
   </div>
 
-  <div class="petal"></div>
-  <div class="petal"></div>
-  <div class="petal"></div>
+
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
+  <div class="petal p3"></div>
 
 
   <div class="content">
-
-    <div class="micro">
-      ETERNAL SUNSET
-    </div>
 
     <div class="bismillah">
       بِسْمِ اللهِ نَبْدَأ
     </div>
 
     <div class="hero-quote">
+
       ما الحُب إلا لمن أتوا البيوت من أبوابها،
       <br>
       فأعزَ مقامنا فأعززنا مقامهم بقبولٍ ولين
+
     </div>
 
     <div class="hero-rule"></div>
 
   </div>
 
-  <div class="scroll">
-    ↓
+
+  <div class="scroll-text">
+
+    اسحب للأعلى
+
+    <span>↓</span>
+
   </div>
 
 </section>
 
 
-<!-- ==================================================
+
+<!-- =========================
      INVITATION
-================================================== -->
+========================= -->
 
-<section class="paper-page invitation">
+<section class="page invitation">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-  <div class="decor top">
+  <div class="paper-center"></div>
+
+  <div class="ornament top">
     <span>◇</span>
   </div>
 
-  <div class="decor bottom">
+  <div class="ornament bottom">
     <span>◇</span>
   </div>
 
-  <div class="petal"></div>
-  <div class="petal"></div>
+
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
 
 
   <div class="content">
@@ -950,23 +1251,32 @@ footer small{
       ETERNAL SUNSET
     </div>
 
+
     <div class="invitation-title">
+
       بكل محبة،
       <br>
       ندعوكم لمشاركتنا فرحة خطوبتنا
+
     </div>
 
+
     <div class="invitation-copy">
+
       في ليلة تجمعنا بمن نحب،
       <br>
       نحتفل ببداية فصل جديد من حكايتنا.
+
     </div>
 
+
     <div class="gold-line"></div>
+
 
     <div class="names">
 
       <div class="name-block">
+
         <div class="name-role">
           الدكتور
         </div>
@@ -974,13 +1284,17 @@ footer small{
         <div class="name">
           الحسن علاء
         </div>
+
       </div>
+
 
       <div class="name-amp">
         &amp;
       </div>
 
+
       <div class="name-block">
+
         <div class="name-role">
           الصيدلانية
         </div>
@@ -988,6 +1302,7 @@ footer small{
         <div class="name">
           حنين بشير
         </div>
+
       </div>
 
     </div>
@@ -997,25 +1312,30 @@ footer small{
 </section>
 
 
-<!-- ==================================================
+
+<!-- =========================
      EVENING
-================================================== -->
+========================= -->
 
-<section class="sunset-page evening">
+<section class="page evening">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-  <div class="decor top">
+  <div class="paper-center"></div>
+
+  <div class="ornament top">
     <span>◇</span>
   </div>
 
-  <div class="decor bottom">
+  <div class="ornament bottom">
     <span>◇</span>
   </div>
 
-  <div class="petal"></div>
-  <div class="petal"></div>
+
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
+  <div class="petal p3"></div>
 
 
   <div class="content">
@@ -1023,6 +1343,7 @@ footer small{
     <div class="micro">
       ETERNAL SUNSET
     </div>
+
 
     <div
       class="evening-date"
@@ -1031,10 +1352,17 @@ footer small{
       التاريخ والوقت يُحددان لاحقًا
     </div>
 
+
     <div class="evening-place">
+
       في مزرعة ارض المرح
+
       <br>
-      <strong>على نهر دجلة</strong>
+
+      <strong>
+        على نهر دجلة
+      </strong>
+
     </div>
 
   </div>
@@ -1042,25 +1370,25 @@ footer small{
 </section>
 
 
-<!-- ==================================================
+
+<!-- =========================
      RSVP
-================================================== -->
+========================= -->
 
-<section class="paper-page rsvp">
+<section class="page rsvp">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-  <div class="decor top">
+  <div class="paper-center"></div>
+
+  <div class="ornament top">
     <span>◇</span>
   </div>
 
-  <div class="decor bottom">
+  <div class="ornament bottom">
     <span>◇</span>
   </div>
-
-  <div class="petal"></div>
-  <div class="petal"></div>
 
 
   <div class="content">
@@ -1069,30 +1397,35 @@ footer small{
       RSVP
     </div>
 
+
     <div class="rsvp-title">
       تأكيد الحضور
     </div>
+
 
     <div id="loading">
       جاري تجهيز دعوتكم...
     </div>
 
-    <div
-      id="guest"
-      style="display:none;"
-    >
+
+    <div id="guest" style="display:none;">
 
       <div class="guest-label">
         هذه الدعوة مخصصة إلى
       </div>
 
+
       <div id="guestName"></div>
 
+
       <div class="child-note">
+
         نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
         نعتذر عن استقبال الأطفال دون 15 عامًا،
         حرصًا على سلامتهم 🤍
+
       </div>
+
 
       <div class="choices">
 
@@ -1104,6 +1437,7 @@ footer small{
           سأكون من الحاضرين
         </button>
 
+
         <button
           id="no"
           class="choice"
@@ -1114,16 +1448,18 @@ footer small{
 
       </div>
 
+
       <div
         id="msg"
         class="msg"
       ></div>
 
+
       <button
         id="submit"
         class="confirm"
-        type="button"
         disabled
+        type="button"
       >
         تأكيد الإجابة
       </button>
@@ -1135,25 +1471,29 @@ footer small{
 </section>
 
 
-<!-- ==================================================
+
+<!-- =========================
      LOCATION
-================================================== -->
+========================= -->
 
-<section class="sunset-page location">
+<section class="page location">
 
-  <div class="floral left"></div>
-  <div class="floral right"></div>
+  <div class="floral floral-left"></div>
+  <div class="floral floral-right"></div>
 
-  <div class="decor top">
+  <div class="paper-center"></div>
+
+  <div class="ornament top">
     <span>◇</span>
   </div>
 
-  <div class="decor bottom">
+  <div class="ornament bottom">
     <span>◇</span>
   </div>
 
-  <div class="petal"></div>
-  <div class="petal"></div>
+
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
 
 
   <div class="content">
@@ -1162,13 +1502,18 @@ footer small{
       THE PLACE
     </div>
 
+
     <div class="location-title">
       على ضفاف دجلة
     </div>
 
+
     <div class="location-copy">
+
       حيث يبدأ المساء مع الغروب
+
     </div>
+
 
     <a
       id="map"
@@ -1185,6 +1530,7 @@ footer small{
 </section>
 
 
+
 <footer>
 
   AL HASSAN &amp; HANEEN
@@ -1196,58 +1542,77 @@ footer small{
 </footer>
 
 
+
 <script>
 
-/* ==================================================
+/* =========================
    SUPABASE
-================================================== */
+========================= */
 
 const SUPABASE_URL =
 "https://riikgqzpijmfbeqzztvi.supabase.co";
 
+
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_sxZPK_L7D6pqUqM_cIRNEA_qZbvT4_q";
+
 
 const EVENT_DATE_TEXT =
 "التاريخ والوقت يُحددان لاحقًا";
 
+
 const MAP_URL =
 "#";
 
+
 const client =
+(
+  SUPABASE_URL.startsWith("http")
+)
+?
 supabase.createClient(
   SUPABASE_URL,
   SUPABASE_PUBLISHABLE_KEY
-);
+)
+:
+null;
 
 
-/* ==================================================
+/* =========================
    ELEMENTS
-================================================== */
+========================= */
 
 const dateEl =
 document.getElementById("date");
 
+
 const mapEl =
 document.getElementById("map");
+
 
 const loadingEl =
 document.getElementById("loading");
 
+
 const guestEl =
 document.getElementById("guest");
+
 
 const guestNameEl =
 document.getElementById("guestName");
 
+
 const yesBtn =
 document.getElementById("yes");
+
 
 const noBtn =
 document.getElementById("no");
 
+
 const submitBtn =
 document.getElementById("submit");
+
 
 const msgEl =
 document.getElementById("msg");
@@ -1256,13 +1621,14 @@ document.getElementById("msg");
 dateEl.textContent =
 EVENT_DATE_TEXT;
 
+
 mapEl.href =
 MAP_URL;
 
 
-/* ==================================================
+/* =========================
    INVITE CODE
-================================================== */
+========================= */
 
 const code =
 new URLSearchParams(
@@ -1278,45 +1644,61 @@ location.pathname
 let status = null;
 
 
-/* ==================================================
-   RSVP CHOICE
-================================================== */
+/* =========================
+   CHOICE
+========================= */
 
 function choose(selectedStatus){
 
   status =
     selectedStatus;
 
+
   submitBtn.disabled =
     false;
+
 
   yesBtn.classList.toggle(
     "active",
     selectedStatus === "attending"
   );
 
+
   noBtn.classList.toggle(
     "active",
     selectedStatus === "not_attending"
   );
 
+
   msgEl.textContent =
     "";
+
 }
 
 
 yesBtn.onclick = () =>
   choose("attending");
 
+
 noBtn.onclick = () =>
   choose("not_attending");
 
 
-/* ==================================================
+/* =========================
    LOAD GUEST
-================================================== */
+========================= */
 
 async function load(){
+
+  if(!client){
+
+    loadingEl.textContent =
+      "تعذر الاتصال بالخدمة";
+
+    return;
+
+  }
+
 
   if(!code){
 
@@ -1324,7 +1706,9 @@ async function load(){
       "رابط الدعوة غير صحيح";
 
     return;
+
   }
+
 
   try{
 
@@ -1336,17 +1720,21 @@ async function load(){
         }
       );
 
+
     if(result.error){
 
       loadingEl.textContent =
-        "تعذر تجهيز الدعوة";
+        "خطأ: " +
+        result.error.message;
 
       console.error(
         result.error
       );
 
       return;
+
     }
+
 
     if(
       !result.data ||
@@ -1357,32 +1745,44 @@ async function load(){
         "لم يتم العثور على هذه الدعوة";
 
       return;
+
     }
 
-    /* اسم المدعو فقط */
+
+    /*
+      هذا هو اسم المدعو
+      وليس اسم العريس
+    */
 
     guestNameEl.textContent =
       result.data[0].name;
 
+
     guestEl.style.display =
       "block";
+
 
     loadingEl.textContent =
       "";
 
-  }catch(error){
+  }
+
+
+  catch(error){
 
     loadingEl.textContent =
       "حدث خطأ أثناء تجهيز الدعوة";
 
     console.error(error);
+
   }
+
 }
 
 
-/* ==================================================
+/* =========================
    SUBMIT RSVP
-================================================== */
+========================= */
 
 submitBtn.onclick =
 async()=>{
@@ -1393,13 +1793,17 @@ async()=>{
       "اختر إجابتك أولاً.";
 
     return;
+
   }
+
 
   submitBtn.disabled =
     true;
 
+
   msgEl.textContent =
     "جاري تسجيل إجابتك...";
+
 
   try{
 
@@ -1413,53 +1817,63 @@ async()=>{
         }
       );
 
+
     if(result.error){
 
       msgEl.textContent =
-        "تعذر تسجيل الإجابة.";
+        "خطأ: " +
+        result.error.message;
 
       submitBtn.disabled =
         false;
 
-      console.error(
-        result.error
-      );
-
       return;
+
     }
+
 
     if(result.data === true){
 
       msgEl.textContent =
         "تم تسجيل إجابتك بنجاح 🤍";
 
-    }else{
+    }
+
+    else{
 
       msgEl.textContent =
         "تعذر تسجيل الإجابة.";
 
       submitBtn.disabled =
         false;
+
     }
 
-  }catch(error){
+  }
+
+
+  catch(error){
 
     msgEl.textContent =
-      "حدث خطأ أثناء التسجيل.";
+      "خطأ: " +
+      error.message;
 
     submitBtn.disabled =
       false;
+
   }
+
 };
 
 
-/* ==================================================
+/* =========================
    START
-================================================== */
+========================= */
 
 load();
 
 </script>
+
 
 </body>
 </html>
