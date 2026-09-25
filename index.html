@@ -62,6 +62,7 @@ map.href=MAP_URL;
 
 function choose(s){
   status=s;
+  submit.disabled=false;
   yes.classList.toggle("active",s==="attending");
   no.classList.toggle("active",s==="not_attending");
 }
