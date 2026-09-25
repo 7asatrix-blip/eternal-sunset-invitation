@@ -13,16 +13,12 @@
 
 :root{
   --ivory:#f5f0e7;
-  --cream:#ebe1d0;
-  --champagne:#d8bd8a;
   --gold:#b99458;
   --bronze:#87683d;
   --ink:#211b15;
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html{
   scroll-behavior:smooth;
@@ -34,6 +30,10 @@ body{
   background:var(--ivory);
   font-family:"Noto Naskh Arabic",serif;
   overflow-x:hidden;
+}
+
+.hidden{
+  display:none !important;
 }
 
 body:before{
@@ -103,6 +103,195 @@ section{
 
 
 /* =========================
+   FLOWERS
+========================= */
+
+.floral{
+  position:absolute;
+  z-index:1;
+  pointer-events:none;
+
+  width:300px;
+  height:100%;
+
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  background-position:left center;
+
+  opacity:.82;
+
+  transform-origin:30% 70%;
+
+  animation:
+    floralBreeze
+    7s
+    ease-in-out
+    infinite;
+}
+
+.floral.left{
+  left:-25px;
+  top:0;
+
+  background-image:
+    url("eternal-sunset-floral-left.png");
+}
+
+.floral.right{
+  right:-25px;
+  top:0;
+
+  transform-origin:70% 70%;
+
+  background-image:
+    url("eternal-sunset-floral-right.png");
+
+  animation-delay:-2.5s;
+}
+
+@keyframes floralBreeze{
+
+  0%,100%{
+    transform:
+      rotate(0deg)
+      translate3d(0,0,0);
+  }
+
+  25%{
+    transform:
+      rotate(.7deg)
+      translate3d(3px,-2px,0);
+  }
+
+  50%{
+    transform:
+      rotate(-.45deg)
+      translate3d(-2px,2px,0);
+  }
+
+  75%{
+    transform:
+      rotate(.35deg)
+      translate3d(2px,1px,0);
+  }
+
+}
+
+
+/* =========================
+   PETALS
+========================= */
+
+.petals{
+  position:absolute;
+  inset:0;
+
+  z-index:2;
+
+  pointer-events:none;
+
+  overflow:hidden;
+}
+
+.petals span{
+  position:absolute;
+
+  width:10px;
+  height:7px;
+
+  border-radius:
+    70% 30% 70% 30%;
+
+  background:
+    rgba(255,249,235,.9);
+
+  box-shadow:
+    0 2px 5px
+    rgba(100,70,35,.08);
+
+  animation:
+    petalFloat
+    linear
+    infinite;
+}
+
+.petals span:nth-child(1){
+  left:14%;
+  top:-5%;
+  animation-duration:11s;
+  animation-delay:-2s;
+  transform:rotate(20deg);
+}
+
+.petals span:nth-child(2){
+  left:31%;
+  top:-8%;
+  animation-duration:14s;
+  animation-delay:-7s;
+}
+
+.petals span:nth-child(3){
+  left:52%;
+  top:-4%;
+  animation-duration:12s;
+  animation-delay:-4s;
+}
+
+.petals span:nth-child(4){
+  left:69%;
+  top:-10%;
+  animation-duration:15s;
+  animation-delay:-10s;
+}
+
+.petals span:nth-child(5){
+  left:83%;
+  top:-6%;
+  animation-duration:13s;
+  animation-delay:-5s;
+}
+
+.petals span:nth-child(6){
+  left:43%;
+  top:-12%;
+  animation-duration:17s;
+  animation-delay:-12s;
+}
+
+@keyframes petalFloat{
+
+  0%{
+    transform:
+      translate3d(0,-20px,0)
+      rotate(0deg);
+    opacity:0;
+  }
+
+  10%{
+    opacity:.85;
+  }
+
+  50%{
+    transform:
+      translate3d(35px,50vh,0)
+      rotate(170deg);
+  }
+
+  90%{
+    opacity:.7;
+  }
+
+  100%{
+    transform:
+      translate3d(-25px,110vh,0)
+      rotate(330deg);
+    opacity:0;
+  }
+
+}
+
+
+/* =========================
    HERO
 ========================= */
 
@@ -110,190 +299,146 @@ section{
   display:flex;
   align-items:center;
   justify-content:center;
+
   text-align:center;
 
   background:
     linear-gradient(
       180deg,
-      #faf7f0 0%,
-      #f4ead9 48%,
-      #dfc69a 78%,
-      #b79664 100%
+      rgba(250,247,240,.58),
+      rgba(235,215,181,.48)
+    ),
+    url("eternal-sunset-paper.jpg")
+    center/cover;
+}
+
+.hero:after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,248,233,.12),
+      rgba(183,150,100,.18)
     );
+
+  z-index:0;
 }
 
 .hero-sun{
   position:absolute;
+
   width:120vw;
   height:45vh;
+
   left:50%;
   bottom:7%;
+
   transform:translateX(-50%);
 
   background:
     radial-gradient(
       ellipse at center,
-      rgba(255,236,190,.95) 0%,
-      rgba(225,193,133,.55) 25%,
-      rgba(201,163,100,.2) 48%,
+      rgba(255,236,190,.9),
+      rgba(225,193,133,.35) 30%,
       transparent 72%
     );
 
   filter:blur(18px);
-  animation:sunBreath 9s ease-in-out infinite;
+
+  animation:
+    sunBreath
+    9s
+    ease-in-out
+    infinite;
+
+  z-index:1;
 }
 
 @keyframes sunBreath{
+
   0%,100%{
-    transform:translateX(-50%) scale(1);
-    opacity:.85;
-  }
+    transform:
+      translateX(-50%)
+      scale(1);
 
-  50%{
-    transform:translateX(-50%) scale(1.06);
-    opacity:1;
-  }
-}
-
-
-/* WATER */
-
-.water{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:29%;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(141,123,96,.05),
-      rgba(91,77,59,.2)
-    );
-
-  overflow:hidden;
-}
-
-.water:before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:18%;
-  width:75%;
-  height:70%;
-
-  transform:translateX(-50%);
-
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(255,236,191,.18) 0px,
-      rgba(255,236,191,.18) 1px,
-      transparent 1px,
-      transparent 9px
-    );
-
-  mask-image:
-    linear-gradient(
-      90deg,
-      transparent,
-      black 20%,
-      black 80%,
-      transparent
-    );
-
-  animation:waterMove 8s ease-in-out infinite;
-}
-
-@keyframes waterMove{
-  0%,100%{
-    transform:translateX(-50%) scaleX(.9);
-    opacity:.45;
-  }
-
-  50%{
-    transform:translateX(-50%) scaleX(1);
     opacity:.8;
   }
+
+  50%{
+    transform:
+      translateX(-50%)
+      scale(1.06);
+
+    opacity:1;
+  }
+
 }
-
-
-/* ORGANIC SHELL */
-
-.shell{
-  position:absolute;
-  width:230px;
-  height:150px;
-  border:1px solid rgba(130,98,54,.24);
-  border-radius:80% 20% 75% 25%;
-  transform:rotate(-18deg);
-  opacity:.5;
-}
-
-.shell:before,
-.shell:after{
-  content:"";
-  position:absolute;
-  inset:12px;
-  border:1px solid rgba(130,98,54,.18);
-  border-radius:inherit;
-}
-
-.shell:before{
-  inset:25px;
-}
-
-.shell.left{
-  left:-70px;
-  top:22%;
-}
-
-.shell.right{
-  right:-90px;
-  bottom:25%;
-  transform:rotate(160deg);
-}
-
-
-/* HERO CONTENT */
 
 .hero-content{
   position:relative;
-  z-index:3;
+
+  z-index:4;
+
   width:min(90%,760px);
+
   padding:30px 20px;
+
   margin-top:-5vh;
 }
 
 .bismillah{
   color:var(--bronze);
+
   font-family:"Amiri",serif;
+
   font-size:17px;
-  letter-spacing:.05em;
 
   opacity:0;
-  animation:fadeIn 1.2s .2s forwards;
+
+  animation:
+    fadeIn
+    1.2s
+    .2s
+    forwards;
 }
 
 .hero-quote{
   max-width:720px;
+
   margin:38px auto 0;
 
   font-family:"Amiri",serif;
-  font-size:clamp(25px,6vw,42px);
-  font-weight:400;
+
+  font-size:
+    clamp(
+      25px,
+      6vw,
+      42px
+    );
+
   line-height:1.9;
 
   color:#4b3823;
 
   opacity:0;
-  animation:titleIn 1.6s .55s cubic-bezier(.16,1,.3,1) forwards;
+
+  animation:
+    titleIn
+    1.6s
+    .55s
+    cubic-bezier(.16,1,.3,1)
+    forwards;
 }
 
 .hero-rule{
   width:0;
+
   height:1px;
+
   margin:28px auto 0;
 
   background:
@@ -304,58 +449,58 @@ section{
       transparent
     );
 
-  animation:lineIn 1.2s 1.25s forwards;
-}
-
-.hero-event{
-  margin-top:28px;
-
-  font-family:"Amiri",serif;
-  font-size:clamp(19px,4.5vw,28px);
-  font-weight:400;
-
-  color:#715b3c;
-
-  opacity:0;
-  animation:fadeIn 1.2s 1.35s forwards;
+  animation:
+    lineIn
+    1.2s
+    1.25s
+    forwards;
 }
 
 .hero-scroll{
   position:absolute;
+
   z-index:5;
+
   bottom:25px;
+
   left:50%;
-  transform:translateX(-50%);
+
+  transform:
+    translateX(-50%);
 
   color:#806a49;
 
   font-family:"Amiri",serif;
+
   font-size:13px;
 
   opacity:0;
-  animation:fadeIn 1s 1.7s forwards;
+
+  animation:
+    fadeIn
+    1s
+    1.7s
+    forwards;
 }
 
 .hero-scroll span{
   display:block;
+
   margin-top:8px;
-  animation:bounce 2s infinite;
+
+  animation:
+    bounce
+    2s
+    infinite;
 }
 
-
-/* HERO ANIMATIONS */
-
 @keyframes fadeIn{
-  from{
-    opacity:0;
-  }
-
-  to{
-    opacity:1;
-  }
+  from{opacity:0}
+  to{opacity:1}
 }
 
 @keyframes titleIn{
+
   from{
     opacity:0;
     transform:translateY(45px);
@@ -367,6 +512,7 @@ section{
     transform:none;
     filter:none;
   }
+
 }
 
 @keyframes lineIn{
@@ -376,6 +522,7 @@ section{
 }
 
 @keyframes bounce{
+
   0%,100%{
     transform:translateY(0);
   }
@@ -383,6 +530,7 @@ section{
   50%{
     transform:translateY(7px);
   }
+
 }
 
 
@@ -392,39 +540,56 @@ section{
 
 .invitation{
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   text-align:center;
 
   background:
-    radial-gradient(
-      ellipse at 50% 10%,
-      #fffdf8,
-      transparent 55%
+    linear-gradient(
+      rgba(247,241,230,.88),
+      rgba(247,241,230,.9)
     ),
-    #f5f0e7;
+    url("eternal-sunset-paper.jpg")
+    center/cover;
 }
 
 .invitation:before{
   content:"";
-  position:absolute;
-  inset:7% 9%;
 
-  border-top:1px solid rgba(135,104,61,.2);
-  border-bottom:1px solid rgba(135,104,61,.2);
+  position:absolute;
+
+  inset:5% 6%;
+
+  border:
+    1px solid
+    rgba(135,104,61,.18);
+
+  z-index:0;
 }
 
 .invitation-inner{
   max-width:720px;
+
+  position:relative;
+
+  z-index:4;
 }
 
 .invitation-title{
   margin-top:30px;
 
   font-family:"Amiri",serif;
-  font-size:clamp(30px,7.5vw,58px);
+
+  font-size:
+    clamp(
+      30px,
+      7.5vw,
+      58px
+    );
+
   line-height:1.55;
-  font-weight:400;
 
   color:#33271a;
 }
@@ -432,9 +597,10 @@ section{
 .invitation-copy{
   margin-top:30px;
 
-  font-family:"Noto Naskh Arabic",serif;
   color:#796b59;
+
   font-size:16px;
+
   line-height:2.2;
 }
 
@@ -448,16 +614,22 @@ section{
 
 .name-role{
   color:var(--bronze);
-  font-family:"Noto Naskh Arabic",serif;
+
   font-size:13px;
-  line-height:1.5;
 }
 
 .name{
   margin-top:3px;
 
   font-family:"Amiri",serif;
-  font-size:clamp(38px,8vw,58px);
+
+  font-size:
+    clamp(
+      38px,
+      8vw,
+      58px
+    );
+
   line-height:1.15;
 
   color:#33271a;
@@ -468,7 +640,8 @@ section{
 
   font:
     400 42px
-    "Cormorant Garamond",serif;
+    "Cormorant Garamond",
+    serif;
 }
 
 
@@ -478,58 +651,48 @@ section{
 
 .evening{
   display:flex;
+
   align-items:center;
   justify-content:center;
+
   text-align:center;
 
   color:var(--ivory);
 
   background:
     linear-gradient(
-      180deg,
-      #a98b60 0%,
-      #866b47 25%,
-      #66513a 52%,
-      #423526 78%,
-      #2b2219 100%
-    );
+      rgba(91,62,35,.35),
+      rgba(49,37,25,.5)
+    ),
+    url("eternal-sunset-paper.jpg")
+    center/cover;
 }
 
 .evening:before{
   content:"";
+
   position:absolute;
+
   inset:0;
 
   background:
     radial-gradient(
       ellipse at 50% 30%,
-      rgba(255,225,170,.35),
+      rgba(255,225,170,.55),
       transparent 35%
-    );
-}
-
-.evening-water{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:35%;
-
-  background:
-    repeating-linear-gradient(
+    ),
+    linear-gradient(
       180deg,
-      rgba(255,224,173,.08) 0,
-      rgba(255,224,173,.08) 1px,
-      transparent 1px,
-      transparent 11px
+      rgba(190,151,95,.38),
+      rgba(50,38,27,.7)
     );
-
-  opacity:.7;
 }
 
 .evening-inner{
   position:relative;
-  z-index:2;
+
+  z-index:4;
+
   text-align:center;
 }
 
@@ -541,17 +704,22 @@ section{
   margin-top:25px;
 
   font-family:"Amiri",serif;
-  font-size:clamp(30px,7vw,55px);
-  line-height:1.45;
 
-  font-weight:400;
+  font-size:
+    clamp(
+      30px,
+      7vw,
+      55px
+    );
+
+  line-height:1.45;
 }
 
 .evening-place{
   margin-top:28px;
 
-  font-family:"Noto Naskh Arabic",serif;
   font-size:17px;
+
   line-height:2;
 
   color:#e8dcc9;
@@ -559,6 +727,7 @@ section{
 
 .evening-place strong{
   color:#fff8eb;
+
   font-weight:500;
 }
 
@@ -569,20 +738,26 @@ section{
 
 .rsvp{
   display:flex;
+
   align-items:center;
   justify-content:center;
 
+  text-align:center;
+
   background:
     linear-gradient(
-      180deg,
-      #eee5d7,
-      #f8f4ec
-    );
-
-  text-align:center;
+      rgba(247,241,230,.9),
+      rgba(247,241,230,.92)
+    ),
+    url("eternal-sunset-paper.jpg")
+    center/cover;
 }
 
 .rsvp-inner{
+  position:relative;
+
+  z-index:4;
+
   width:min(90%,650px);
 }
 
@@ -594,8 +769,14 @@ section{
   margin:25px 0 35px;
 
   font-family:"Amiri",serif;
-  font-size:clamp(34px,8vw,54px);
-  line-height:1.3;
+
+  font-size:
+    clamp(
+      34px,
+      8vw,
+      54px
+    );
+
   font-weight:400;
 
   color:#35291b;
@@ -607,7 +788,7 @@ section{
 
 .guest-label{
   color:#847560;
-  font-family:"Noto Naskh Arabic",serif;
+
   font-size:16px;
 }
 
@@ -615,7 +796,14 @@ section{
   margin-top:8px;
 
   font-family:"Amiri",serif;
-  font-size:clamp(42px,9vw,64px);
+
+  font-size:
+    clamp(
+      42px,
+      9vw,
+      64px
+    );
+
   line-height:1.2;
 
   color:#342719;
@@ -623,23 +811,31 @@ section{
 
 .child-note{
   max-width:580px;
+
   margin:30px auto;
 
   padding:18px 10px;
 
-  border-top:1px solid rgba(135,104,61,.2);
-  border-bottom:1px solid rgba(135,104,61,.2);
+  border-top:
+    1px solid
+    rgba(135,104,61,.2);
+
+  border-bottom:
+    1px solid
+    rgba(135,104,61,.2);
 
   color:#806b4c;
 
-  font-family:"Noto Naskh Arabic",serif;
   font-size:15px;
+
   line-height:2;
 }
 
 .choices{
   display:flex;
+
   justify-content:center;
+
   gap:45px;
 
   margin-top:30px;
@@ -651,13 +847,15 @@ section{
   padding:10px 0;
 
   border:0;
-  border-radius:0;
 
   background:none;
 
   color:#6d604f;
 
-  font-family:"Noto Naskh Arabic",serif;
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
   font-size:16px;
 }
 
@@ -665,22 +863,25 @@ section{
   content:"";
 
   position:absolute;
+
   bottom:2px;
+
   left:50%;
 
   width:0;
+
   height:1px;
 
   background:var(--gold);
 
-  transform:translateX(-50%);
+  transform:
+    translateX(-50%);
+
   transition:.4s;
 }
 
 .choice.active{
-  background:none;
   color:#2f2418;
-  border:0;
 }
 
 .choice.active:after{
@@ -696,22 +897,26 @@ section{
 
   padding:14px 20px;
 
-  border-radius:0;
-
-  border:1px solid rgba(135,104,61,.55);
+  border:
+    1px solid
+    rgba(135,104,61,.55);
 
   background:transparent;
 
   color:#493923;
 
-  font-family:"Noto Naskh Arabic",serif;
+  font-family:
+    "Noto Naskh Arabic",
+    serif;
+
   font-size:16px;
 
   transition:.4s;
 }
 
 .confirm:hover{
-  background:rgba(185,148,88,.1);
+  background:
+    rgba(185,148,88,.1);
 }
 
 .confirm:disabled{
@@ -725,7 +930,6 @@ section{
 
   color:#8a6b3e;
 
-  font-family:"Noto Naskh Arabic",serif;
   font-size:15px;
 }
 
@@ -738,21 +942,26 @@ section{
   min-height:85svh;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   text-align:center;
 
   background:
-    radial-gradient(
-      ellipse at 50% 0%,
-      #fffdf8,
-      #e9dfcf 70%
-    );
+    linear-gradient(
+      rgba(247,241,230,.82),
+      rgba(247,241,230,.86)
+    ),
+    url("eternal-sunset-paper.jpg")
+    center/cover;
 }
 
 .location-inner{
   position:relative;
+
+  z-index:4;
+
   width:min(90%,700px);
 }
 
@@ -760,9 +969,12 @@ section{
   width:170px;
   height:105px;
 
-  margin:0 auto 30px;
+  margin:
+    0 auto 30px;
 
-  border:1px solid rgba(135,104,61,.28);
+  border:
+    1px solid
+    rgba(135,104,61,.28);
 
   border-radius:
     70% 30% 65% 35%;
@@ -775,9 +987,12 @@ section{
   content:"";
 
   position:absolute;
+
   inset:12px;
 
-  border:1px solid rgba(135,104,61,.18);
+  border:
+    1px solid
+    rgba(135,104,61,.18);
 
   border-radius:inherit;
 }
@@ -788,18 +1003,25 @@ section{
 
 .location-title{
   font-family:"Amiri",serif;
-  font-size:clamp(40px,10vw,72px);
+
+  font-size:
+    clamp(
+      40px,
+      10vw,
+      72px
+    );
 
   color:#382b1c;
 }
 
 .location-copy{
-  margin:20px 0 35px;
+  margin:
+    20px 0 28px;
 
   color:#766955;
 
-  font-family:"Noto Naskh Arabic",serif;
   font-size:17px;
+
   line-height:2;
 }
 
@@ -810,20 +1032,22 @@ section{
 
   padding:14px 25px;
 
-  border:1px solid rgba(135,104,61,.5);
+  border:
+    1px solid
+    rgba(135,104,61,.5);
 
   color:#4b3823;
 
   text-decoration:none;
 
-  font-family:"Noto Naskh Arabic",serif;
   font-size:15px;
 
   transition:.4s;
 }
 
 .map-button:hover{
-  background:rgba(185,148,88,.1);
+  background:
+    rgba(185,148,88,.1);
 }
 
 
@@ -836,20 +1060,30 @@ footer{
 
   text-align:center;
 
-  background:#f5f0e7;
+  background:
+    linear-gradient(
+      rgba(247,241,230,.9),
+      rgba(247,241,230,.92)
+    ),
+    url("eternal-sunset-paper.jpg")
+    center/cover;
 
   color:#8a7b68;
 
-  font-family:"Cormorant Garamond",serif;
+  font-family:
+    "Cormorant Garamond",
+    serif;
 
   letter-spacing:.18em;
 }
 
 footer small{
   display:block;
+
   margin-top:8px;
 
   font-size:11px;
+
   letter-spacing:.25em;
 }
 
@@ -860,8 +1094,17 @@ footer small{
 
 @media(max-width:600px){
 
-  .shell{
-    opacity:.35;
+  .floral{
+    width:220px;
+    opacity:.68;
+  }
+
+  .floral.left{
+    left:-75px;
+  }
+
+  .floral.right{
+    right:-75px;
   }
 
   .hero-content{
@@ -870,13 +1113,10 @@ footer small{
 
   .hero-quote{
     max-width:340px;
-    font-size:25px;
-    line-height:1.9;
-  }
 
-  .hero-event{
-    font-size:20px;
-    margin-top:24px;
+    font-size:25px;
+
+    line-height:1.9;
   }
 
   .invitation:before{
@@ -884,16 +1124,32 @@ footer small{
   }
 
   .invitation-title{
-    font-size:clamp(30px,8vw,43px);
+    font-size:
+      clamp(
+        30px,
+        8vw,
+        43px
+      );
+
     line-height:1.65;
   }
 
   .name{
-    font-size:clamp(40px,10vw,54px);
+    font-size:
+      clamp(
+        40px,
+        10vw,
+        54px
+      );
   }
 
   .evening-date{
-    font-size:clamp(29px,7.5vw,42px);
+    font-size:
+      clamp(
+        29px,
+        7.5vw,
+        42px
+      );
   }
 
   .rsvp h2{
@@ -908,14 +1164,8 @@ footer small{
     gap:30px;
   }
 
-  .choice{
-    font-size:16px;
-  }
-
-  .location-copy{
-    margin-bottom:30px;
-  }
 }
+
 </style>
 </head>
 
@@ -929,12 +1179,19 @@ footer small{
 
 <section class="hero">
 
+  <div class="floral left"></div>
+  <div class="floral right"></div>
+
+  <div class="petals">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
   <div class="hero-sun"></div>
-
-  <div class="water"></div>
-
-  <div class="shell left"></div>
-  <div class="shell right"></div>
 
   <div class="hero-content">
 
@@ -943,9 +1200,11 @@ footer small{
     </div>
 
     <div class="hero-quote">
+
       ما الحُب إلا لمن أتوا البيوت من أبوابها،
       <br>
       فأعزَ مقامنا فأعززنا مقامهم بقبولٍ ولين
+
     </div>
 
     <div class="hero-rule"></div>
@@ -953,8 +1212,11 @@ footer small{
   </div>
 
   <div class="hero-scroll">
+
     اسحب للأعلى
+
     <span>↓</span>
+
   </div>
 
 </section>
@@ -966,6 +1228,21 @@ footer small{
 
 <section class="invitation">
 
+  <div class="floral left"></div>
+  <div class="floral right"></div>
+
+  <div class="petals">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+
   <div class="inner invitation-inner reveal">
 
     <div class="micro">
@@ -973,18 +1250,23 @@ footer small{
     </div>
 
     <div class="invitation-title">
+
       بكل محبة،
       <br>
       ندعوكم لمشاركتنا فرحة خطوبتنا
+
     </div>
 
     <div class="invitation-copy">
+
       في ليلة تجمعنا بمن نحب،
       <br>
       نحتفل ببداية فصل جديد من حكايتنا.
+
     </div>
 
     <div class="gold-line"></div>
+
 
     <div class="names">
 
@@ -1000,9 +1282,11 @@ footer small{
 
       </div>
 
+
       <div class="name-amp">
         &amp;
       </div>
+
 
       <div class="name-block">
 
@@ -1029,7 +1313,20 @@ footer small{
 
 <section class="evening">
 
-  <div class="evening-water"></div>
+  <div class="floral left"></div>
+  <div class="floral right"></div>
+
+  <div class="petals">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
 
   <div class="evening-inner reveal">
 
@@ -1042,9 +1339,14 @@ footer small{
     </div>
 
     <div class="evening-place">
+
       في مزرعة ارض المرح
       <br>
-      <strong>على نهر دجلة</strong>
+
+      <strong>
+        على نهر دجلة
+      </strong>
+
     </div>
 
   </div>
@@ -1057,6 +1359,21 @@ footer small{
 ========================= -->
 
 <section class="rsvp">
+
+  <div class="floral left"></div>
+  <div class="floral right"></div>
+
+  <div class="petals">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
 
   <div class="rsvp-inner reveal">
 
@@ -1072,34 +1389,50 @@ footer small{
       جاري تجهيز دعوتكم...
     </div>
 
+
     <div id="guest" class="hidden">
 
       <div class="guest-label">
         هذه الدعوة مخصصة إلى
       </div>
 
-      <!-- اسم المدعو يظهر هنا تلقائياً من Supabase -->
       <div id="guestName"></div>
 
+
       <div class="child-note">
+
         نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
         نعتذر عن استقبال الأطفال دون 15 عامًا،
         حرصًا على سلامتهم 🤍
+
       </div>
+
 
       <div class="choices">
 
-        <button id="yes" class="choice">
+        <button
+          id="yes"
+          class="choice"
+        >
           سأكون من الحاضرين
         </button>
 
-        <button id="no" class="choice">
+
+        <button
+          id="no"
+          class="choice"
+        >
           أعتذر عن الحضور
         </button>
 
       </div>
 
-      <div id="msg" class="msg"></div>
+
+      <div
+        id="msg"
+        class="msg"
+      ></div>
+
 
       <button
         id="submit"
@@ -1122,21 +1455,40 @@ footer small{
 
 <section class="location-section">
 
+  <div class="floral left"></div>
+  <div class="floral right"></div>
+
+  <div class="petals">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </div>
+
+
   <div class="location-inner reveal">
 
     <div class="location-ornament"></div>
+
 
     <div class="micro">
       THE PLACE
     </div>
 
+
     <div class="location-title">
       على ضفاف دجلة
     </div>
 
+
     <div class="location-copy">
       حيث يبدأ المساء مع الغروب
     </div>
+
 
     <a
       id="map"
@@ -1152,6 +1504,10 @@ footer small{
 
 </section>
 
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
@@ -1257,9 +1613,11 @@ let status = null;
 
 function choose(selectedStatus){
 
-  status = selectedStatus;
+  status =
+  selectedStatus;
 
-  submitBtn.disabled = false;
+  submitBtn.disabled =
+  false;
 
   yesBtn.classList.toggle(
     "active",
@@ -1272,13 +1630,17 @@ function choose(selectedStatus){
   );
 
   msgEl.textContent = "";
+
 }
 
 
-yesBtn.onclick = () =>
+yesBtn.onclick =
+() =>
 choose("attending");
 
-noBtn.onclick = () =>
+
+noBtn.onclick =
+() =>
 choose("not_attending");
 
 
@@ -1294,7 +1656,9 @@ async function load(){
     "تعذر الاتصال بالخدمة";
 
     return;
+
   }
+
 
   if(!code){
 
@@ -1302,7 +1666,9 @@ async function load(){
     "رابط الدعوة غير صحيح";
 
     return;
+
   }
+
 
   try{
 
@@ -1314,16 +1680,21 @@ async function load(){
       }
     );
 
+
     if(result.error){
 
       loadingEl.textContent =
       "خطأ: " +
       result.error.message;
 
-      console.error(result.error);
+      console.error(
+        result.error
+      );
 
       return;
+
     }
+
 
     if(
       !result.data ||
@@ -1334,15 +1705,21 @@ async function load(){
       "لم يتم العثور على هذه الدعوة";
 
       return;
+
     }
 
-    /* اسم المدعو فقط */
+
     guestNameEl.textContent =
     result.data[0].name;
 
-    guestEl.classList.remove("hidden");
+
+    guestEl.classList.remove(
+      "hidden"
+    );
+
 
     loadingEl.textContent = "";
+
 
   }catch(error){
 
@@ -1352,6 +1729,7 @@ async function load(){
     console.error(error);
 
   }
+
 }
 
 
@@ -1359,7 +1737,8 @@ async function load(){
    RSVP
 ========================= */
 
-submitBtn.onclick = async()=>{
+submitBtn.onclick =
+async()=>{
 
   if(!status){
 
@@ -1367,12 +1746,17 @@ submitBtn.onclick = async()=>{
     "اختر إجابتك أولاً.";
 
     return;
+
   }
 
-  submitBtn.disabled = true;
+
+  submitBtn.disabled =
+  true;
+
 
   msgEl.textContent =
   "جاري تسجيل إجابتك...";
+
 
   try{
 
@@ -1386,16 +1770,20 @@ submitBtn.onclick = async()=>{
       }
     );
 
+
     if(result.error){
 
       msgEl.textContent =
       "خطأ: " +
       result.error.message;
 
-      submitBtn.disabled = false;
+      submitBtn.disabled =
+      false;
 
       return;
+
     }
+
 
     if(result.data === true){
 
@@ -1407,9 +1795,11 @@ submitBtn.onclick = async()=>{
       msgEl.textContent =
       "تعذر تسجيل الإجابة.";
 
-      submitBtn.disabled = false;
+      submitBtn.disabled =
+      false;
 
     }
+
 
   }catch(error){
 
@@ -1417,9 +1807,11 @@ submitBtn.onclick = async()=>{
     "خطأ: " +
     error.message;
 
-    submitBtn.disabled = false;
+    submitBtn.disabled =
+    false;
 
   }
+
 };
 
 
@@ -1430,15 +1822,19 @@ submitBtn.onclick = async()=>{
 const observer =
 new IntersectionObserver(
 (entries)=>{
+
   entries.forEach(entry=>{
 
     if(entry.isIntersecting){
 
-      entry.target.classList.add("show");
+      entry.target.classList.add(
+        "show"
+      );
 
     }
 
   });
+
 },
 {
   threshold:.18
@@ -1448,11 +1844,15 @@ new IntersectionObserver(
 document
 .querySelectorAll(".reveal")
 .forEach(el=>{
+
   observer.observe(el);
+
 });
 
 
-/* START */
+/* =========================
+   START
+========================= */
 
 load();
 
