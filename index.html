@@ -36,10 +36,6 @@ body{
   overflow-x:hidden;
 }
 
-/* =========================
-   GENERAL
-========================= */
-
 body:before{
   content:"";
   position:fixed;
@@ -280,9 +276,6 @@ section{
   animation:fadeIn 1.2s .2s forwards;
 }
 
-
-/* NEW HERO QUOTE */
-
 .hero-quote{
   max-width:720px;
   margin:38px auto 0;
@@ -297,9 +290,6 @@ section{
   opacity:0;
   animation:titleIn 1.6s .55s cubic-bezier(.16,1,.3,1) forwards;
 }
-
-
-/* HERO LINE */
 
 .hero-rule{
   width:0;
@@ -317,9 +307,6 @@ section{
   animation:lineIn 1.2s 1.25s forwards;
 }
 
-
-/* NEW EVENT TEXT */
-
 .hero-event{
   margin-top:28px;
 
@@ -332,7 +319,6 @@ section{
   opacity:0;
   animation:fadeIn 1.2s 1.35s forwards;
 }
-
 
 .hero-scroll{
   position:absolute;
@@ -767,6 +753,7 @@ section{
 
 .location-inner{
   position:relative;
+  width:min(90%,700px);
 }
 
 .location-ornament{
@@ -924,6 +911,10 @@ footer small{
   .choice{
     font-size:16px;
   }
+
+  .location-copy{
+    margin-bottom:30px;
+  }
 }
 </style>
 </head>
@@ -958,7 +949,6 @@ footer small{
     </div>
 
     <div class="hero-rule"></div>
-
 
   </div>
 
@@ -1005,7 +995,7 @@ footer small{
         </div>
 
         <div class="name">
-           الحسن علاء
+          الحسن علاء
         </div>
 
       </div>
@@ -1088,6 +1078,7 @@ footer small{
         هذه الدعوة مخصصة إلى
       </div>
 
+      <!-- اسم المدعو يظهر هنا تلقائياً من Supabase -->
       <div id="guestName"></div>
 
       <div class="child-note">
@@ -1143,7 +1134,7 @@ footer small{
       على ضفاف دجلة
     </div>
 
-    
+    <div class="location-copy">
       حيث يبدأ المساء مع الغروب
     </div>
 
@@ -1152,6 +1143,7 @@ footer small{
       class="map-button"
       href="#"
       target="_blank"
+      rel="noopener"
     >
       فتح الموقع ↗
     </a>
@@ -1344,6 +1336,7 @@ async function load(){
       return;
     }
 
+    /* اسم المدعو فقط */
     guestNameEl.textContent =
     result.data[0].name;
 
