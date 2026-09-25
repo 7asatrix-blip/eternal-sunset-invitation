@@ -46,171 +46,15 @@ body{
 
 
 /* =========================
-   PAPER BACKGROUND
+   MOBILE SUNSET PAGES
 ========================= */
-
-.page{
-  position:relative;
-
-  min-height:100svh;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  overflow:hidden;
-
-  background:
-    linear-gradient(
-      rgba(247,242,233,.20),
-      rgba(247,242,233,.20)
-    ),
-    url("eternal-sunset-paper.jpg")
-    center center / cover no-repeat;
-}
-
-
-/* =========================
-   FLOWERS
-========================= */
-
-.floral{
-  position:absolute;
-
-  top:0;
-  bottom:0;
-
-  width:38%;
-
-  pointer-events:none;
-
-  z-index:2;
-
-  background-repeat:no-repeat;
-  background-size:100% 100%;
-
-  opacity:.95;
-
-  transition:transform 1s ease;
-}
-
-
-.floral-left{
-  left:0;
-
-  background-image:
-    url("eternal-sunset-floral-left.png");
-
-  background-position:left center;
-}
-
-
-.floral-right{
-  right:0;
-
-  background-image:
-    url("eternal-sunset-floral-right.png");
-
-  background-position:right center;
-}
-
-
-/* =========================
-   WIND MOTION
-========================= */
-
-.floral-left{
-  transform-origin:left center;
-
-  animation:
-    flowerWindLeft
-    7s
-    ease-in-out
-    infinite;
-}
-
-
-.floral-right{
-  transform-origin:right center;
-
-  animation:
-    flowerWindRight
-    7.5s
-    ease-in-out
-    infinite;
-}
-
-
-@keyframes flowerWindLeft{
-
-  0%,100%{
-    transform:
-      translateX(0)
-      rotate(0deg);
-  }
-
-  50%{
-    transform:
-      translateX(5px)
-      rotate(.35deg);
-  }
-
-}
-
-
-@keyframes flowerWindRight{
-
-  0%,100%{
-    transform:
-      translateX(0)
-      rotate(0deg);
-  }
-
-  50%{
-    transform:
-      translateX(-5px)
-      rotate(-.35deg);
-  }
-
-}
-
-
-/* =========================
-   CENTER PAPER
-========================= */
-
-.paper-center{
-
-  position:absolute;
-
-  z-index:3;
-
-  top:0;
-  bottom:0;
-
-  left:50%;
-
-  width:min(74%,760px);
-
-  transform:translateX(-50%);
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,252,245,.70),
-      rgba(249,244,234,.76)
-    );
-
-  border-left:
-    1px solid rgba(150,115,65,.18);
-
-  border-right:
-    1px solid rgba(150,115,65,.18);
-
-  pointer-events:none;
-}
-
-
+.page{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden;isolation:isolate;background:url("eternal-sunset-paper.jpg") center/cover no-repeat;}
+.sunset-1{background-image:url("C127F90C-883A-4A8E-BBC4-07EDB5A2840F.png");}
+.sunset-2{background-image:url("A68CAC43-B26B-4E49-9DF2-234117A966DC.png");}
+.sunset-3{background-image:url("8B92A776-4C60-42CD-9B1E-C4C6C47D541B.png");}
+.sunset-1,.sunset-2,.sunset-3{background-size:cover;background-repeat:no-repeat;background-position:center center;}
+.page::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 50%,rgba(255,248,235,.10),transparent 70%);}
+@media (min-width:700px){.page{width:min(100%,560px);margin:0 auto;}}
 /* =========================
    ORNAMENT
 ========================= */
@@ -292,18 +136,12 @@ body{
 ========================= */
 
 .content{
-
   position:relative;
-
   z-index:5;
-
-  width:min(76%,680px);
-
+  width:min(82%,560px);
   text-align:center;
-
-  padding:
-    80px 15px;
-
+  padding:clamp(54px,10svh,96px) 12px;
+  text-shadow:0 1px 12px rgba(255,248,235,.22);
 }
 
 
@@ -1036,7 +874,7 @@ footer small{
 
   .content{
 
-    width:68%;
+    width:82%;
 
     padding-left:5px;
     padding-right:5px;
@@ -1045,9 +883,9 @@ footer small{
 
   .hero-quote{
 
-    font-size:25px;
+    font-size:clamp(23px,6.2vw,29px);
 
-    line-height:1.9;
+    line-height:1.85;
   }
 
 
@@ -1169,12 +1007,12 @@ footer small{
      HERO
 ========================= -->
 
-<section class="page hero">
+<section class="page hero sunset-1">
 
-  <div class="floral floral-left"></div>
-  <div class="floral floral-right"></div>
+  
+  
 
-  <div class="paper-center"></div>
+  
 
   <div class="ornament top">
     <span>◇</span>
@@ -1225,12 +1063,12 @@ footer small{
      INVITATION
 ========================= -->
 
-<section class="page invitation">
+<section class="page invitation sunset-2">
 
-  <div class="floral floral-left"></div>
-  <div class="floral floral-right"></div>
+  
+  
 
-  <div class="paper-center"></div>
+  
 
   <div class="ornament top">
     <span>◇</span>
@@ -1317,12 +1155,12 @@ footer small{
      EVENING
 ========================= -->
 
-<section class="page evening">
+<section class="page evening sunset-3">
 
-  <div class="floral floral-left"></div>
-  <div class="floral floral-right"></div>
+  
+  
 
-  <div class="paper-center"></div>
+  
 
   <div class="ornament top">
     <span>◇</span>
@@ -1377,10 +1215,10 @@ footer small{
 
 <section class="page rsvp">
 
-  <div class="floral floral-left"></div>
-  <div class="floral floral-right"></div>
+  
+  
 
-  <div class="paper-center"></div>
+  
 
   <div class="ornament top">
     <span>◇</span>
@@ -1478,10 +1316,10 @@ footer small{
 
 <section class="page location">
 
-  <div class="floral floral-left"></div>
-  <div class="floral floral-right"></div>
+  
+  
 
-  <div class="paper-center"></div>
+  
 
   <div class="ornament top">
     <span>◇</span>
