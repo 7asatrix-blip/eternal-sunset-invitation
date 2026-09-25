@@ -18,7 +18,8 @@
     <div class="brand"><small>ETERNAL SUNSET</small><h1>لوحة إدارة الحضور</h1></div>
     <p>الدخول مخصص لحساب المدير.</p>
     <input id="email" class="email" type="email" value="7asatrix@gmail.com" readonly>
-    <button id="send" class="btn primary">إرسال رابط الدخول</button>
+    <input id="password" class="email" type="password" placeholder="كلمة المرور" autocomplete="current-password">
+    <button id="loginBtn" class="btn primary">دخول</button>
     <div id="loginMsg" class="msg"></div>
   </div>
 
@@ -59,14 +60,16 @@ let data=[];
 const login=document.getElementById("login"), dashboard=document.getElementById("dashboard");
 const loginMsg=document.getElementById("loginMsg");
 
-document.getElementById("send").onclick=async()=>{
-  loginMsg.textContent="جاري إرسال رابط الدخول...";
-  const {error}=await client.auth.signInWithOtp({
-    email:ADMIN_EMAIL,
-    options:{emailRedirectTo:location.origin+location.pathname}
-  });
-  loginMsg.textContent=error ? "تعذر إرسال الرابط: "+error.message : "تم إرسال رابط الدخول إلى بريدك الإلكتروني. افتح الرابط للمتابعة.";
+document.getElementById("loginBtn").onclick=async()=>{
+  const password=document.getElementById("password").value;
+  if(!password){loginMsg.textContent="اكتب كلمة المرور.";return;}
+  loginMsg.textContent="جاري تسجيل الدخول...";
+  const {error}=await client.auth.signInWithPassword({email:ADMIN_EMAIL,password});
+  loginMsg.textContent=error ? "بيانات الدخول غير صحيحة أو الحساب غير مؤكد." : "";
 };
+document.getElementById("password").addEventListener("keydown",e=>{
+  if(e.key==="Enter") document.getElementById("loginBtn").click();
+});
 
 document.getElementById("logout").onclick=()=>client.auth.signOut();
 document.getElementById("refresh").onclick=load;
