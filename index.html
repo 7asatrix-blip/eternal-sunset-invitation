@@ -93,6 +93,7 @@ async function load(){
   }
 
   guestName.textContent=r.data[0].name;
+  guest.classList.remove("hidden");
   loading.textContent="";
 }
 submit.onclick=async()=>{
