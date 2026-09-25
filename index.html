@@ -1,30 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#efe5d6">
+<title>الحسن & حنين — دعوة خاصة</title>
+<meta name="description" content="دعوة خاصة — الحسن وحنين">
 
-<title>الحسن & حنين</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
-
 :root{
-  --ivory:#f5f0e7;
-  --cream:#ebe1d0;
-  --champagne:#d8bd8a;
-  --gold:#b99458;
-  --bronze:#87683d;
-  --brown:#4d3a27;
-  --ink:#211b15;
-  --water:#8e8577;
+  --ivory:#f4eee4;
+  --paper:#eee3d3;
+  --paper2:#e8dac6;
+  --ink:#4b3a2e;
+  --bronze:#8d694b;
+  --champagne:#c8a979;
+  --gold:#b89558;
+  --shadow:rgba(73,53,37,.20);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html{
   scroll-behavior:smooth;
@@ -32,1361 +31,1871 @@ html{
 
 body{
   margin:0;
+  background:#d7c6ad;
   color:var(--ink);
-  background:var(--ivory);
   font-family:"Noto Naskh Arabic",serif;
   overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* subtle paper / marble atmosphere */
+button,a{
+  font:inherit;
+}
 
-body:before{
-  content:"";
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   INTRO / ENVELOPE
+========================= */
+
+#intro{
   position:fixed;
   inset:0;
-  pointer-events:none;
-  z-index:50;
-  opacity:.12;
+  z-index:100;
+  display:grid;
+  place-items:center;
   background:
     radial-gradient(
-      ellipse at 20% 20%,
-      rgba(255,255,255,.8),
-      transparent 35%
+      ellipse at 50% 42%,
+      rgba(255,250,241,.98) 0%,
+      rgba(245,236,222,.92) 35%,
+      transparent 66%
     ),
-    radial-gradient(
-      ellipse at 80% 80%,
-      rgba(112,83,48,.08),
-      transparent 40%
+    linear-gradient(
+      145deg,
+      #d8c7ae 0%,
+      #f6eee3 48%,
+      #cbb797 100%
     );
+  transition:opacity 1.2s ease,visibility 1.2s ease;
 }
 
-/* ==============================
-   GLOBAL
-============================== */
+#intro:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(80,57,35,.035) 0 1px,
+      transparent 1px 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.08) 0 1px,
+      transparent 1px 5px
+    );
+  mix-blend-mode:multiply;
+}
 
-section{
-  min-height:100svh;
+#intro.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.envelope{
   position:relative;
+  width:min(86vw,390px);
+  aspect-ratio:.72;
+  filter:drop-shadow(
+    0 30px 35px rgba(61,43,28,.22)
+  );
+  transform:
+    perspective(1100px)
+    rotateX(3deg)
+    rotateY(-1deg);
+}
+
+.envelope:after{
+  content:"";
+  position:absolute;
+  z-index:20;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      105deg,
+      transparent 25%,
+      rgba(255,255,255,.25) 43%,
+      transparent 58%
+    );
+  transform:translateX(-120%);
+  animation:paperSheen 2.2s ease 2.05s forwards;
+}
+
+@keyframes paperSheen{
+  to{
+    transform:translateX(120%);
+  }
+}
+
+.paper{
+  position:absolute;
+  inset:0;
+  border-radius:2px;
+
+  background:
+    radial-gradient(
+      circle at 76% 16%,
+      rgba(255,255,255,.62),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 18% 78%,
+      rgba(174,133,82,.08),
+      transparent 29%
+    ),
+    linear-gradient(
+      145deg,
+      #faf3e9 0%,
+      #eee1cf 53%,
+      #e4d2ba 100%
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(116,83,51,.13),
+    inset 0 0 55px rgba(104,75,46,.08),
+    0 1px 0 rgba(255,255,255,.7);
+
   overflow:hidden;
 }
 
-.inner{
-  width:min(88%,900px);
-  margin:auto;
+.paper:before,
+.paper:after{
+  content:"";
+  position:absolute;
+  width:72%;
+  height:32%;
+  border:1px solid rgba(156,116,73,.17);
+  border-radius:50%;
+  transform:rotate(-18deg);
 }
 
-.reveal{
-  opacity:0;
-  transform:translateY(45px);
-  transition:
-    opacity 1.2s cubic-bezier(.16,1,.3,1),
-    transform 1.2s cubic-bezier(.16,1,.3,1);
+.paper:before{
+  left:-23%;
+  top:10%;
 }
 
-.reveal.show{
-  opacity:1;
-  transform:none;
+.paper:after{
+  right:-25%;
+  bottom:8%;
+  transform:rotate(160deg);
+  box-shadow:
+    0 0 0 8px rgba(255,255,255,.05),
+    0 0 35px rgba(119,91,61,.04);
 }
 
-.micro{
-  color:var(--bronze);
-  font-family:"Cormorant Garamond",serif;
-  font-size:12px;
-  letter-spacing:.28em;
-  direction:ltr;
+.botanical{
+  position:absolute;
+  width:145px;
+  height:145px;
+  opacity:.27;
 }
 
-.gold-line{
-  width:80px;
-  height:1px;
-  margin:28px auto;
+.botanical svg{
+  width:100%;
+  height:100%;
+}
+
+.botanical.tl{
+  top:-14px;
+  left:-17px;
+}
+
+.botanical.br{
+  bottom:-20px;
+  right:-18px;
+  transform:rotate(180deg);
+}
+
+.flap{
+  position:absolute;
+  inset:0 0 auto;
+  height:57%;
+
+  clip-path:polygon(
+    0 0,
+    100% 0,
+    50% 100%
+  );
+
+  transform-origin:50% 0;
+
   background:
+    linear-gradient(
+      145deg,
+      rgba(255,250,242,.98),
+      rgba(222,207,185,.98)
+    ),
     linear-gradient(
       90deg,
       transparent,
-      var(--gold),
-      transparent
+      rgba(150,111,69,.1)
     );
+
+  box-shadow:
+    inset 0 -1px 0 rgba(102,73,45,.11),
+    0 12px 24px rgba(73,53,37,.08);
+
+  z-index:5;
+
+  animation:
+    flapOpen
+    2.3s
+    cubic-bezier(.2,.72,.2,1)
+    1.15s
+    forwards;
 }
 
-/* ==============================
-   HERO
-============================== */
-
-.hero{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-
-  background:
-    linear-gradient(
-      180deg,
-      #faf7f0 0%,
-      #f4ead9 48%,
-      #dfc69a 78%,
-      #b79664 100%
-    );
+@keyframes flapOpen{
+  to{
+    transform:
+      perspective(900px)
+      rotateX(155deg);
+    opacity:.08;
+  }
 }
 
-/* warm sun, not a circular neon glow */
-
-.hero-sun{
+.seal{
   position:absolute;
-  width:120vw;
-  height:45vh;
+  z-index:7;
+
   left:50%;
-  bottom:7%;
-  transform:translateX(-50%);
+  top:50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  width:64px;
+  height:64px;
+
+  border-radius:50%;
+
+  display:grid;
+  place-items:center;
 
   background:
     radial-gradient(
-      ellipse at center,
-      rgba(255,236,190,.95) 0%,
-      rgba(225,193,133,.55) 25%,
-      rgba(201,163,100,.2) 48%,
-      transparent 72%
+      circle at 35% 30%,
+      #d7bc8d,
+      #9a7447
     );
 
-  filter:blur(18px);
-  animation:sunBreath 9s ease-in-out infinite;
+  color:#fffaf0;
+
+  box-shadow:
+    0 7px 18px rgba(79,55,35,.25),
+    inset 1px 1px 2px rgba(255,255,255,.35),
+    inset -2px -2px 4px rgba(82,55,31,.16);
+
+  font-family:"Cormorant Garamond",serif;
+  font-size:27px;
+  letter-spacing:.08em;
+
+  animation:
+    sealAway
+    .8s
+    ease
+    2.15s
+    forwards;
 }
 
-@keyframes sunBreath{
-  0%,100%{
-    transform:translateX(-50%) scale(1);
-    opacity:.85;
+@keyframes sealAway{
+  to{
+    opacity:0;
+    transform:
+      translate(-50%,-50%)
+      scale(.72);
   }
-  50%{
-    transform:translateX(-50%) scale(1.06);
+}
+
+.intro-copy{
+  position:absolute;
+  z-index:8;
+
+  left:50%;
+  top:54%;
+
+  width:80%;
+
+  transform:
+    translate(-50%,-50%);
+
+  text-align:center;
+
+  opacity:0;
+
+  animation:
+    copyIn
+    1.3s
+    ease
+    2.35s
+    forwards;
+}
+
+.intro-copy small{
+  font-size:11px;
+  letter-spacing:.28em;
+  color:#92704d;
+}
+
+.intro-copy strong{
+  display:block;
+  margin-top:7px;
+
+  font-family:"Amiri",serif;
+  font-size:34px;
+  font-weight:400;
+
+  color:#65503d;
+
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.8);
+}
+
+@keyframes copyIn{
+  to{
+    opacity:1;
+    transform:
+      translate(-50%,-54%);
+  }
+}
+
+#enter{
+  position:absolute;
+
+  bottom:8vh;
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  border:0;
+  background:transparent;
+
+  color:#6e533b;
+
+  cursor:pointer;
+
+  opacity:0;
+
+  animation:
+    enterIn
+    1s
+    ease
+    3.1s
+    forwards;
+}
+
+#enter span{
+  display:block;
+
+  font-size:12px;
+  letter-spacing:.12em;
+
+  margin-bottom:6px;
+}
+
+#enter i{
+  display:block;
+
+  width:1px;
+  height:36px;
+
+  margin:auto;
+
+  background:
+    linear-gradient(
+      #a8865c,
+      transparent
+    );
+
+  animation:
+    pulse
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+@keyframes enterIn{
+  to{
     opacity:1;
   }
 }
 
-/* water reflection */
-
-.water{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:29%;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(141,123,96,.05),
-      rgba(91,77,59,.2)
-    );
-
-  overflow:hidden;
+@keyframes pulse{
+  50%{
+    height:48px;
+    opacity:.45;
+  }
 }
 
-.water:before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:18%;
-  width:75%;
-  height:70%;
+/* =========================
+   MAIN
+========================= */
 
-  transform:translateX(-50%);
+main{
+  background:var(--ivory);
+}
+
+main:after{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  z-index:50;
+
+  pointer-events:none;
+
+  opacity:.055;
+
+  mix-blend-mode:multiply;
+
+  background-image:url(
+    "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E"
+  );
+}
+
+.scene{
+  position:relative;
+
+  min-height:100svh;
+
+  overflow:hidden;
+
+  display:grid;
+  place-items:center;
+
+  isolation:isolate;
+
+  background:transparent;
+}
+
+.scene:before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      rgba(255,255,255,.96) 0%,
+      rgba(247,238,226,.83) 38%,
+      transparent 67%
+    ),
+    linear-gradient(
+      180deg,
+      #f7f0e7 0%,
+      #eee1cf 61%,
+      #d5c0a1 100%
+    );
+
+  z-index:-3;
+}
+
+.scene:after{
+  content:"";
+
+  position:absolute;
+
+  left:-15%;
+  right:-15%;
+  bottom:-4%;
+
+  height:42%;
+
+  opacity:.54;
 
   background:
     repeating-linear-gradient(
-      180deg,
-      rgba(255,236,191,.18) 0px,
-      rgba(255,236,191,.18) 1px,
-      transparent 1px,
-      transparent 9px
-    );
-
-  mask-image:
+      177deg,
+      transparent 0 15px,
+      rgba(113,91,67,.075) 16px,
+      rgba(255,255,255,.08) 18px,
+      transparent 21px
+    ),
     linear-gradient(
-      90deg,
-      transparent,
-      black 20%,
-      black 80%,
-      transparent
+      180deg,
+      rgba(194,160,111,.10),
+      rgba(104,83,61,.17)
     );
 
-  animation:waterMove 8s ease-in-out infinite;
+  filter:blur(1.3px);
+
+  transform:
+    perspective(500px)
+    rotateX(55deg)
+    scale(1.25);
+
+  transform-origin:bottom;
+
+  z-index:-2;
+
+  animation:
+    waterMove
+    10s
+    ease-in-out
+    infinite
+    alternate;
 }
 
 @keyframes waterMove{
-  0%,100%{
-    transform:translateX(-50%) scaleX(.9);
-    opacity:.45;
-  }
-  50%{
-    transform:translateX(-50%) scaleX(1);
-    opacity:.8;
+  to{
+    transform:
+      perspective(500px)
+      rotateX(55deg)
+      scale(1.27)
+      translateX(1.8%);
   }
 }
 
-/* organic sculptural form */
+.sun{
+  position:absolute;
+
+  width:88vw;
+  height:31vw;
+
+  min-width:340px;
+
+  bottom:25%;
+
+  left:50%;
+
+  transform:
+    translateX(-50%);
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(229,193,128,.52) 0%,
+      rgba(215,174,104,.24) 28%,
+      rgba(207,165,94,.09) 48%,
+      transparent 73%
+    );
+
+  filter:blur(11px);
+
+  z-index:-1;
+
+  animation:
+    sunDrift
+    9s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes sunDrift{
+  to{
+    transform:
+      translateX(-46%)
+      scale(1.08);
+
+    opacity:.72;
+  }
+}
+
+.horizon{
+  position:absolute;
+
+  bottom:27%;
+
+  left:0;
+  right:0;
+
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(130,98,62,.26),
+      transparent
+    );
+
+  opacity:.75;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  text-align:center;
+
+  padding:
+    14vh
+    7vw
+    13vh;
+}
+
+.eyebrow{
+  font-size:12px;
+
+  letter-spacing:.24em;
+
+  color:var(--bronze);
+
+  margin-bottom:28px;
+}
+
+.hero h1{
+  margin:0;
+
+  font-family:"Amiri",serif;
+
+  font-weight:400;
+
+  font-size:
+    clamp(
+      64px,
+      19vw,
+      112px
+    );
+
+  line-height:.9;
+
+  color:#554231;
+
+  letter-spacing:-.015em;
+
+  text-shadow:
+    0 1px 0 #fff,
+    0 14px 35px rgba(88,62,39,.12);
+}
+
+.hero .amp{
+  display:block;
+
+  margin:
+    17px
+    0
+    10px;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size:34px;
+
+  color:var(--gold);
+
+  direction:ltr;
+}
+
+.hero .sub{
+  margin-top:35px;
+
+  font-size:16px;
+
+  color:#725b44;
+}
+
+.ornament{
+  margin:
+    32px
+    auto
+    0;
+
+  width:115px;
+  height:1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--champagne),
+      transparent
+    );
+
+  position:relative;
+}
+
+.ornament:after{
+  content:"";
+
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:7px;
+  height:7px;
+
+  border:
+    1px solid
+    var(--champagne);
+
+  transform:
+    translate(-50%,-50%)
+    rotate(45deg);
+
+  background:
+    var(--ivory);
+}
+
+/* =========================
+   REVEALS
+========================= */
+
+.reveal{
+  opacity:0;
+
+  transform:
+    translateY(28px);
+
+  transition:
+    opacity 1.1s
+      cubic-bezier(.2,.7,.2,1),
+    transform 1.1s
+      cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.show{
+  opacity:1;
+
+  transform:none;
+}
+
+/* =========================
+   PAPER SECTIONS
+========================= */
+
+.paper-section{
+  width:min(88vw,720px);
+
+  min-height:76svh;
+
+  margin:auto;
+
+  padding:
+    12vh
+    9vw;
+
+  position:relative;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  text-align:center;
+}
+
+.paper-section:before{
+  content:"";
+
+  position:absolute;
+
+  inset:
+    6%
+    -2%;
+
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(255,255,255,.42),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.38),
+      rgba(214,195,168,.14)
+    );
+
+  box-shadow:
+    inset
+    0 0 0 1px
+    rgba(135,102,69,.085),
+    0 22px 70px
+    rgba(84,61,40,.035);
+
+  z-index:-1;
+}
+
+.section-kicker{
+  color:var(--bronze);
+
+  font-size:11px;
+
+  letter-spacing:.2em;
+
+  margin-bottom:20px;
+}
+
+.paper-section h2{
+  font-family:"Amiri",serif;
+
+  font-size:
+    clamp(
+      34px,
+      9vw,
+      58px
+    );
+
+  font-weight:400;
+
+  margin:
+    0
+    0
+    25px;
+
+  color:#554231;
+
+  text-shadow:
+    0 1px 0
+    rgba(255,255,255,.75);
+}
+
+.paper-section p{
+  font-size:19px;
+
+  line-height:2.15;
+
+  margin:0 auto;
+
+  max-width:540px;
+
+  color:#705b47;
+}
+
+.line{
+  width:60px;
+  height:1px;
+
+  background:
+    var(--champagne);
+
+  margin:
+    28px
+    auto;
+}
+
+.date{
+  font-family:"Amiri",serif;
+
+  font-size:28px;
+
+  color:#5f4935;
+
+  margin:
+    12px
+    0;
+}
+
+.place{
+  font-size:16px;
+
+  color:#80674d;
+}
+
+/* =========================
+   ORGANIC ORNAMENTS
+========================= */
 
 .shell{
   position:absolute;
-  width:230px;
-  height:150px;
-  border:1px solid rgba(130,98,54,.24);
-  border-radius:80% 20% 75% 25%;
-  transform:rotate(-18deg);
-  opacity:.5;
+
+  width:170px;
+  height:170px;
+
+  opacity:.18;
+
+  border:
+    1px solid
+    #a88962;
+
+  border-radius:
+    50%
+    50%
+    48%
+    52%;
+
+  transform:rotate(22deg);
+
+  box-shadow:
+    inset
+    8px 0 12px
+    rgba(159,125,82,.035);
+
+  animation:
+    organicFloat
+    8s
+    ease-in-out
+    infinite
+    alternate;
 }
 
 .shell:before,
 .shell:after{
   content:"";
+
   position:absolute;
-  inset:12px;
-  border:1px solid rgba(130,98,54,.18);
-  border-radius:inherit;
+
+  inset:12%;
+
+  border-left:
+    1px solid
+    #a88962;
+
+  border-radius:50%;
+
+  transform:rotate(20deg);
 }
 
-.shell:before{
-  inset:25px;
+.shell:after{
+  transform:rotate(-20deg);
 }
 
-.shell.left{
-  left:-70px;
-  top:22%;
+.shell.one{
+  top:9%;
+  left:-45px;
 }
 
-.shell.right{
-  right:-90px;
-  bottom:25%;
-  transform:rotate(160deg);
+.shell.two{
+  bottom:8%;
+  right:-55px;
+
+  transform:
+    rotate(-28deg)
+    scale(.72);
+
+  animation:
+    organicFloat2
+    8s
+    ease-in-out
+    infinite
+    alternate;
+
+  animation-delay:-2s;
 }
 
-/* hero typography */
-
-.hero-content{
-  position:relative;
-  z-index:3;
-  padding:30px 20px;
-  margin-top:-5vh;
-}
-
-.bismillah{
-  color:var(--bronze);
-  font-size:14px;
-  letter-spacing:.12em;
-
-  opacity:0;
-  animation:fadeIn 1.2s .2s forwards;
-}
-
-.hero-names-ar{
-  margin-top:35px;
-
-  font-size:clamp(58px,17vw,125px);
-  line-height:.9;
-  font-weight:500;
-
-  color:#4b3823;
-
-  opacity:0;
-  animation:titleIn 1.5s .55s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.hero-amp{
-  color:var(--gold);
-  font-family:"Cormorant Garamond",serif;
-  font-size:clamp(34px,8vw,65px);
-  margin:16px 0;
-}
-
-.hero-sub{
-  margin-top:34px;
-
-  color:#715b3c;
-  font-size:18px;
-
-  opacity:0;
-  animation:fadeIn 1.2s 1.1s forwards;
-}
-
-.hero-rule{
-  width:0;
-  height:1px;
-  margin:27px auto 0;
-
-  background:var(--gold);
-
-  animation:lineIn 1.2s 1.25s forwards;
-}
-
-.hero-scroll{
-  position:absolute;
-  z-index:5;
-  bottom:25px;
-  left:50%;
-  transform:translateX(-50%);
-
-  color:#806a49;
-  font-family:"Cormorant Garamond",serif;
-  font-size:12px;
-  letter-spacing:.25em;
-
-  opacity:0;
-  animation:fadeIn 1s 1.7s forwards;
-}
-
-.hero-scroll span{
-  display:block;
-  margin-top:8px;
-  animation:bounce 2s infinite;
-}
-
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-
-@keyframes titleIn{
-  from{
-    opacity:0;
-    transform:translateY(45px);
-    filter:blur(8px);
-  }
+@keyframes organicFloat{
   to{
-    opacity:1;
-    transform:none;
-    filter:none;
+    transform:
+      rotate(25deg)
+      translateY(-8px);
   }
 }
 
-@keyframes lineIn{
-  to{width:100px}
+@keyframes organicFloat2{
+  to{
+    transform:
+      rotate(-31deg)
+      translateY(9px)
+      scale(.72);
+  }
 }
 
-@keyframes bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(7px)}
-}
+/* =========================
+   RSVP
+========================= */
 
+.rsvp-wrap{
+  width:min(88vw,600px);
 
-/* ==============================
-   INVITATION
-============================== */
+  margin:auto;
 
-.invitation{
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  padding:
+    12vh
+    0
+    16vh;
+
   text-align:center;
 
-  background:
-    radial-gradient(
-      ellipse at 50% 10%,
-      #fffdf8,
-      transparent 55%
-    ),
-    #f5f0e7;
-}
-
-.invitation:before{
-  content:"";
-  position:absolute;
-  inset:7% 9%;
-
-  border-top:1px solid rgba(135,104,61,.2);
-  border-bottom:1px solid rgba(135,104,61,.2);
-}
-
-.invitation-inner{
-  max-width:720px;
-}
-
-.invitation-title{
-  margin-top:30px;
-
-  font-size:clamp(34px,9vw,67px);
-  line-height:1.45;
-  font-weight:500;
-
-  color:#33271a;
-}
-
-.invitation-copy{
-  margin-top:30px;
-
-  color:#796b59;
-  font-size:18px;
-  line-height:2.2;
-}
-
-.names{
-  margin-top:55px;
-}
-
-.name-block{
-  margin:25px 0;
-}
-
-.name-role{
-  color:var(--bronze);
-  font-size:14px;
-}
-
-.name{
-  margin-top:3px;
-
-  font-size:clamp(35px,9vw,62px);
-  color:#33271a;
-}
-
-.name-amp{
-  color:var(--gold);
-  font:
-    400 42px
-    "Cormorant Garamond",serif;
-}
-
-
-/* ==============================
-   DATE / SUNSET
-============================== */
-
-.evening{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-
-  color:var(--ivory);
-
-  background:
-    linear-gradient(
-      180deg,
-      #a98b60 0%,
-      #866b47 25%,
-      #66513a 52%,
-      #423526 78%,
-      #2b2219 100%
-    );
-}
-
-.evening:before{
-  content:"";
-  position:absolute;
-  inset:0;
-
-  background:
-    radial-gradient(
-      ellipse at 50% 30%,
-      rgba(255,225,170,.35),
-      transparent 35%
-    );
-}
-
-.evening-water{
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:35%;
-
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(255,224,173,.08) 0,
-      rgba(255,224,173,.08) 1px,
-      transparent 1px,
-      transparent 11px
-    );
-
-  opacity:.7;
-}
-
-.evening-inner{
   position:relative;
-  z-index:2;
-  text-align:center;
 }
 
-.evening .micro{
-  color:#ead4aa;
+.rsvp-wrap:before{
+  content:"";
+
+  position:absolute;
+
+  width:280px;
+  height:280px;
+
+  left:50%;
+  top:45%;
+
+  transform:
+    translate(-50%,-50%);
+
+  border:
+    1px solid
+    rgba(158,125,81,.08);
+
+  border-radius:50%;
+
+  box-shadow:
+    0 0 0 35px
+      rgba(174,139,93,.025),
+    0 0 0 70px
+      rgba(174,139,93,.018);
+
+  pointer-events:none;
 }
 
-.evening-date{
-  margin-top:25px;
+.rsvp-name{
+  font-family:"Amiri",serif;
 
-  font-size:clamp(32px,8vw,65px);
-  line-height:1.4;
+  font-size:
+    clamp(
+      34px,
+      9vw,
+      55px
+    );
 
   font-weight:400;
+
+  color:#564332;
 }
 
-.evening-place{
-  margin-top:28px;
+.rsvp-intro{
+  color:#80674d;
 
-  font-size:19px;
-  line-height:2;
-
-  color:#e8dcc9;
+  margin:
+    10px
+    0
+    35px;
 }
 
-.evening-place strong{
-  color:#fff8eb;
-  font-weight:500;
-}
-
-
-/* ==============================
-   RSVP
-============================== */
-
-.rsvp{
+.actions{
   display:flex;
-  align-items:center;
+
+  gap:12px;
+
   justify-content:center;
+
+  flex-wrap:wrap;
+}
+
+.actions button{
+  min-width:150px;
+
+  padding:
+    14px
+    22px;
+
+  border-radius:2px;
+
+  cursor:pointer;
+
+  border:
+    1px solid
+    rgba(132,99,63,.45);
+
+  background:
+    rgba(255,255,255,.34);
+
+  color:#654c37;
+
+  transition:
+    .35s ease;
+
+  backdrop-filter:blur(4px);
+}
+
+.actions button:hover{
+  transform:
+    translateY(-2px);
+
+  background:
+    rgba(255,255,255,.68);
+}
+
+.actions button.primary{
+  background:#806246;
+
+  color:#fffaf0;
+
+  border-color:#806246;
+}
+
+.actions button.primary:hover{
+  background:#70543c;
+}
+
+#rsvpMsg{
+  min-height:28px;
+
+  margin-top:24px;
+
+  color:#80674d;
+}
+
+.note{
+  margin:
+    30px
+    auto
+    0;
+
+  max-width:510px;
+
+  font-size:14px;
+
+  line-height:1.9;
+
+  color:#856e58;
+}
+
+/* =========================
+   LOCATION
+========================= */
+
+.location{
+  min-height:75svh;
+
+  padding:
+    12vh
+    8vw;
+
+  text-align:center;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+}
+
+.location h2{
+  font-family:"Amiri";
+
+  font-size:45px;
+
+  font-weight:400;
+
+  margin:
+    0
+    0
+    12px;
+
+  text-shadow:
+    0 1px 0
+    rgba(255,255,255,.75);
+}
+
+.location p{
+  color:#80674d;
+}
+
+.map{
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  margin:
+    28px
+    auto
+    0;
+
+  padding:
+    13px
+    26px;
+
+  border:
+    1px solid
+    rgba(132,99,63,.45);
+
+  color:#654c37;
+
+  background:
+    rgba(255,255,255,.28);
+
+  transition:
+    transform .35s ease,
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+.map:hover{
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 12px 25px
+    rgba(83,61,40,.08);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  padding:
+    50px
+    20px
+    70px;
+
+  text-align:center;
+
+  color:#91785e;
+
+  font-size:12px;
+
+  letter-spacing:.08em;
 
   background:
     linear-gradient(
       180deg,
-      #eee5d7,
-      #f8f4ec
+      transparent,
+      rgba(213,194,165,.28)
     );
-
-  text-align:center;
 }
 
-.rsvp-inner{
-  width:min(90%,650px);
-}
+footer strong{
+  display:block;
 
-.rsvp .micro{
-  color:var(--bronze);
-}
+  font-family:
+    "Cormorant Garamond";
 
-.rsvp h2{
-  margin:25px 0 35px;
+  font-size:24px;
 
-  font-size:clamp(38px,9vw,65px);
   font-weight:500;
 
-  color:#35291b;
+  letter-spacing:.08em;
+
+  color:#765a40;
+
+  direction:ltr;
 }
 
-#loading{
-  color:#82735f;
-}
-
-.guest-label{
-  color:#847560;
-  font-size:17px;
-}
-
-#guestName{
-  margin-top:8px;
-
-  font-size:clamp(40px,10vw,72px);
-
-  color:#342719;
-}
-
-.child-note{
-  max-width:580px;
-  margin:30px auto;
-
-  padding:18px 10px;
-
-  border-top:1px solid rgba(135,104,61,.2);
-  border-bottom:1px solid rgba(135,104,61,.2);
-
-  color:#806b4c;
-
-  font-size:15px;
-  line-height:2;
-}
-
-.choices{
-  display:flex;
-  justify-content:center;
-  gap:45px;
-
-  margin-top:30px;
-}
-
-.choice{
-  position:relative;
-
-  padding:10px 0;
-
-  border:0;
-  border-radius:0;
-
-  background:none;
-
-  color:#6d604f;
-
-  font-size:17px;
-}
-
-.choice:after{
-  content:"";
-
-  position:absolute;
-  bottom:2px;
-  left:50%;
-
-  width:0;
-  height:1px;
-
-  background:var(--gold);
-
-  transform:translateX(-50%);
-  transition:.4s;
-}
-
-.choice.active{
-  background:none;
-  color:#2f2418;
-  border:0;
-}
-
-.choice.active:after{
-  width:100%;
-}
-
-.confirm{
-  display:block;
-
-  width:min(100%,300px);
-
-  margin:28px auto 0;
-
-  padding:14px 20px;
-
-  border-radius:0;
-
-  border:1px solid rgba(135,104,61,.55);
-
-  background:transparent;
-
-  color:#493923;
-
-  font-size:16px;
-
-  transition:.4s;
-}
-
-.confirm:hover{
-  background:rgba(185,148,88,.1);
-}
-
-.confirm:disabled{
-  opacity:.35;
-}
-
-.msg{
-  min-height:28px;
-
-  margin-top:18px;
-
-  color:#8a6b3e;
-}
-
-
-/* ==============================
-   LOCATION
-============================== */
-
-.location-section{
-  min-height:85svh;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  text-align:center;
-
-  background:
-    radial-gradient(
-      ellipse at 50% 0%,
-      #fffdf8,
-      #e9dfcf 70%
-    );
-}
-
-.location-inner{
-  position:relative;
-}
-
-.location-ornament{
-  width:170px;
-  height:105px;
-
-  margin:0 auto 30px;
-
-  border:1px solid rgba(135,104,61,.28);
-
-  border-radius:
-    70% 30% 65% 35%;
-
-  transform:rotate(-8deg);
-}
-
-.location-ornament:before,
-.location-ornament:after{
-  content:"";
-
-  position:absolute;
-  inset:12px;
-
-  border:1px solid rgba(135,104,61,.18);
-
-  border-radius:inherit;
-}
-
-.location-ornament:after{
-  inset:25px;
-}
-
-.location-title{
-  font-size:clamp(40px,10vw,72px);
-
-  color:#382b1c;
-}
-
-.location-copy{
-  margin:20px 0 35px;
-
-  color:#766955;
-
-  font-size:18px;
-  line-height:2;
-}
-
-.map-button{
-  display:inline-block;
-
-  min-width:220px;
-
-  padding:14px 25px;
-
-  border:1px solid rgba(135,104,61,.5);
-
-  color:#4b3823;
-
-  text-decoration:none;
-
-  font-size:15px;
-
-  transition:.4s;
-}
-
-.map-button:hover{
-  background:rgba(185,148,88,.1);
-}
-
-
-/* ==============================
-   FOOTER
-============================== */
-
-footer{
-  padding:45px 20px 65px;
-
-  text-align:center;
-
-  background:#f5f0e7;
-
-  color:#8a7b68;
-
-  font-family:"Cormorant Garamond",serif;
-
-  letter-spacing:.18em;
-}
-
-footer small{
-  display:block;
-  margin-top:8px;
-
-  font-size:11px;
-  letter-spacing:.25em;
-}
-
-
-/* ==============================
-   MOBILE
-============================== */
-
-@media(max-width:600px){
-
-  .shell{
-    opacity:.35;
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media (prefers-reduced-motion:reduce){
+
+  *,
+  *:before,
+  *:after{
+    animation:none!important;
+    transition:none!important;
   }
 
-  .hero-names-ar{
-    font-size:62px;
-  }
-
-  .invitation:before{
-    inset:6% 8%;
-  }
-
-  .choices{
-    gap:30px;
-  }
-
-  .choice{
-    font-size:16px;
-  }
-
-  .evening-date{
-    padding:0 15px;
-  }
 }
 </style>
 </head>
 
-
 <body>
 
+<!-- =========================
+     OPENING
+========================= -->
 
-<!-- ==========================
-     HERO
-=========================== -->
+<section
+  id="intro"
+  aria-label="فتح الدعوة"
+>
 
-<section class="hero">
+  <div class="envelope">
 
-  <div class="hero-sun"></div>
+    <div class="paper">
 
-  <div class="water"></div>
+      <div class="botanical tl">
 
-  <div class="shell left"></div>
-  <div class="shell right"></div>
+        <svg
+          viewBox="0 0 160 160"
+          fill="none"
+        >
 
-  <div class="hero-content">
+          <path
+            d="M18 135C48 112 61 80 78 25M45 108c-14-3-22-10-28-21m42 0c-16-1-25-8-31-18m42-14c-13-2-21-8-27-17m9 70c16-4 27-12 35-23m-20 5c11-4 20-11 27-21"
+            stroke="#987750"
+            stroke-width="1.2"
+          />
 
-    <div class="bismillah">
-      بِسْمِ اللهِ نَبْدَأ
+          <path
+            d="M31 84c-9-3-15-8-19-15m42-8c-9-2-16-7-20-13m28-15c-8-2-13-6-17-12m17 67c10-3 18-8 24-16"
+            stroke="#987750"
+            stroke-width="1"
+          />
+
+        </svg>
+
+      </div>
+
+      <div class="botanical br">
+
+        <svg
+          viewBox="0 0 160 160"
+          fill="none"
+        >
+
+          <path
+            d="M18 135C48 112 61 80 78 25M45 108c-14-3-22-10-28-21m42 0c-16-1-25-8-31-18m42-14c-13-2-21-8-27-17m9 70c16-4 27-12 35-23m-20 5c11-4 20-11 27-21"
+            stroke="#987750"
+            stroke-width="1.2"
+          />
+
+        </svg>
+
+      </div>
+
     </div>
 
-    <div class="hero-names-ar">
-      الحسن
+    <div class="flap"></div>
 
-      <div class="hero-amp">
+    <div class="seal">
+      ح
+    </div>
+
+    <div class="intro-copy">
+
+      <small>
+        A SPECIAL INVITATION
+      </small>
+
+      <strong>
+        الحسن &amp; حنين
+      </strong>
+
+    </div>
+
+  </div>
+
+  <button
+    id="enter"
+    type="button"
+    aria-label="فتح الدعوة"
+  >
+
+    <span>
+      اضغط للدخول
+    </span>
+
+    <i></i>
+
+  </button>
+
+</section>
+
+<!-- =========================
+     MAIN INVITATION
+========================= -->
+
+<main>
+
+  <!-- HERO -->
+
+  <section
+    class="scene"
+    id="hero"
+  >
+
+    <div class="sun"></div>
+
+    <div class="horizon"></div>
+
+    <div class="hero reveal">
+
+      <div class="eyebrow">
+        دعوة خاصة
+      </div>
+
+      <h1>
+        الحسن
+      </h1>
+
+      <div class="amp">
         &amp;
       </div>
 
-      حنين
-    </div>
+      <h1>
+        حنين
+      </h1>
 
-    <div class="hero-rule"></div>
-
-    <div class="hero-sub">
-      دعوة خاصة
-    </div>
-
-  </div>
-
-  <div class="hero-scroll">
-    اسحب للأعلى
-    <span>↓</span>
-  </div>
-
-</section>
-
-
-<!-- ==========================
-     INVITATION
-=========================== -->
-
-<section class="invitation">
-
-  <div class="inner invitation-inner reveal">
-
-    <div class="micro">
-      ETERNAL SUNSET
-    </div>
-
-    <div class="invitation-title">
-      بكل محبة،
-      <br>
-      ندعوكم لمشاركتنا فرحتنا
-    </div>
-
-    <div class="invitation-copy">
-      في ليلة تجمعنا بمن نحب،
-      <br>
-      نحتفل ببداية فصل جديد من حكايتنا.
-    </div>
-
-    <div class="gold-line"></div>
-
-    <div class="names">
-
-      <div class="name-block">
-
-        <div class="name-role">
-          الدكتور
-        </div>
-
-        <div class="name">
-          الحسن
-        </div>
-
+      <div class="sub">
+        بكل محبة، ندعوكم لمشاركتنا فرحتنا
       </div>
 
-      <div class="name-amp">
-        &amp;
+      <div class="ornament"></div>
+
+    </div>
+
+  </section>
+
+
+  <!-- INVITATION -->
+
+  <section
+    class="scene"
+    id="invitation"
+  >
+
+    <div class="shell one"></div>
+
+    <div class="shell two"></div>
+
+    <div class="paper-section reveal">
+
+      <div class="section-kicker">
+        دعوتنا لكم
       </div>
 
-      <div class="name-block">
+      <h2>
+        لحظة نحب أن تكونوا جزءًا منها
+      </h2>
 
-        <div class="name-role">
-          الصيدلانية
-        </div>
+      <div class="line"></div>
 
-        <div class="name">
-          حنين
-        </div>
+      <p>
+        بكل محبة وامتنان، نشارككم مناسبة قريبة من القلب،
+        وننتظر أن تكتمل فرحتنا بحضوركم بيننا.
+      </p>
 
+    </div>
+
+  </section>
+
+
+  <!-- DATE -->
+
+  <section
+    class="scene"
+    id="evening"
+  >
+
+    <div class="paper-section reveal">
+
+      <div class="section-kicker">
+        الموعد
+      </div>
+
+      <h2>
+        تحت ضوء الغروب
+      </h2>
+
+      <div class="line"></div>
+
+      <div
+        class="date"
+        id="eventDate"
+      >
+        التاريخ والوقت يُحددان لاحقًا
+      </div>
+
+      <div class="place">
+        في منزلنا على نهر دجلة
       </div>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- ==========================
-     EVENING
-=========================== -->
+  <!-- RSVP -->
 
-<section class="evening">
+  <section
+    class="scene"
+    id="rsvp"
+  >
 
-  <div class="evening-water"></div>
+    <div class="rsvp-wrap reveal">
 
-  <div class="evening-inner reveal">
-
-    <div class="micro">
-      ETERNAL SUNSET
-    </div>
-
-    <div class="evening-date" id="date">
-      التاريخ والوقت يُحددان لاحقًا
-    </div>
-
-    <div class="evening-place">
-      في منزلنا
-      <br>
-      <strong>على نهر دجلة</strong>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ==========================
-     RSVP
-=========================== -->
-
-<section class="rsvp">
-
-  <div class="rsvp-inner reveal">
-
-    <div class="micro">
-      RSVP
-    </div>
-
-    <h2>
-      تأكيد الحضور
-    </h2>
-
-    <div id="loading">
-      جاري تجهيز دعوتكم...
-    </div>
-
-    <div id="guest" class="hidden">
-
-      <div class="guest-label">
-        هذه الدعوة مخصصة إلى
+      <div class="section-kicker">
+        تأكيد الحضور
       </div>
 
-      <div id="guestName"></div>
-
-      <div class="child-note">
-        نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
-        نعتذر عن استقبال الأطفال دون 15 عامًا،
-        حرصًا على سلامتهم 🤍
+      <div
+        class="rsvp-name"
+        id="guestName"
+      >
+        ضيفنا العزيز
       </div>
 
-      <div class="choices">
+      <div class="rsvp-intro">
+        يسعدنا تأكيد حضوركم
+      </div>
 
-        <button id="yes" class="choice">
-          سأكون من الحاضرين
+      <div class="actions">
+
+        <button
+          class="primary"
+          id="yesBtn"
+          type="button"
+        >
+          سأحضر
         </button>
 
-        <button id="no" class="choice">
+        <button
+          id="noBtn"
+          type="button"
+        >
           أعتذر عن الحضور
         </button>
 
       </div>
 
-      <div id="msg" class="msg"></div>
+      <div id="rsvpMsg"></div>
 
-      <button
-        id="submit"
-        class="confirm"
-        disabled
+      <div class="note">
+        نظرًا لطبيعة المكان وإطلالته على نهر دجلة،
+        نعتذر عن استقبال الأطفال دون 15 عامًا، حرصًا على سلامتهم 🤍.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- LOCATION -->
+
+  <section
+    class="scene location"
+    id="location"
+  >
+
+    <div class="reveal">
+
+      <div class="section-kicker">
+        المكان
+      </div>
+
+      <h2>
+        على ضفاف دجلة
+      </h2>
+
+      <p>
+        في مزرعة أرض المرح
+      </p>
+
+      <a
+        class="map"
+        id="mapLink"
+        href="#"
+        target="_blank"
+        rel="noopener"
       >
-        تأكيد الإجابة
-      </button>
+        فتح الموقع
+      </a>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- ==========================
-     LOCATION
-=========================== -->
+  <!-- FOOTER -->
 
-<section class="location-section">
+  <footer>
 
-  <div class="location-inner reveal">
+    <strong>
+      Taht Moos Alhalaq
+    </strong>
 
-    <div class="location-ornament"></div>
-
-    <div class="micro">
-      THE PLACE
+    <div style="margin-top:10px">
+      An evening to remember.
     </div>
 
-    <div class="location-title">
-      على ضفاف دجلة
-    </div>
+  </footer>
 
-    <div class="location-copy">
-      في مزرعة أرض المرح
-      <br>
-      حيث يبدأ المساء مع الغروب
-    </div>
-
-    <a
-      id="map"
-      class="map-button"
-      href="#"
-      target="_blank"
-    >
-      فتح الموقع ↗
-    </a>
-
-  </div>
-
-</section>
+</main>
 
 
-<footer>
+<!-- =========================
+     SUPABASE
+========================= -->
 
-  AL HASSAN &amp; HANEEN
-
-  <small>
-    ETERNAL SUNSET
-  </small>
-
-</footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-/* ==========================
-   SUPABASE
-=========================== */
-
 const SUPABASE_URL =
-"https://riikgqzpijmfbeqzztvi.supabase.co";
+  "https://riikgqzpijmfbeqzztvi.supabase.co";
 
-const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_sxZPK_L7D6pqUqM_cIRNEA_qZbvT4_q";
+const SUPABASE_KEY =
+  "sb_publishable_sxZPK_L7D6pqUqM_cIRNEA_qZbvT4_q";
 
 const EVENT_DATE_TEXT =
-"التاريخ والوقت يُحددان لاحقًا";
+  "التاريخ والوقت يُحددان لاحقًا";
 
 const MAP_URL =
-"#";
+  "#";
 
 
-const client =
-(
-  SUPABASE_URL.startsWith("http") &&
-  !SUPABASE_URL.includes("PASTE_")
-)
-?
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY
-)
-:
-null;
-
-
-/* ==========================
-   ELEMENTS
-=========================== */
-
-const dateEl =
-document.getElementById("date");
-
-const mapEl =
-document.getElementById("map");
-
-const loadingEl =
-document.getElementById("loading");
-
-const guestEl =
-document.getElementById("guest");
-
-const guestNameEl =
-document.getElementById("guestName");
-
-const yesBtn =
-document.getElementById("yes");
-
-const noBtn =
-document.getElementById("no");
-
-const submitBtn =
-document.getElementById("submit");
-
-const msgEl =
-document.getElementById("msg");
-
-
-dateEl.textContent =
-EVENT_DATE_TEXT;
-
-mapEl.href =
-MAP_URL;
-
-
-/* ==========================
-   INVITE CODE
-=========================== */
-
-const code =
-new URLSearchParams(location.search).get("invite") ||
-location.pathname
-.split("/")
-.filter(Boolean)
-.pop();
-
-
-let status = null;
-
-
-/* ==========================
-   CHOICE
-=========================== */
-
-function choose(selectedStatus){
-
-  status = selectedStatus;
-
-  submitBtn.disabled = false;
-
-  yesBtn.classList.toggle(
-    "active",
-    selectedStatus === "attending"
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
   );
 
-  noBtn.classList.toggle(
-    "active",
-    selectedStatus === "not_attending"
+
+/* =========================
+   OPEN INVITATION
+========================= */
+
+const intro =
+  document.getElementById("intro");
+
+const enter =
+  document.getElementById("enter");
+
+
+function openInvitation(){
+
+  intro.classList.add("hide");
+
+  document.body.style.overflow = "";
+
+  setTimeout(
+    () =>
+      document
+        .getElementById("hero")
+        .scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        }),
+    320
   );
 
-  msgEl.textContent = "";
 }
 
 
-yesBtn.onclick = () =>
-choose("attending");
+enter.addEventListener(
+  "click",
+  openInvitation
+);
 
-noBtn.onclick = () =>
-choose("not_attending");
 
+intro.addEventListener(
+  "click",
+  (e) => {
 
-/* ==========================
-   LOAD GUEST
-=========================== */
+    if(e.target === intro){
 
-async function load(){
+      openInvitation();
 
-  if(!client){
+    }
 
-    loadingEl.textContent =
-    "تعذر الاتصال بالخدمة";
-
-    return;
   }
+);
 
-  if(!code){
 
-    loadingEl.textContent =
-    "رابط الدعوة غير صحيح";
+/* =========================
+   EVENT DATE
+========================= */
 
+document
+  .getElementById("eventDate")
+  .textContent =
+  EVENT_DATE_TEXT;
+
+
+/* =========================
+   MAP
+========================= */
+
+const mapLink =
+  document.getElementById("mapLink");
+
+mapLink.href =
+  MAP_URL;
+
+if(MAP_URL === "#"){
+
+  mapLink.addEventListener(
+    "click",
+    e => e.preventDefault()
+  );
+
+}
+
+
+/* =========================
+   GUEST
+========================= */
+
+const params =
+  new URLSearchParams(
+    location.search
+  );
+
+const inviteCode =
+  params.get("invite");
+
+
+async function loadGuest(){
+
+  if(!inviteCode)
     return;
-  }
 
-  try{
 
-    const result =
-    await client.rpc(
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
       "get_guest_by_code",
       {
-        p_invite_code:code
+        p_invite_code:
+          inviteCode
       }
     );
 
-    if(result.error){
 
-      loadingEl.textContent =
-      "خطأ: " +
-      result.error.message;
+  if(
+    error ||
+    !data ||
+    !data.length
+  )
+    return;
 
-      console.error(result.error);
 
-      return;
-    }
+  document
+    .getElementById("guestName")
+    .textContent =
+    data[0].name ||
+    "ضيفنا العزيز";
 
-    if(
-      !result.data ||
-      !result.data.length
-    ){
-
-      loadingEl.textContent =
-      "لم يتم العثور على هذه الدعوة";
-
-      return;
-    }
-
-    guestNameEl.textContent =
-    result.data[0].name;
-
-    guestEl.classList.remove("hidden");
-
-    loadingEl.textContent = "";
-
-  }catch(error){
-
-    loadingEl.textContent =
-    "حدث خطأ أثناء تجهيز الدعوة";
-
-    console.error(error);
-
-  }
 }
 
 
-/* ==========================
+loadGuest();
+
+
+/* =========================
    RSVP
-=========================== */
+========================= */
 
-submitBtn.onclick = async()=>{
+async function submitRSVP(status){
 
-  if(!status){
+  const msg =
+    document.getElementById(
+      "rsvpMsg"
+    );
 
-    msgEl.textContent =
-    "اختر إجابتك أولاً.";
+
+  if(!inviteCode){
+
+    msg.textContent =
+      "رابط الدعوة غير مكتمل.";
 
     return;
+
   }
 
-  submitBtn.disabled = true;
 
-  msgEl.textContent =
-  "جاري تسجيل إجابتك...";
+  msg.textContent =
+    "جارٍ التسجيل…";
 
-  try{
 
-    const result =
-    await client.rpc(
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
       "submit_rsvp",
       {
-        p_invite_code:code,
-        p_status:status,
-        p_attendees:1
+        p_invite_code:
+          inviteCode,
+
+        p_status:
+          status,
+
+        p_attendees:
+          1
       }
     );
 
-    if(result.error){
 
-      msgEl.textContent =
-      "خطأ: " +
-      result.error.message;
+  if(
+    error ||
+    data !== true
+  ){
 
-      submitBtn.disabled = false;
+    msg.textContent =
+      "تعذر تسجيل الإجابة. حاول مرة أخرى.";
 
-      return;
-    }
-
-    if(result.data === true){
-
-      msgEl.textContent =
-      "تم تسجيل إجابتك بنجاح 🤍";
-
-    }else{
-
-      msgEl.textContent =
-      "تعذر تسجيل الإجابة.";
-
-      submitBtn.disabled = false;
-
-    }
-
-  }catch(error){
-
-    msgEl.textContent =
-    "خطأ: " +
-    error.message;
-
-    submitBtn.disabled = false;
+    return;
 
   }
-};
 
 
-/* ==========================
-   SCROLL ANIMATION
-=========================== */
+  msg.textContent =
+    "تم تسجيل إجابتك بنجاح 🤍";
 
-const observer =
-new IntersectionObserver(
-(entries)=>{
-  entries.forEach(entry=>{
 
-    if(entry.isIntersecting){
+  document
+    .getElementById("yesBtn")
+    .disabled = true;
 
-      entry.target.classList.add("show");
 
-    }
+  document
+    .getElementById("noBtn")
+    .disabled = true;
 
-  });
-},
-{
-  threshold:.18
-});
+}
 
 
 document
-.querySelectorAll(".reveal")
-.forEach(el=>{
-  observer.observe(el);
-});
+  .getElementById("yesBtn")
+  .addEventListener(
+    "click",
+    () =>
+      submitRSVP(
+        "attending"
+      )
+  );
 
 
-/* START */
+document
+  .getElementById("noBtn")
+  .addEventListener(
+    "click",
+    () =>
+      submitRSVP(
+        "not_attending"
+      )
+  );
 
-load();
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const observer =
+  new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach(
+        entry => {
+
+          if(
+            entry.isIntersecting
+          ){
+
+            entry.target.classList.add(
+              "show"
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.16
+    }
+  );
+
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(
+    el =>
+      observer.observe(el)
+  );
 
 </script>
 
