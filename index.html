@@ -1678,7 +1678,11 @@ footer small{
 </head>
 
 
-<body>
+<body><audio id="bgMusic" preload="auto" loop playsinline>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
 
 
 <!-- =========================
@@ -2075,6 +2079,9 @@ const MAP_URL =
 const MEN_MEETING_URL =
 "#";
 
+const MUSIC_URL =
+"music.mp3";
+
 
 const client =
 (
@@ -2087,6 +2094,27 @@ supabase.createClient(
 )
 :
 null;
+
+
+
+
+const bgMusic =
+document.getElementById("bgMusic");
+
+let musicStarted = false;
+
+function startMusic(){
+  if(musicStarted) return;
+  musicStarted = true;
+  bgMusic.volume = 0.55;
+  bgMusic.play().catch(() => {
+    musicStarted = false;
+  });
+}
+
+document.addEventListener("pointerdown", startMusic, {once:true, passive:true});
+document.addEventListener("touchstart", startMusic, {once:true, passive:true});
+document.addEventListener("click", startMusic, {once:true, passive:true});
 
 
 /* =========================
