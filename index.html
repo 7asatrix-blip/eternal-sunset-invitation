@@ -1666,6 +1666,14 @@ footer small{
 
 }
 
+
+
+.location-actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
 </style>
 </head>
 
@@ -2002,7 +2010,8 @@ footer small{
     </div>
 
 
-    <a
+    <div class="location-actions">
+      <a
       id="map"
       class="map-button"
       href="#"
@@ -2011,6 +2020,17 @@ footer small{
     >
       فتح الموقع ↗
     </a>
+      
+      <a
+        id="menMeeting"
+        class="map-button"
+        href="#"
+        target="_blank"
+        rel="noopener"
+      >
+        نقطة تجمع الزلم ↗
+      </a>
+    </div>
 
   </div>
 
@@ -2052,6 +2072,10 @@ const MAP_URL =
 "#";
 
 
+const MEN_MEETING_URL =
+"#";
+
+
 const client =
 (
   SUPABASE_URL.startsWith("http")
@@ -2075,6 +2099,10 @@ document.getElementById("date");
 
 const mapEl =
 document.getElementById("map");
+
+
+const menMeetingEl =
+document.getElementById("menMeeting");
 
 
 const loadingEl =
@@ -2111,6 +2139,10 @@ EVENT_DATE_TEXT;
 
 mapEl.href =
 MAP_URL;
+
+
+menMeetingEl.href =
+MEN_MEETING_URL;
 
 
 /* =========================
