@@ -1674,6 +1674,37 @@ footer small{
   gap:12px;
   align-items:center;
 }
+
+
+.scroll-hint{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  z-index:20;
+  width:30px;
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#9b7654;
+  opacity:.72;
+  pointer-events:none;
+  animation:scrollHint 1.7s ease-in-out infinite;
+}
+
+.scroll-hint span{
+  display:block;
+  font-size:30px;
+  line-height:1;
+  font-family:Arial,sans-serif;
+  font-weight:300;
+}
+
+@keyframes scrollHint{
+  0%,100%{transform:translate(-50%,0);opacity:.45}
+  50%{transform:translate(-50%,7px);opacity:1}
+}
 </style>
 </head>
 
@@ -1729,6 +1760,10 @@ footer small{
     <span>↓</span>
 
   </div>
+
+
+
+  <div class="scroll-hint" aria-hidden="true"><span>⌄</span></div>
 
 </section>
 
@@ -1815,6 +1850,10 @@ footer small{
 
   </div>
 
+
+
+  <div class="scroll-hint" aria-hidden="true"><span>⌄</span></div>
+
 </section>
 
 
@@ -1865,6 +1904,10 @@ footer small{
     </div>
 
   </div>
+
+
+
+  <div class="scroll-hint" aria-hidden="true"><span>⌄</span></div>
 
 </section>
 
@@ -1967,6 +2010,10 @@ footer small{
 
   </div>
 
+
+
+  <div class="scroll-hint" aria-hidden="true"><span>⌄</span></div>
+
 </section>
 
 
@@ -2037,6 +2084,10 @@ footer small{
     </div>
 
   </div>
+
+
+
+  <div class="scroll-hint" aria-hidden="true"><span>⌄</span></div>
 
 </section>
 
