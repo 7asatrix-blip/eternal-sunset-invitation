@@ -1909,6 +1909,9 @@ footer small{
 <body><audio id="bgMusic" preload="auto" loop playsinline>
   <source src="Stephen Sanchez - Until I Found You (Official Music Video).m4a" type="audio/mp4">
 </audio>
+<audio id="batmanMusic" preload="auto" playsinline>
+  <source src="Batman.m4a" type="audio/mp4">
+</audio>
 
 
 
@@ -2360,6 +2363,9 @@ const MEN_MEETING_URL =
 const MUSIC_URL =
 "Stephen Sanchez - Until I Found You (Official Music Video).m4a";
 
+const BATMAN_MUSIC_URL =
+"Batman.m4a";
+
 
 const client =
 (
@@ -2378,6 +2384,8 @@ null;
 
 const bgMusic =
 document.getElementById("bgMusic");
+const batmanMusic =
+document.getElementById("batmanMusic");
 
 let musicStarted = false;
 
@@ -2450,6 +2458,17 @@ MAP_URL;
 
 menMeetingEl.href =
 MEN_MEETING_URL;
+
+menMeetingEl.addEventListener("click", () => {
+  if (bgMusic) {
+    bgMusic.pause();
+  }
+  if (!batmanMusic) return;
+  batmanMusic.currentTime = 0;
+  batmanMusic.volume = 0.7;
+  batmanMusic.setAttribute("src", BATMAN_MUSIC_URL);
+  batmanMusic.play().catch(() => {});
+});
 
 
 /* =========================
