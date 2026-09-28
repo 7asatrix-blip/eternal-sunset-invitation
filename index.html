@@ -1906,12 +1906,8 @@ footer small{
 </head>
 
 
-<body><audio id="bgMusic" preload="auto" loop playsinline>
-  <source src="Stephen Sanchez - Until I Found You (Official Music Video).m4a" type="audio/mp4">
-</audio>
-<audio id="batmanMusic" preload="auto" playsinline>
-  <source src="Batman.m4a" type="audio/mp4">
-</audio>
+<body><audio id="bgMusic" preload="auto" loop playsinline src="Stephen Sanchez - Until I Found You (Official Music Video).m4a"></audio>
+<audio id="batmanMusic" preload="auto" playsinline src="Batman.m4a"></audio>
 
 
 
@@ -2389,19 +2385,23 @@ document.getElementById("batmanMusic");
 
 let musicStarted = false;
 
-function startMusic(){
-  if(musicStarted) return;
-  musicStarted = true;
+async function startMusic(){
+  if(musicStarted || !bgMusic) return;
   bgMusic.volume = 0.55;
-  bgMusic.setAttribute("src", MUSIC_URL);
-  bgMusic.play().catch(() => {
+  try{
+    await bgMusic.play();
+    musicStarted = true;
+    document.removeEventListener("pointerdown", startMusic);
+    document.removeEventListener("touchend", startMusic);
+    document.removeEventListener("click", startMusic);
+  }catch(error){
     musicStarted = false;
-  });
+  }
 }
 
-document.addEventListener("pointerdown", startMusic, {once:true, passive:true});
-document.addEventListener("touchstart", startMusic, {once:true, passive:true});
-document.addEventListener("click", startMusic, {once:true, passive:true});
+document.addEventListener("pointerdown", startMusic, {passive:true});
+document.addEventListener("touchend", startMusic, {passive:true});
+document.addEventListener("click", startMusic, {passive:true});
 
 
 /* =========================
@@ -2459,16 +2459,16 @@ MAP_URL;
 menMeetingEl.href =
 MEN_MEETING_URL;
 
-menMeetingEl.addEventListener("click", () => {
-  if (bgMusic) {
-    bgMusic.pause();
-  }
+function playBatman(){
+  if (bgMusic) bgMusic.pause();
   if (!batmanMusic) return;
   batmanMusic.currentTime = 0;
   batmanMusic.volume = 0.7;
-  batmanMusic.setAttribute("src", BATMAN_MUSIC_URL);
   batmanMusic.play().catch(() => {});
-});
+}
+
+menMeetingEl.addEventListener("pointerdown", playBatman, {passive:true});
+menMeetingEl.addEventListener("click", playBatman, {passive:true});
 
 
 /* =========================
